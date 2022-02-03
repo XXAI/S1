@@ -23,9 +23,9 @@
 
         <section fxFlex></section>
 
-        <mat-card fxFlex="75" fxLayout="column">
+        <mat-card fxFlex="100" fxLayout="column">
 
-            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" fxLayoutAlign="space-around center">
+            <!-- <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" fxLayoutAlign="space-around center">
                 <div fxLayoutAlign="start center">
                     <img style="width:35%" src="assets/icons/logo.jpeg" alt="">
                 </div>
@@ -34,7 +34,18 @@
                 <div fxLayoutAlign="end center">
                     <img style="width:35%" src="assets/icons/quejas-sugerencias-ambulancia.png" alt="">
                 </div>
-            </div>
+            </div> -->
+
+            <mat-card-header>
+                <div fxLayout.gt-sm="row" fxFlex="1 0 0" fxLayoutAlign="space-between">
+                   <div fxLayout="row" fxLayoutGap="11px" fxLayoutAlign="start center">
+                    <img style="width:85%" src="assets/icons/salud_gobierno_logo.jpeg" alt="">
+                 </div>
+                 <div fxLayout="row" fxLayoutGap="11px" fxLayoutAlign="end center">
+                    <img style="width:30%" src="assets/icons/salud_logo.png" alt="">
+                 </div>
+               </div>
+            </mat-card-header>
             <br>
             
             <!-- <section fxFlex="none" fxLayout="row">
@@ -131,9 +142,9 @@
                     <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Observaciones de la Queja/Sugerencia: </mat-label>
                         <textarea matInput class="uppercase" id="observaciones" formControlName="observaciones" placeholder="Observaciones de la Queja/Sugerencia" ></textarea>
-                        <mat-error *ngIf="quejaSugerenciaForm.get('observaciones').invalid && (quejaSugerenciaForm.get('observaciones').dirty || quejaSugerenciaForm.get('observaciones').touched)">
+                        <!-- <mat-error *ngIf="quejaSugerenciaForm.get('observaciones').invalid && (quejaSugerenciaForm.get('observaciones').dirty || quejaSugerenciaForm.get('observaciones').touched)">
                             <span *ngIf="quejaSugerenciaForm.get('observaciones').errors.required">El Campo es obligatorio</span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
 
                 </div>

@@ -24,7 +24,7 @@ class CreateQuejasSugerenciasTable extends Migration
             $table->string('numero_de_placa')->nullable()->index();
             $table->string('lugar_acontecimiento');
             $table->string('motivo');
-            $table->string('observaciones');
+            $table->string('observaciones')->nullable();
             $table->smallInteger('foto')->nullable();
             $table->string('extension',10)->nullable();
             

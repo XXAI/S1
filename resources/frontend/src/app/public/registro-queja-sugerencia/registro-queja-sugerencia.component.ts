@@ -86,7 +86,7 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
       id:[''],
       folio:[''],
       motivo:['',Validators.required],
-      observaciones:['',Validators.required],
+      observaciones:[''],
       lugar_acontecimiento:[''],
       fecha_acontecimiento:[,Validators.required],
       numero_de_placa:[''],
