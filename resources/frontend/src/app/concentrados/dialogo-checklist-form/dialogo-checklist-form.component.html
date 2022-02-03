@@ -1,0 +1,59 @@
+<section fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start" style="padding:10px; height: 100%; overflow: auto; flex: 1 1 0%;">
+    <div fxFlex="none">
+        <div class="cabecera-titulo">DOCUMENTOS A INTEGRAR AL EXPEDIENTE DEL PROYECTO AUDITADO</div>
+    </div>
+    <div class="data-loading-shade" *ngIf="isLoading"><mat-spinner></mat-spinner></div>
+    <div fxFlex fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start">
+        <div fxFlex fxLayout="column">
+            <div fxFlex="none" fxLayout="row" [formGroup]="concentradoForm">
+                <mat-form-field  fxFlex>
+                    <input matInput placeholder="Enlace" [type]="'text'" formControlName="enlace" required cdkFocusInitial>
+                    <mat-error *ngIf="concentradoForm.get('enlace').hasError('required')">Campo requerido</mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="none">
+                    <input matInput placeholder="Fecha de Reporte" formControlName="fecha" required>
+                    <mat-error *ngIf="concentradoForm.get('fecha').hasError('required')">Campo requerido</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Auditoria</mat-label>
+                    <mat-select formControlName="auditoria_id" required (change)="cargarRespuestas()">
+                      <mat-option *ngFor="let auditoria of auditorias" [value]="auditoria.id">
+                        {{auditoria.descripcion}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="concentradoForm.get('auditoria_id').hasError('required')">Campo requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <mat-divider></mat-divider>
+            <div fxFlex fxLayout="column" style="overflow: auto;" *ngIf="checklist" class="checklist">
+                <div fxFlex *ngFor="let titulo of checklist.titulos">
+                    <div class="checklist-titulo" fxLayout="row">
+                        <div fxFlex>{{titulo.titulo}}</div>
+                        <div fxFlex="none"><mat-checkbox [(ngModel)]="titulo.no_aplica" (change)="cambiarEstatusTitulo(titulo)">No aplica</mat-checkbox></div>
+                    </div>
+                    <div fxLayout="column">
+                        <div class="checklist-reactivo" fxFlex *ngFor="let reactivo of titulo.reactivos" fxLayout="row">
+                            <div fxFlex>{{reactivo.descripcion}}</div>
+                            <div fxFlex="none" style="padding-top:6px; padding-left: 3px; padding-right: 3px;">
+                                <mat-slide-toggle  matTooltip="Se cuenta con la información" [disabled]="reactivo.no_aplica == 1" [(ngModel)]="reactivo.respuesta">
+                                </mat-slide-toggle>
+                            </div>
+                            <div fxFlex="none" style="padding-top:6px;">
+                                <mat-checkbox [(ngModel)]="reactivo.no_aplica">No aplica</mat-checkbox>
+                            </div>
+                            <div fxFlex="none">
+                                <button matTooltip="Agregar Comentario" (click)="openComentarios(reactivo)" mat-icon-button><span class="material-icons-outlined">{{(reactivo.comentarios)?'message':'chat_bubble_outline'}}</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxFlex="none" fxLayout="row">
+            <span fxFlex></span>
+            <button fxFlex="none" mat-button (click)='cancel()'>Cerrar</button>
+            <button fxFlex="none" mat-raised-button (click)='guardar()' [class.button-spinner]="isSaving" [disabled]="!concentradoForm.valid" color="primary">Guardar</button>
+        </div>
+    </div>
+</section>

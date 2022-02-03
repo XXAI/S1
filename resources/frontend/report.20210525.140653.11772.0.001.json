@@ -1,0 +1,406 @@
+
+{
+  "header": {
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20210525.140653.11772.0.001.json",
+    "dumpEventTime": "2021-05-25T14:06:53Z",
+    "dumpEventTimeStamp": "1621969613591",
+    "processId": 11772,
+    "cwd": "C:\\laragon\\www\\checklist-auditoria\\resources\\frontend",
+    "commandLine": [
+      "C:\\laragon\\bin\\nodejs\\node-v12\\node.exe",
+      "C:/laragon/bin/nodejs/node-v12/node_modules/@angular/cli/bin/ng",
+      "serve"
+    ],
+    "nodejsVersion": "v12.5.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.5.0",
+      "v8": "7.5.288.22-node.14",
+      "uv": "1.29.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.38.0",
+      "napi": "4",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1c",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019a",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v12.5.0/node-v12.5.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.5.0/node-v12.5.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.5.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.18363",
+    "osVersion": "Windows 10 Home Single Language",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz",
+        "speed": 2592,
+        "user": 1814515,
+        "nice": 0,
+        "sys": 1226171,
+        "idle": 13791703,
+        "irq": 268796
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz",
+        "speed": 2592,
+        "user": 1814515,
+        "nice": 0,
+        "sys": 1226171,
+        "idle": 13791703,
+        "irq": 268796
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz",
+        "speed": 2592,
+        "user": 1814515,
+        "nice": 0,
+        "sys": 1226171,
+        "idle": 13791703,
+        "irq": 268796
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz",
+        "speed": 2592,
+        "user": 1814515,
+        "nice": 0,
+        "sys": 1226171,
+        "idle": 13791703,
+        "irq": 268796
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz",
+        "speed": 2592,
+        "user": 1814515,
+        "nice": 0,
+        "sys": 1226171,
+        "idle": 13791703,
+        "irq": 268796
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz",
+        "speed": 2592,
+        "user": 1814515,
+        "nice": 0,
+        "sys": 1226171,
+        "idle": 13791703,
+        "irq": 268796
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz",
+        "speed": 2592,
+        "user": 1814515,
+        "nice": 0,
+        "sys": 1226171,
+        "idle": 13791703,
+        "irq": 268796
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz",
+        "speed": 2592,
+        "user": 1814515,
+        "nice": 0,
+        "sys": 1226171,
+        "idle": 13791703,
+        "irq": 268796
+      }
+    ],
+    "host": "DESKTOP-085JHVS"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff71c206e09",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10889"
+    },
+    {
+      "pc": "0x00007ff71c20a704",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+25476"
+    },
+    {
+      "pc": "0x00007ff71c209728",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+21416"
+    },
+    {
+      "pc": "0x00007ff71c2f2f5b",
+      "symbol": "v8::base::CPU::has_sse+38011"
+    },
+    {
+      "pc": "0x00007ff71cad7e2e",
+      "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
+    },
+    {
+      "pc": "0x00007ff71cac017a",
+      "symbol": "v8::SharedArrayBuffer::Externalize+842"
+    },
+    {
+      "pc": "0x00007ff71c95197c",
+      "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
+    },
+    {
+      "pc": "0x00007ff71c95989f",
+      "symbol": "v8::internal::Heap::OldGenerationSizeOfObjects+4879"
+    },
+    {
+      "pc": "0x00007ff71c94fb43",
+      "symbol": "v8::internal::Heap::CollectGarbage+1235"
+    },
+    {
+      "pc": "0x00007ff71c94e3d4",
+      "symbol": "v8::internal::Heap::AddRetainedMap+2292"
+    },
+    {
+      "pc": "0x00007ff71c96ceb5",
+      "symbol": "v8::internal::Factory::NewFillerObject+53"
+    },
+    {
+      "pc": "0x00007ff71c72321d",
+      "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+3757"
+    },
+    {
+      "pc": "0x00007ff71cb80b1d",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+614605"
+    },
+    {
+      "pc": "0x00007ff71cb81a53",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+618499"
+    },
+    {
+      "pc": "0x000003518a29981a",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2163331072,
+    "totalCommittedMemory": 2163331072,
+    "usedMemory": 2142631360,
+    "availableMemory": 49879584,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 261832,
+        "used": 31960,
+        "available": 229872
+      },
+      "new_space": {
+        "memorySize": 9437184,
+        "committedMemory": 9437184,
+        "capacity": 4712976,
+        "used": 2252480,
+        "available": 2460496
+      },
+      "old_space": {
+        "memorySize": 2022846464,
+        "committedMemory": 2022846464,
+        "capacity": 2020240440,
+        "used": 2012248424,
+        "available": 7992016
+      },
+      "code_space": {
+        "memorySize": 3309568,
+        "committedMemory": 3309568,
+        "capacity": 2688576,
+        "used": 2688576,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 5246976,
+        "committedMemory": 5246976,
+        "capacity": 3404240,
+        "used": 3404240,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 121606144,
+        "committedMemory": 121606144,
+        "capacity": 121455376,
+        "used": 121455376,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 622592,
+        "committedMemory": 622592,
+        "capacity": 550304,
+        "used": 550304,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 4712976,
+        "used": 0,
+        "available": 4712976
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 109.343,
+    "kernelCpuSeconds": 9.781,
+    "cpuConsumptionPercent": 82.1545,
+    "maxRss": 2277007360,
+    "pageFaults": {
+      "IORequired": 963793,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 8280,
+      "writes": 6
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "ACLOCAL_PATH": "C:\\laragon\\bin\\git\\mingw64\\share\\aclocal;C:\\laragon\\bin\\git\\usr\\share\\aclocal",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "APPDATA": "C:\\Users\\Mario\\AppData\\Roaming",
+    "BROWSERSLIST_IGNORE_OLD_DATA": "1",
+    "CHERE_INVOKING": "1",
+    "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_12444_UUXRNTXBEICMUKDO",
+    "COLORTERM": "truecolor",
+    "COMMONPROGRAMFILES": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "DESKTOP-085JHVS",
+    "COMSPEC": "C:\\WINDOWS\\system32\\cmd.exe",
+    "CONFIG_SITE": "C:/laragon/bin/git/mingw64/etc/config.site",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "DISPLAY": "needs-to-be-defined",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "EXEPATH": "C:\\laragon\\bin\\git\\bin",
+    "FR_CUSTOMDATA_PATH": "D:\\SteamLibrary\\steamapps\\common\\FaceRig\\Mod\\VP\\PC_CustomData\\",
+    "GIT_ASKPASS": "c:\\Users\\Mario\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
+    "GTK_BASEPATH": "C:\\Program Files (x86)\\GtkSharp\\2.12\\",
+    "HOME": "C:\\Users\\Mario",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\Mario",
+    "HOSTNAME": "DESKTOP-085JHVS",
+    "INFOPATH": "C:\\laragon\\bin\\git\\usr\\local\\info;C:\\laragon\\bin\\git\\usr\\share\\info;C:\\laragon\\bin\\git\\usr\\info;C:\\laragon\\bin\\git\\share\\info",
+    "LANG": "es_ES.UTF-8",
+    "LOCALAPPDATA": "C:\\Users\\Mario\\AppData\\Local",
+    "LOGONSERVER": "\\\\DESKTOP-085JHVS",
+    "MANPATH": "C:\\laragon\\bin\\git\\mingw64\\local\\man;C:\\laragon\\bin\\git\\mingw64\\share\\man;C:\\laragon\\bin\\git\\usr\\local\\man;C:\\laragon\\bin\\git\\usr\\share\\man;C:\\laragon\\bin\\git\\usr\\man;C:\\laragon\\bin\\git\\share\\man",
+    "MEmu_Path": "C:\\Program Files (x86)\\Microvirt",
+    "MINGW_CHOST": "x86_64-w64-mingw32",
+    "MINGW_PACKAGE_PREFIX": "mingw-w64-x86_64",
+    "MINGW_PREFIX": "C:/laragon/bin/git/mingw64",
+    "MSYSTEM": "MINGW64",
+    "MSYSTEM_CARCH": "x86_64",
+    "MSYSTEM_CHOST": "x86_64-w64-mingw32",
+    "MSYSTEM_PREFIX": "C:/laragon/bin/git/mingw64",
+    "NUMBER_OF_PROCESSORS": "8",
+    "OLDPWD": "C:/laragon/www/checklist-auditoria",
+    "ORIGINAL_PATH": "C:\\laragon\\bin\\git\\mingw64\\bin;C:\\laragon\\bin\\git\\usr\\bin;C:\\Users\\Mario\\bin;C:\\Program Files (x86)\\Intel\\iCLS Client;C:\\Program Files\\Intel\\iCLS Client;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\laragon\\bin\\php\\php-7.4.16-Win32-vc15-x64;C:\\ProgramData\\ComposerSetup\\bin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files (x86)\\Skype\\Phone;C:\\Program Files\\PuTTY;C:\\WINDOWS\\System32\\OpenSSH;C:\\laragon\\bin\\nodejs\\node-v12;C:\\laragon\\bin;C:\\laragon\\bin\\apache\\httpd-2.4.38-win64-VC15\\bin;C:\\laragon\\bin\\composer;C:\\laragon\\bin\\git\\usr\\bin;C:\\laragon\\bin\\git\\cmd;C:\\laragon\\bin\\git\\mingw64\\bin;C:\\laragon\\bin\\git\\usr\\bin;C:\\laragon\\bin\\laragon\\utils;C:\\laragon\\bin\\mysql\\mariadb-10.2.6-winx64\\bin;C:\\laragon\\bin\\nginx\\nginx-1.16.0;C:\\laragon\\bin\\ngrok;C:\\laragon\\bin\\nodejs\\node-v12;C:\\laragon\\bin\\notepad++;C:\\laragon\\bin\\php\\php-7.4.16-Win32-vc15-x64;C:\\laragon\\bin\\putty;C:\\laragon\\bin\\python\\python-3.6.1;C:\\laragon\\bin\\python\\python-3.6.1\\Scripts;C:\\laragon\\bin\\redis\\redis-x64-3.2.100;C:\\laragon\\bin\\telnet;C:\\laragon\\usr\\bin;C:\\Users\\Mario\\AppData\\Local\\Yarn\\config\\global\\node_modules\\.bin;C:\\Users\\Mario\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\Mario\\AppData\\Roaming\\npm;C:\\Users\\Mario\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Mario\\AppData\\Local\\Programs\\Microsoft VS Code\\bin",
+    "ORIGINAL_TEMP": "C:/Users/Mario/AppData/Local/Temp",
+    "ORIGINAL_TMP": "C:/Users/Mario/AppData/Local/Temp",
+    "ORIGINAL_XDG_CURRENT_DESKTOP": "undefined",
+    "OS": "Windows_NT",
+    "OneDrive": "C:\\Users\\Mario\\OneDrive",
+    "PATH": "C:\\Users\\Mario\\bin;C:\\laragon\\bin\\git\\mingw64\\bin;C:\\laragon\\bin\\git\\usr\\local\\bin;C:\\laragon\\bin\\git\\usr\\bin;C:\\laragon\\bin\\git\\usr\\bin;C:\\laragon\\bin\\git\\mingw64\\bin;C:\\laragon\\bin\\git\\usr\\bin;C:\\Users\\Mario\\bin;C:\\Program Files (x86)\\Intel\\iCLS Client;C:\\Program Files\\Intel\\iCLS Client;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\laragon\\bin\\php\\php-7.4.16-Win32-vc15-x64;C:\\ProgramData\\ComposerSetup\\bin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\Program Files (x86)\\Skype\\Phone;C:\\Program Files\\PuTTY;C:\\WINDOWS\\System32\\OpenSSH;C:\\laragon\\bin\\nodejs\\node-v12;C:\\laragon\\bin;C:\\laragon\\bin\\apache\\httpd-2.4.38-win64-VC15\\bin;C:\\laragon\\bin\\composer;C:\\laragon\\bin\\git\\usr\\bin;C:\\laragon\\bin\\git\\cmd;C:\\laragon\\bin\\git\\mingw64\\bin;C:\\laragon\\bin\\git\\usr\\bin;C:\\laragon\\bin\\laragon\\utils;C:\\laragon\\bin\\mysql\\mariadb-10.2.6-winx64\\bin;C:\\laragon\\bin\\nginx\\nginx-1.16.0;C:\\laragon\\bin\\ngrok;C:\\laragon\\bin\\nodejs\\node-v12;C:\\laragon\\bin\\notepad++;C:\\laragon\\bin\\php\\php-7.4.16-Win32-vc15-x64;C:\\laragon\\bin\\putty;C:\\laragon\\bin\\python\\python-3.6.1;C:\\laragon\\bin\\python\\python-3.6.1\\Scripts;C:\\laragon\\bin\\redis\\redis-x64-3.2.100;C:\\laragon\\bin\\telnet;C:\\laragon\\usr\\bin;C:\\Users\\Mario\\AppData\\Local\\Yarn\\config\\global\\node_modules\\.bin;C:\\Users\\Mario\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\Mario\\AppData\\Roaming\\npm;C:\\Users\\Mario\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Mario\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\laragon\\bin\\git\\usr\\bin\\vendor_perl;C:\\laragon\\bin\\git\\usr\\bin\\core_perl",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC",
+    "PKG_CONFIG_PATH": "C:\\laragon\\bin\\git\\mingw64\\lib\\pkgconfig;C:\\laragon\\bin\\git\\mingw64\\share\\pkgconfig",
+    "PLINK_PROTOCOL": "ssh",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 94 Stepping 3, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "5e03",
+    "PROGRAMFILES": "C:\\Program Files",
+    "PSModulePath": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\",
+    "PUBLIC": "C:\\Users\\Public",
+    "PWD": "C:/laragon/www/checklist-auditoria/resources/frontend",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "SESSIONNAME": "Console",
+    "SHELL": "C:\\laragon\\bin\\git\\usr\\bin\\bash.exe",
+    "SHLVL": "2",
+    "SSH_ASKPASS": "C:/laragon/bin/git/mingw64/libexec/git-core/git-gui--askpass",
+    "SYSTEMDRIVE": "C:",
+    "SYSTEMROOT": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\Mario\\AppData\\Local\\Temp",
+    "TERM": "cygwin",
+    "TERM_PROGRAM": "vscode",
+    "TERM_PROGRAM_VERSION": "1.56.2",
+    "TMP": "C:\\Users\\Mario\\AppData\\Local\\Temp",
+    "TMPDIR": "C:\\Users\\Mario\\AppData\\Local\\Temp",
+    "USERDOMAIN": "DESKTOP-085JHVS",
+    "USERDOMAIN_ROAMINGPROFILE": "DESKTOP-085JHVS",
+    "USERNAME": "Mario",
+    "USERPROFILE": "C:\\Users\\Mario",
+    "VBOX_MSI_INSTALL_PATH": "C:\\Program Files\\Oracle\\VirtualBox\\",
+    "VS140COMNTOOLS": "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\",
+    "VSCODE_GIT_ASKPASS_MAIN": "c:\\Users\\Mario\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass-main.js",
+    "VSCODE_GIT_ASKPASS_NODE": "C:\\Users\\Mario\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+    "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-8437b63d1a-sock",
+    "WEBPACK_DEV_SERVER": "true",
+    "WINDIR": "C:\\WINDOWS",
+    "_": "C:/laragon/bin/nodejs/node-v12/node"
+  },
+  "sharedObjects": [
+    "C:\\laragon\\bin\\nodejs\\node-v12\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\MSASN1.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\System32\\profapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\winmmbase.dll",
+    "C:\\WINDOWS\\System32\\cfgmgr32.dll",
+    "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\System32\\powrprof.dll",
+    "C:\\WINDOWS\\System32\\UMPDC.dll",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\System32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll",
+    "C:\\Windows\\System32\\rasadhlp.dll",
+    "C:\\WINDOWS\\System32\\fwpuclnt.dll"
+  ]
+}

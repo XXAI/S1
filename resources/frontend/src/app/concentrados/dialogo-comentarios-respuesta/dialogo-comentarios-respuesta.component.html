@@ -1,0 +1,20 @@
+<section fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start" style="padding:10px; height: 100%; overflow: auto; flex: 1 1 0%;">
+    <div fxFlex="none">
+        <div class="cabecera-titulo">{{reactivo}}</div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <div fxFlex fxLayout="column">
+            <mat-form-field  fxFlex>
+                <mat-label>Comentarios</mat-label>
+                <textarea matInput placeholder="Comentarios" rows="3" [(ngModel)]="comentarios" cdkFocusInitial>
+                </textarea>
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxFlex="none" fxLayout="row">
+            <span fxFlex></span>
+            <button fxFlex="none" mat-button (click)='cancel()'>Cerrar</button>
+            <button fxFlex="none" mat-raised-button (click)='aceptar()' color="accent">Aceptar</button>
+        </div>
+    </div>
+</section>

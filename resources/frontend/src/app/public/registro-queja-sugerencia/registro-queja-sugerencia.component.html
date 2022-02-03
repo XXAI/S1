@@ -1,0 +1,214 @@
+<section fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start" style="padding:10px; height: 100%; overflow: auto; flex: 1 1 0%;">
+    <div class="form-loading-shade" *ngIf="isLoading"><mat-spinner></mat-spinner></div>
+
+    <!-- <section fxFlex fxLayout="row">
+        <mat-card fxFlex="50" fxLayout="column" >
+
+            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" fxLayoutAlign="center center">
+                <div>
+                    <img style="width:50%" src="assets/icons/logo.jpeg" alt="">
+                </div>
+                <div></div>
+                <div>
+                    <img style="width:50%" src="assets/icons/cetra.jpeg" alt="">
+                </div>
+            </div>
+    
+        </mat-card>
+
+    </section> -->
+
+
+    <section fxFlex fxLayout="row">
+
+        <section fxFlex></section>
+
+        <mat-card fxFlex="75" fxLayout="column">
+
+            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" fxLayoutAlign="space-around center">
+                <div fxLayoutAlign="start center">
+                    <img style="width:35%" src="assets/icons/logo.jpeg" alt="">
+                </div>
+                <div fxFlex></div>
+                <div fxFlex></div>
+                <div fxLayoutAlign="end center">
+                    <img style="width:35%" src="assets/icons/quejas-sugerencias-ambulancia.png" alt="">
+                </div>
+            </div>
+            <br>
+            
+            <!-- <section fxFlex="none" fxLayout="row">
+
+                <div fxFlex></div>
+                <mat-form-field fxFlex="60" appearance="outline" [floatLabel]="'always'">
+                    <mat-label>CURP</mat-label>
+                    <input matInput #curpInput placeholder="Por favor, teclee su CURP" type="text" maxlength="18" [(ngModel)]="CURP" (keyup.enter)="validarCurp()" autocomplete="off" [disabled]="isValidatingCURP">
+                    <button *ngIf="curpInput.value.length == 18" matSuffix mat-icon-button aria-label="Clear" (click)="validarCurp()" [class.button-spinner]="isValidatingCURP" [disabled]="isValidatingCURP">
+                        <mat-icon *ngIf="!isValidatingCURP">input</mat-icon>
+                        <mat-icon *ngIf="isValidatingCURP" class="material-icons-outlined">pending</mat-icon>
+                    </button>
+                    <button *ngIf="isValidatingCURP" mat-icon-button matPrefix (click)="validarCurp()"><mat-icon>clear</mat-icon></button>
+                    <mat-hint align="end">{{curpInput.value.length}} / 18</mat-hint>
+                </mat-form-field>
+                <div fxFlex></div>
+                
+            </section> -->
+
+            <section fxflex="none" fxLayout="column" [formGroup]="quejaSugerenciaForm">
+
+                <div  fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" >
+                    <mat-radio-group  fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" fxLayout.xs ="row" fxLayout.sm ="row" formControlName="esAnonimo" aria-label="Select an option">
+                        <label><strong>¿Es Anonimo?</strong></label>
+                        <mat-radio-button class="formulario-radio-button" [value]=1 (change)="es_anonimo($event.value)">SI</mat-radio-button>
+                        <mat-radio-button class="formulario-radio-button" [value]=0 (change)="es_anonimo($event.value)">NO</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+    
+                <div *ngIf="quejaSugerenciaForm.get('esAnonimo').value == 0" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+    
+                    <mat-form-field appearance="fill" fxFlex >
+                        <mat-label>Nombre Completo:</mat-label>
+                        <input matInput id="nombre_completo" formControlName="nombre_completo" placeholder="Nombre Completo">
+                        <!-- <mat-error *ngIf="quejaSugerenciaForm.get('nombre_completo').invalid && (quejaSugerenciaForm.get('nombre_completo').dirty || quejaSugerenciaForm.get('nombre_completo').touched)">
+                            <span *ngIf="quejaSugerenciaForm.get('nombre_completo').errors.required">El Nombre Completo es obligatorio</span>
+                        </mat-error> -->
+                    </mat-form-field>
+    
+    
+                    <mat-form-field  appearance="fill" fxFlex>
+                        <mat-label>Número Celular:</mat-label>
+                        <input matInput (keypress)="soloNumeros($event)" id="numero_celular" formControlName="numero_celular" placeholder="Telefono de Contacto">
+                    </mat-form-field>
+    
+                </div>
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                    <!-- <mat-form-field  appearance="fill" fxFlex>
+                        <mat-label>Fecha del Acontecimiento: </mat-label>
+                        <input type="date" matInput formControlName="fecha_acontecimiento" placeholder="Año/Mes/Día">
+                        <mat-error *ngIf="quejaSugerenciaForm.get('fecha_acontecimiento').hasError('isValidDate')">La fecha no es valida</mat-error>
+                        <mat-error *ngIf="quejaSugerenciaForm.get('fecha_acontecimiento').hasError('required')">Este campo es requerido</mat-error>
+                    </mat-form-field> -->
+
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Fecha del Acontecimiento: </mat-label>
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fecha_acontecimiento" formControlName="fecha_acontecimiento" placeholder="Año/Mes/Día">
+                        <mat-datepicker-toggle matSuffix [for]="fecha_acontecimiento"></mat-datepicker-toggle>
+                        <mat-datepicker #fecha_acontecimiento></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field  appearance="fill" fxFlex>
+                        <mat-label>Número de Placa: </mat-label>
+                        <input matInput formControlName="numero_de_placa" placeholder="Número de Placa" >
+                        <!-- <mat-error *ngIf="quejaSugerenciaForm.get('lugar_acontecimiento').invalid && (quejaSugerenciaForm.get('lugar_acontecimiento').dirty || quejaSugerenciaForm.get('lugar_acontecimiento').touched)">
+                            <span *ngIf="quejaSugerenciaForm.get('lugar_acontecimiento').errors.required">La edad se calcula capturando la fecha de nacimiento</span>
+                        </mat-error> -->
+                    </mat-form-field>
+    
+    
+                    <mat-form-field  appearance="fill" fxFlex>
+                        <mat-label>Lugar del Acontecimiento: </mat-label>
+                        <input matInput formControlName="lugar_acontecimiento" placeholder="Lugar del Acontecimiento" >
+                        <!-- <mat-error *ngIf="quejaSugerenciaForm.get('lugar_acontecimiento').invalid && (quejaSugerenciaForm.get('lugar_acontecimiento').dirty || quejaSugerenciaForm.get('lugar_acontecimiento').touched)">
+                            <span *ngIf="quejaSugerenciaForm.get('lugar_acontecimiento').errors.required">La edad se calcula capturando la fecha de nacimiento</span>
+                        </mat-error> -->
+                    </mat-form-field>
+    
+                </div>
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Motivo de la Queja/Sugerencia: </mat-label>
+                        <textarea matInput class="uppercase" id="motivo" formControlName="motivo" placeholder="Motivo de la Queja/Sugerencia" ></textarea>
+                        <mat-error *ngIf="quejaSugerenciaForm.get('motivo').invalid && (quejaSugerenciaForm.get('motivo').dirty || quejaSugerenciaForm.get('motivo').touched)">
+                            <span *ngIf="quejaSugerenciaForm.get('motivo').errors.required">El Campo es obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Observaciones de la Queja/Sugerencia: </mat-label>
+                        <textarea matInput class="uppercase" id="observaciones" formControlName="observaciones" placeholder="Observaciones de la Queja/Sugerencia" ></textarea>
+                        <mat-error *ngIf="quejaSugerenciaForm.get('observaciones').invalid && (quejaSugerenciaForm.get('observaciones').dirty || quejaSugerenciaForm.get('observaciones').touched)">
+                            <span *ngIf="quejaSugerenciaForm.get('observaciones').errors.required">El Campo es obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                    <mat-card-content>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3px">
+                            <div fxFlex="70" fxFlex.xs="100">
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3px">
+                                    <div fxFlex="100" fxFlex.xs="100">
+                                        <button mat-raised-button color="accent" onclick="document.getElementById('getFile').click()">Seleccionar Imagen</button>
+                                        <input type='file' id="getFile" style="display:none" (change)="fileChangeEvent($event)" accept="image/jpeg">
+                                    </div>
+
+                                </div>
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3px">
+                                    <div fxFlex="70" fxFlex.xs="100" *ngIf="imageChangedEvent != ''">
+                                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" autoCrop="false" [imageQuality]="95" [aspectRatio]="8 / 8" [resizeToWidth]="256" alignImage="center" format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                                            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div fxFlex="30" fxFlex.xs="100">
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px">
+                                    <div fxFlex="100" fxFlex.xs="100">
+                                        <h5>Vista Previa</h5>
+                                        <img [src]="croppedImage" width="70%" />
+                                    </div>
+                                </div>
+                            </div>-->
+                            
+                            <div *ngIf="croppedImage != ''" fxFlex="30" fxFlex.xs="100">
+                                <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px">
+                                    <div fxFlex="100" fxFlex.xs="100">
+                                        <button mat-raised-button color="primary" (click)="cortar()">
+                                            <mat-icon>crop</mat-icon> CORTAR
+                                        </button>
+                                    </div>
+                                </div>-->
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px">
+                                    <div fxFlex="100" fxFlex.xs="100">
+                                        <h5>Vista Previa</h5>
+                                        <img [src]="croppedImage" width="70%" />
+                                    </div>
+                                </div>
+                                <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px">
+                                    <div fxFlex="100" fxFlex.xs="100">
+                                        <button mat-raised-button color="success" (click)="subirFoto()">
+                                            <mat-icon>save</mat-icon> GUARDAR
+                                        </button>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </mat-card-content>
+
+                </div>
+
+            </section>
+
+            <section fxFlex="none" fxLayout="row" fxLayoutGap="5px">
+                <div fxFlex></div>
+                <!-- <div fxFlex="none">
+                    <button mat-button>Cancelar</button>
+                </div> -->
+                <div fxFlex="none">
+                    <button mat-raised-button color="primary" (click)="guardarQuejaSugerencia()" [disabled]="!quejaSugerenciaForm.valid || isLoading"><mat-icon>save</mat-icon> Guardar</button>
+                    <!-- (click)="registroDonante(null,null)" !quejaSugerenciaForm.valid ||  -->
+                </div>
+            </section>
+            
+        </mat-card>
+        <section fxFlex></section>
+    </section>
+
+</section>

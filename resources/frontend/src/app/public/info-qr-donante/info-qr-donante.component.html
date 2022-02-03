@@ -1,0 +1,144 @@
+<div *ngIf="isLoading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar><br>
+    <h3>Cargando datos del Donante, Espere un momento...</h3>    
+</div>
+
+
+<section  *ngIf="!isLoading" class="form-container; update-pass" fxLayout fxLayoutAlign="center center" >
+  
+    <div fxLayout fxLayoutAlign="center center">
+  
+      <mat-card fxFlex.xs="400px" fxFlex="800px">
+        <mat-card-title fxLayoutAlign="center"></mat-card-title>
+
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch">
+
+            <div *ngIf="dataDonante != null">
+
+                <div style="margin:15px">
+                    <mat-icon class="qr-encontrado" style="transform: scale(4); margin:1em;">check_circle</mat-icon>
+                </div>
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+                    <h2 fxFlex><mat-icon>assignment_ind</mat-icon> ¡Donante Registrado!</h2>
+                </div>
+
+                <div *ngIf="showReportForm || showMyStepper">
+
+                    <div class="my-stepper" *ngIf="showMyStepper" fxLayoutAlign="space-evenly center" >
+                        <ng-container *ngFor="let step of stepperConfig.steps; let i = index">
+                            <div class="my-step" [class.my-step-active]="step.status == 2" [class.my-step-done]="step.status == 3" [class.my-step-error]="step.status == 0">
+                                <mat-icon>{{step.icon}}</mat-icon>
+                                <div class="my-step-label">
+                                    {{(step.status < 2)?step.label.standBy:((step.status == 2)?step.label.active:step.label.done)}} <mat-progress-bar *ngIf="step.status == 2" mode="indeterminate"></mat-progress-bar>
+                                    <small *ngIf="step.status == 0" class="my-step-error-message">{{step.errorMessage}}</small>
+                                </div>
+                                <mat-icon *ngIf="step.status == 3">done</mat-icon>
+                                <mat-icon *ngIf="step.status == 0">error</mat-icon>
+                            </div>
+                            <div *ngIf="(i+1) < stepperConfig.steps.length" class="my-step-separator"></div>
+                        </ng-container>
+                    </div>
+                </div>
+            
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+            
+                    <mat-form-field fxFlex="25%" appearance="fill">
+                        <mat-label>N°: </mat-label>
+                        <input matInput value="{{dataDonante.id}}" readonly>
+                    </mat-form-field>
+            
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>CURP: </mat-label>
+                        <input matInput value="{{ dataDonante.curp }}" readonly>
+                    </mat-form-field>
+            
+                </div>
+            
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+            
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Nombre: </mat-label>
+                        <input matInput value="{{ dataDonante.nombre }} {{ dataDonante.apellido_paterno }} {{ dataDonante.apellido_materno }}" readonly>
+                    </mat-form-field>
+            
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Fecha de Nacimiento: </mat-label>
+                        <input matInput value="{{ dataDonante.fecha_nacimiento | date: 'dd/MM/yyyy' }}" readonly>
+                    </mat-form-field>
+            
+                </div>
+
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Correo Electrónico: </mat-label>
+                        <input matInput value="{{ dataDonante.email }}" readonly>
+                    </mat-form-field>
+
+                </div>
+            
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+            
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>sexo: </mat-label>
+                        <input matInput value="{{(dataDonante.sexo == 'M') ? 'MASCULINO' :'FEMENINO'}}" readonly>
+                    </mat-form-field>
+            
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Télefono de Contacto: </mat-label>
+                        <input matInput value="{{ dataDonante.telefono_contacto }}" readonly>
+                    </mat-form-field>
+            
+                </div>
+            
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+            
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Código Postal: </mat-label>
+                        <input matInput value="{{(dataDonante.codigo_postal != null) ? dataDonante.codigo_postal : 'N/A'}}" readonly>
+                    </mat-form-field>
+            
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Cuidad: </mat-label>
+                        <input matInput value="{{ dataDonante.ciudad }} " readonly>
+                    </mat-form-field>
+            
+                    <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Entidad Federativa de Nacimiento: </mat-label>
+                        <input matInput value="{{(dataDonante.entidad_federativa_id != null) ? dataDonante.entidad_federativa.nombre : 'NO ASIGNADO'}}" readonly>
+                    </mat-form-field>
+            
+                </div>
+            
+            
+                <mat-divider></mat-divider>
+
+                <mat-card-actions fxLayout="row" fxLayout fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <a mat-raised-button color="primary" (click)="FormatoQRDonante(dataDonante, dataDonante.id)"  matTooltip="Tarjeta del Donante"><mat-icon>print</mat-icon> Imprimir Formato</a>
+                </mat-card-actions>
+            
+            </div>
+
+            <div *ngIf="dataDonante == null">
+
+                <div style="margin:15px">
+                    <mat-icon class="qr-no-encontrado" style="transform: scale(4); margin:1em;">cancel</mat-icon>
+                </div>
+    
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+                    <h2 fxFlex> ¡No se encontraron datos con este Código QR!</h2>
+                </div>
+
+                <mat-divider></mat-divider>
+
+            </div>
+
+    
+        </mat-card-content>
+
+  
+      </mat-card>
+    </div>
+  
+  </section>

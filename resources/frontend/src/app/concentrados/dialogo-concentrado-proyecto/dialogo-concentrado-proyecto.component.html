@@ -1,0 +1,44 @@
+<section fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start" style="padding:10px; height: 100%; overflow: auto; flex: 1 1 0%;">
+    <div fxFlex="none" *ngIf="proyecto">
+        <div class="etiqueta-texto">{{proyecto.direccion.descripcion}}</div>
+        <div class="cabecera-titulo">{{proyecto.descripcion}}</div>
+        <div class="cabecera-subtitulo">[{{proyecto.clave}}]</div>
+    </div>
+    <div class="data-loading-shade" *ngIf="isLoading"><mat-spinner></mat-spinner></div>
+    <div fxFlex fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start">
+        <div fxFlex fxLayout="column">
+            <div fxFlex="none" fxLayout="row" *ngIf="concentrado">
+                <mat-form-field  fxFlex>
+                    <input matInput placeholder="Enlace" [type]="'text'" value="{{concentrado.enlace}}" readonly>
+                </mat-form-field>
+                <mat-form-field fxFlex="none">
+                    <input matInput placeholder="Fecha de Reporte" value="{{concentrado.fecha}}" readonly>
+                </mat-form-field>
+            </div>
+            <mat-divider></mat-divider>
+            <div fxFlex fxLayout="column">
+                <div fxFlex="none" fxLayout="row" class="encabezado-reportes">
+                    <div fxFlex="20">Auditoria</div>
+                    <div fxFlex="20">No. de Reactivos del Checklist</div>
+                    <div fxFlex="20">Reactivos N/A</div>
+                    <div fxFlex="20">% de Avance</div>
+                    <div fxFlex="20">Puntos o Reactivos Pendientes</div>
+                </div>
+                <div fxFlex="none" fxLayout="row" class="items-reportes" *ngFor="let reporte of reportes">
+                    <div fxFlex="20">{{reporte.auditoria}}</div>
+                    <div fxFlex="20">{{reporte.total_reactivos}}</div>
+                    <div fxFlex="20">{{reporte.total_no_aplica}}</div>
+                    <div fxFlex="20">{{reporte.porcentaje_avance | number:'1.2-2'}}%</div>
+                    <div fxFlex="20">{{reporte.total_pendientes}}</div>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxFlex="none" fxLayout="row">
+            <button fxFlex="none" mat-raised-button (click)='openChecklist()' color="accent" [disabled]="isLoading"><span class="material-icons-outlined">checklist_rtl</span> Checklist</button>
+            <span fxFlex></span>
+            <button fxFlex="none" mat-button (click)='cancel()'>Cerrar</button>
+            <button fxFlex="none" mat-raised-button (click)='imprimir()' [disabled]="!puedeImprimir" color="primary">Imprimir</button>
+        </div>
+    </div>
+</section>
