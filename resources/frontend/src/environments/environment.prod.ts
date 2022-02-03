@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  base_url: 'https://quejasysugerencias.saludchiapas.gob.mx/vehiculos/api',
+  base_url: '/api',
   images_url: '/images/'
 };
