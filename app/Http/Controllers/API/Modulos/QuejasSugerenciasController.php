@@ -35,7 +35,7 @@ class QuejasSugerenciasController extends Controller
 
         $reglas = [
 
-            'codigo'=>'required|unique:quejas_sugerencias',
+            'folio'=>'required|unique:quejas_sugerencias',
             'motivo' => 'required',
             'observaciones' => 'required',
             'fecha_acontecimiento' => 'required|date',
@@ -45,7 +45,7 @@ class QuejasSugerenciasController extends Controller
 
         $mensajes = [
 
-            'codigo.unique' => 'El Código debe ser único',
+            'folio.unique' => 'El Folio debe ser único',
             'motivo.required' => 'El motivo  del acontecimiento es requerido.',
             'observaciones.required' => 'El observaciones es requerido.',
             'fecha_acontecimiento.required'  => 'La fecha del acontecimiento es requerida.',
