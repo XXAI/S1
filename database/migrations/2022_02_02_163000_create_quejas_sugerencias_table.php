@@ -25,9 +25,6 @@ class CreateQuejasSugerenciasTable extends Migration
             $table->string('lugar_acontecimiento');
             $table->string('motivo');
             $table->string('observaciones')->nullable();
-            $table->smallInteger('foto')->nullable();
-            $table->string('extension',10)->nullable();
-            
 
             $table->timestamps();
             $table->softDeletes();

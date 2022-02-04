@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { PublicService } from '../public.service';
 
@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SharedService } from '../../shared/shared.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { formatDate } from '@angular/common';
+
+import { environment } from 'src/environments/environment';
 
 import { ImageCroppedEvent, ImageCropperComponent }  from 'ngx-image-cropper';
 
@@ -54,6 +56,8 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
 
   minDate:any = '';
   maxDate:any = '';
+
+  public url_img_evidencia: string = `${environment.base_url}/adjunto/evidencias/`;
   
 
   constructor(
@@ -95,6 +99,9 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
       esAnonimo:[0,Validators.required],
       nombre_completo:[''],
       numero_celular:[''],
+      evidencias: this.fb.group({
+        img: this.fb.array([])
+      }),
 
     });
 
@@ -160,19 +167,19 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
 
   // }
 
-  private _filter(value: any, catalog: string, valueField: string): string[] {
-    if(this.catalogos[catalog]){
-      let filterValue = '';
-      if(value){
-        if(typeof(value) == 'object'){
-          filterValue = value[valueField].toLowerCase();
-        }else{
-          filterValue = value.toLowerCase();
-        }
-      }
-      return this.catalogos[catalog].filter(option => option[valueField].toLowerCase().includes(filterValue));
-    }
-  }
+  // private _filter(value: any, catalog: string, valueField: string): string[] {
+  //   if(this.catalogos[catalog]){
+  //     let filterValue = '';
+  //     if(value){
+  //       if(typeof(value) == 'object'){
+  //         filterValue = value[valueField].toLowerCase();
+  //       }else{
+  //         filterValue = value.toLowerCase();
+  //       }
+  //     }
+  //     return this.catalogos[catalog].filter(option => option[valueField].toLowerCase().includes(filterValue));
+  //   }
+  // }
 
   getDisplayFn(label: string){
     return (val) => this.displayFn(val,label);
@@ -204,9 +211,6 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
       this.imageChangedEvent.target.files[0].name,
     );
       console.log("ajaa",this.FotoQuejaSugerencia);
-    //const imageBlob = this.dataURItoBlob(this.imageUrl);
-    //this.image = new File([imageBlob], this.imagename.name, { type: 'image/jpeg' });
-    //this.imageselect = true;
   }
 
   base64ToFile(data, filename) {
@@ -233,6 +237,75 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
   loadImageFailed() {
       // show message
   }
+
+  error_archivo = false;
+  seleccionarImagenBase64(evt, modelo, multiple: boolean = false, index: number = 0) {
+
+    
+      const imagenes = <FormArray>this.quejaSugerenciaForm.get('evidencias')['controls']['img'];
+
+      console.log("las imagenes",imagenes);
+      
+      var files = evt.target.files;
+      var esto = this; var fotos = [];
+      esto.error_archivo = false; 
+      if (!multiple) {
+          var file = files[0];
+          if (files && file) {
+              var reader = new FileReader();
+              reader.readAsBinaryString(file);
+              reader.onload = (function (theFile) {
+                  return function (e) {
+                      try {                            
+                          modelo.patchValue(btoa(e.target.result));
+                          
+                      } catch (ex) {
+                          esto.error_archivo = true;
+                      }
+                  }
+              })(file);
+          }
+      }
+      else {
+          var objeto = [];let este = this;
+          for (var i = 0, f; f = files[i]; i++) {
+              var reader = new FileReader();
+              reader.readAsBinaryString(f);
+              
+              reader.onload = (function (theFile) {
+                  return function (e) {
+                      try {
+                          modelo.push(este.fb.group(
+                                  {
+                                      foto: [btoa(e.target.result)],
+                                      es_url:false
+                                  }
+                              )
+                          );
+                          imagenes.patchValue(modelo);
+                      } catch (ex) {
+                          esto.error_archivo = true;
+                      }
+                  }
+              })(f);
+          }
+      }
+      
+  }
+
+  borrarItemFoto;
+  borrarItemCarpeta;
+  borrarId;
+  borrarImagen(evt, modelo, carpeta, id): void {
+      this.borrarId = id;
+      this.borrarItemFoto = modelo;
+      this.borrarItemCarpeta = carpeta;
+  }
+
+  quitar_form_array(modelo, i: number) {
+    modelo.removeAt(i);
+  }
+
 
   soloNumeros(event): boolean {
 
