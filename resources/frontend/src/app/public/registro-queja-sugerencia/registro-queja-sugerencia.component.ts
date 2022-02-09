@@ -3,14 +3,17 @@ import {FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { PublicService } from '../public.service';
 
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SharedService } from '../../shared/shared.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { formatDate } from '@angular/common';
 
+import { DetailsComponentImg } from '../details-img/details-paciente.component';
 import { environment } from 'src/environments/environment';
-
 import { ImageCroppedEvent, ImageCropperComponent }  from 'ngx-image-cropper';
+
+import { MediaObserver } from '@angular/flex-layout';
 
 import { ReportWorker } from '../../web-workers/report-worker';
 import * as FileSaver from 'file-saver';
@@ -27,6 +30,7 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
   isLoading:boolean;
   isValidatingCURP:boolean;
   CURP:string;
+  mediaSize: string;
 
   queja_sugerencia_id:number = 0;
   queja_sugerencia:any = {};
@@ -66,12 +70,20 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
     private snackBar: MatSnackBar,
     private sharedService: SharedService,
     public router: Router,
-    private route: ActivatedRoute
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    public mediaObserver: MediaObserver
   ) {}
 
   ngOnInit() {
 
     this.CURP = '';
+
+    this.mediaObserver.media$.subscribe(
+      response => {
+        this.mediaSize = response.mqAlias;
+    });
+
     // this.firstFormGroup = this._formBuilder.group({
     //   firstCtrl: ['', Validators.required]
     // });
@@ -293,17 +305,55 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
       
   }
 
-  borrarItemFoto;
-  borrarItemCarpeta;
-  borrarId;
-  borrarImagen(evt, modelo, carpeta, id): void {
-      this.borrarId = id;
-      this.borrarItemFoto = modelo;
-      this.borrarItemCarpeta = carpeta;
+  // borrarItemFoto;
+  // borrarItemCarpeta;
+  // borrarId;
+  // borrarImagen(evt, modelo, carpeta, id): void {
+  //     this.borrarId = id;
+  //     this.borrarItemFoto = modelo;
+  //     this.borrarItemCarpeta = carpeta;
+  // }
+
+  quitar_imagen_array(index: number) {
+
+    let imagen_cargada = <FormArray>this.quejaSugerenciaForm.get('evidencias')['controls']['img'];
+
+    imagen_cargada.removeAt(index);
   }
 
-  quitar_form_array(modelo, i: number) {
-    modelo.removeAt(i);
+  verImagen(index:number){
+
+    let imagen_cargada = <FormArray>this.quejaSugerenciaForm.get('evidencias')['controls']['img'].value[index].foto;
+
+    const img = 'data:image/jpg;base64,'+imagen_cargada;
+
+    let configDialog = {};
+    if(this.mediaSize == 'xs'){
+      configDialog = {
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        data:{img: img, scSize:this.mediaSize}
+      };
+    }else{
+      configDialog = {
+        width: '99%',
+        maxHeight: '90vh',
+        height: '643px',
+        data:{img: img}
+      }
+    }
+
+    const dialogRef = this.dialog.open(DetailsComponentImg, configDialog);
+
+    dialogRef.afterClosed().subscribe(valid => {
+      if(valid){
+        console.log('Aceptar');
+      }else{
+        console.log('Cancelar');
+      }
+    });
   }
 
 

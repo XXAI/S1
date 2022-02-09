@@ -139,6 +139,8 @@ class QuejasSugerenciasController extends Controller
         $data_client = json_decode($inputs['data']);
         $datos = (array) $data_client;
 
+        dd($datos);
+
         $datos['folio'] = Str::random(10);
 
         try{  
@@ -206,16 +208,13 @@ class QuejasSugerenciasController extends Controller
                     return response()->json(['mensaje' => '¡Se registro la Queja/Sugerencia con Éxito!', 'validacion'=>$resultado->passes(), 'datos'=>$registro_queja_sugerencia], HttpResponse::HTTP_OK);
                 }
 
-            
-        
+                //return response()->json(['mensaje' => 'Guardado', 'validacion'=>$resultado->passes(), 'datos'=>$registro], HttpResponse::HTTP_OK);
+            }else{
+                return response()->json(['mensaje' => 'Error en los datos del formulario', 'status' => 409, 'validacion'=>$resultado->passes(), 'errores'=>$resultado->errors()], HttpResponse::HTTP_OK);
+            }
         }catch(\Exception $e){
             DB::rollback();
             return response()->json(['error'=>['message'=>$e->getMessage(),'line'=>$e->getLine()]], HttpResponse::HTTP_CONFLICT);
-        }
-
-            //return response()->json(['mensaje' => 'Guardado', 'validacion'=>$resultado->passes(), 'datos'=>$registro], HttpResponse::HTTP_OK);
-        }else{
-            return response()->json(['mensaje' => 'Error en los datos del formulario', 'status' => 409, 'validacion'=>$resultado->passes(), 'errores'=>$resultado->errors()], HttpResponse::HTTP_OK);
         }
 
 

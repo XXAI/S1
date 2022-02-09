@@ -11,6 +11,7 @@ import { getEspPaginatorIntl } from 'src/app/esp-paginator-intl';
 
 import { PublicRoutingModule } from './public-routing.module';
 import { RegistroQuejaSugerenciaComponent } from './registro-queja-sugerencia/registro-queja-sugerencia.component';
+import { DetailsComponentImg } from './details-img/details-paciente.component'
 
 //import { InfoQrDonanteComponent } from './info-qr-donante/info-qr-donante.component';
 import { ListaQuejasSugerenciasComponent } from './lista-quejas-sugerencias/lista-quejas-sugerencias.component';
@@ -20,7 +21,8 @@ import { ListaQuejasSugerenciasComponent } from './lista-quejas-sugerencias/list
 @NgModule({
   declarations: [
     RegistroQuejaSugerenciaComponent,
-    ListaQuejasSugerenciasComponent
+    ListaQuejasSugerenciasComponent,
+    DetailsComponentImg
   ],
   imports: [
     CommonModule,

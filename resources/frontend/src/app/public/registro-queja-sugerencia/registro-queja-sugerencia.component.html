@@ -183,18 +183,45 @@
 
 
                     <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" formGroupName="evidencias">
+
                       <div class="column is-6" formArrayName="img">
 
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3px">
                             <div fxFlex="100" fxFlex.xs="100">
-                                <button mat-raised-button color="accent" onclick="document.getElementById('getFile').click()">Seleccionar Imagenes</button>
+                                <button mat-raised-button color="accent" onclick="document.getElementById('getFile').click()"> Seleccionar Imagenes (Evidencias)</button>
                                 <input type='file' multiple="multiple" id="getFile" style="display:none" (change)="seleccionarImagenBase64($event, quejaSugerenciaForm.get('evidencias')['controls']['img']['controls'], true)" accept=".jpeg, .jpg, .bmp, .png" placeholder="Imagen de la evidencia">
                             </div>
                         </div>
                         <br>
                         <mat-divider></mat-divider>
                         <br>
-                        <div fxLayout.gt-sm="row" fxLayout="column" *ngFor="let image of quejaSugerenciaForm.get('evidencias')['controls']['img']['controls']; let i=index">
+                        <div class="container" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+                        
+                            <mat-card fxFlex="0 1 calc(20% - 20px)" *ngFor="let image of quejaSugerenciaForm.get('evidencias')['controls']['img']['controls']; let i=index" class="evidencias">
+                              <img class="image" mat-card-image [src]="'data:image/jpg;base64,'+image.value?.foto" alt="Imagen">
+                              <mat-card-actions >
+
+                                <div fxLayout.gt-sm="column" fxLayout="row" fxLayoutGap.gt-sm="10px">
+
+                                    <button mat-icon-button color="primary" (click)="verImagen(i)">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+
+                                    <button mat-icon-button color="accent" (click)="quitar_imagen_array(i);">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+
+                                </div>
+
+                              </mat-card-actions>
+                            </mat-card>
+                        
+                        </div>
+
+
+
+
+                        <!-- <div fxLayout.gt-sm="row" fxLayout="column" *ngFor="let image of quejaSugerenciaForm.get('evidencias')['controls']['img']['controls']; let i=index">
                           
                           <div *ngIf="image" >
                               
@@ -203,16 +230,13 @@
 
                           </div>
 
-                          <div *ngIf="image"> 
+                          <div *ngIf="image && !image.value?.es_url"> 
                             <div class="block">
 
-                                <button mat-raised-button color="primary"><mat-icon>remove_red_eye</mat-icon> Ver Imagen</button>
-
-                              <!-- <a class="button is-primary is-outlined" >
-                                <span class="icon">
-                                  <i class="fa fa-eye"> </i>
-                                </span> &nbsp; Ver Imagen
-                              </a> -->
+                                <button mat-raised-button color="primary" (click)="verImagen(i)">
+                                    <mat-icon>remove_red_eye</mat-icon>
+                                    Ver Imagen
+                                </button>
 
                               <a id="borrarId{{i}}" (click)="quitar_form_array(quejaSugerenciaForm.get('evidencias')['controls']['img']['controls'],i);"></a>
                               
@@ -230,20 +254,12 @@
 
 
                             </div>
-                            <!-- <div class="modal" id="verFoto{{i}}" (click)="cancelarModal('verFoto'+ref+''+ii)">
-                              <div class="modal-background"></div>
-                              <div class="modal-content">
-                                <p class="image is-4by3">
-                                  <img [src]="url_img_referencia+image.value.foto" alt="Imagen" width="100px" *ngIf="image.value?.es_url"/>                            
-                                  <img [src]="'data:image/jpg;base64,'+image.value?.foto" alt="Imagen" width="100px" *ngIf="!image.value?.es_url"/>  
-                                </p>
-                              </div>
-                              <button type="button" class="modal-close" (click)="cancelarModal('verFoto'+ref+''+ii)"></button>
-                            </div> -->
                           </div>
 
-                        </div>
+                        </div> -->
                       </div>
+
+
                     </div>
 
 

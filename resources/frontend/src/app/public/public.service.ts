@@ -121,7 +121,12 @@ export class PublicService {
 
     }else{
 
-      return this.http.post<any>(this.url,data).pipe(
+      let headers = new HttpHeaders().set(
+        "Content-Type",'image/pjpeg',
+      );
+
+
+      return this.http.post<any>(this.url,data,  { headers:headers}).pipe(
         map( (response) => {
           return response;
         }
