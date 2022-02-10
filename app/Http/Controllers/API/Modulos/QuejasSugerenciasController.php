@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
 use \Validator, Exception \Hash, \Response, \File, \Store;
-use Illuminate\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -113,6 +113,11 @@ class QuejasSugerenciasController extends Controller
 
         ini_set('memory_limit', '-1');
 
+        $datos = $request->all();
+        
+
+        $datos['folio'] = Str::random(10);
+
         $reglas = [
 
             'folio'=>'required|unique:quejas_sugerencias',
@@ -133,105 +138,98 @@ class QuejasSugerenciasController extends Controller
 
         ];
 
+        DB::beginTransaction();
+        $resultado = Validator::make($datos, $reglas, $mensajes);
+        if ($resultado->fails()) {
 
-        $inputs = $request->all();
+            return response()->json(['mensaje' => 'Error en los datos del formulario', 'status' => 409, 'validacion'=>$resultado->passes(), 'errores'=>$resultado->errors()], HttpResponse::HTTP_CONFLICT);
 
-        $data_client = json_decode($inputs['data']);
-        $datos = (array) $data_client;
+        }else{
 
-        dd($datos);
+        try {
 
-        $datos['folio'] = Str::random(10);
+            $registro_queja_sugerencia = QuejaSugerencia::create($datos);
 
-        try{  
+            $datos = (object) $datos;
 
-            DB::beginTransaction();
-            $resultado = Validator::make($datos,$reglas,$mensajes);
-    
-            if($resultado->passes()){
-                $registro_queja_sugerencia = QuejaSugerencia::create($datos);
-    
-                if(property_exists($datos, "evidencias")){
-                    $fotos = array_filter($datos['evidencias'], function($v){return $v !== null;});
-    
-                    Evidencia::where("queja_sugerencia_id", $registro_queja_sugerencia->id)->delete();
-    
-                    foreach ($fotos as $key => $value) {
-                        //validar que el valor no sea null
-                        if($value != null){
-                            //comprobar si el value es un array, si es convertirlo a object mas facil para manejar.
-                            if(is_array($value))
-                                $value = (object) $value;
-    
-                            if(property_exists($value, "id")) {
-                                DB::update("update evidencias set deleted_at = null where id = $value->id and queja_sugerencia_id = $registro_queja_sugerencia->id");
-                                //si existe actualizar
-                                $evidencia = Evidencia::where("id", $value->id)->where("queja_sugerencia_id", $registro_queja_sugerencia->id)->first();
-    
-                                $evidencia->queja_sugerencia_id              = $registro_queja_sugerencia->id;
-                                $evidencia->tipo                             = "imagen";
-                                $evidencia->url                              = $value->url;
-    
-                                $evidencia->save();
-    
-                                return response()->json(['mensaje' => '¡Se registro la Queja/Sugerencia con Éxito!', 'validacion'=>$resultado->passes(), 'datos'=>$registro_queja_sugerencia], HttpResponse::HTTP_OK);
-                            }else{
-                                foreach($value as $img){
-                                    //comprobar si el value es un array, si es convertirlo a object mas facil para manejar.
-                                    if(is_array($img))
-                                        $img = (object) $img;
-    
-                                    if ($img->es_url == false){
-                                        $evidencia = new Evidencia;
-    
-                                        $evidencia->queja_sugerencia_id              = $referencia->id;
-                                        $evidencia->tipo                             = "imagen";
-                                        $evidencia->url                              = $this->convertir_imagen($img->foto, 'evidencias', $registro_queja_sugerencia->id);
-    
-                                        $evidencia->save();
-                                    }else{
-                                        if (file_exists(public_path()."/adjunto/evidencias/".$img->foto)){
-    
-                                            DB::update("update evidencias set deleted_at = null where url = '$img->foto' and queja_sugerencia_id = $registro_queja_sugerencia->id");
-    
-                                        }
+            if(property_exists($datos, "evidencias")){
+                $fotos = array_filter($datos->evidencias, function($v){return $v !== null;});
+
+                Evidencia::where("queja_sugerencia_id", $registro_queja_sugerencia->id)->delete();
+
+                foreach ($fotos as $key => $value) {
+                    //validar que el valor no sea null
+                    if($value != null){
+                        //comprobar si el value es un array, si es convertirlo a object mas facil para manejar.
+                        if(is_array($value))
+                            $value = (object) $value;
+
+                        if(property_exists($value, "id")) {
+                            DB::update("update evidencias set deleted_at = null where id = $value->id and queja_sugerencia_id = $registro_queja_sugerencia->id");
+                            //si existe actualizar
+                            $evidencia = Evidencia::where("id", $value->id)->where("queja_sugerencia_id", $registro_queja_sugerencia->id)->first();
+
+                            $evidencia->queja_sugerencia_id              = $registro_queja_sugerencia->id;
+                            $evidencia->tipo                             = "imagen";
+                            $evidencia->url                              = $value->url;
+
+                            $evidencia->save();
+
+                        }else{
+                            foreach($value as $key => $img){
+                                //comprobar si el value es un array, si es convertirlo a object mas facil para manejar.
+                                if(is_array($img))
+                                    $img = (object) $img;
+
+                                if ($img->es_url == false){
+                                    $evidencia = new Evidencia;
+
+                                    $evidencia->queja_sugerencia_id              = $registro_queja_sugerencia->id;
+                                    $evidencia->tipo                             = "imagen";
+                                    $evidencia->url                              = $this->convertir_imagen($img->foto, 'evidencia', $registro_queja_sugerencia->id);
+
+                                    $evidencia->save();
+                                    DB::commit();
+                                }else{
+                                    if (file_exists(public_path()."/public/EvidenciaQuejaSugerencia/".$img->foto)){
+
+                                        DB::update("update evidencias set deleted_at = null where url = '$img->foto' and queja_sugerencia_id = $registro_queja_sugerencia->id");
+
                                     }
-    
                                 }
-                                return response()->json(['mensaje' => '¡Se registro la Queja/Sugerencia con Éxito!', 'validacion'=>$resultado->passes(), 'datos'=>$registro_queja_sugerencia], HttpResponse::HTTP_OK);
+
                             }
+                            return response()->json(['mensaje' => '¡Se registro la Queja/Sugerencia con Éxito!', 'validacion'=>$resultado->passes(), 'datos'=>$registro_queja_sugerencia], HttpResponse::HTTP_OK);
                         }
                     }
                 }
-                DB::commit();
-                else{
-                    return response()->json(['mensaje' => '¡Se registro la Queja/Sugerencia con Éxito!', 'validacion'=>$resultado->passes(), 'datos'=>$registro_queja_sugerencia], HttpResponse::HTTP_OK);
-                }
-
-                //return response()->json(['mensaje' => 'Guardado', 'validacion'=>$resultado->passes(), 'datos'=>$registro], HttpResponse::HTTP_OK);
-            }else{
-                return response()->json(['mensaje' => 'Error en los datos del formulario', 'status' => 409, 'validacion'=>$resultado->passes(), 'errores'=>$resultado->errors()], HttpResponse::HTTP_OK);
             }
-        }catch(\Exception $e){
+
+        } catch (\Throwable $th) {
             DB::rollback();
-            return response()->json(['error'=>['message'=>$e->getMessage(),'line'=>$e->getLine()]], HttpResponse::HTTP_CONFLICT);
+            return response()->json(['error'=>['message'=>$th->getMessage(),'line'=>$th->getLine()]], HttpResponse::HTTP_CONFLICT);
         }
 
 
+        }
 
+            
     }
 
     public function convertir_imagen($data, $nombre, $i){
+
         try{
 
             $data = base64_decode($data);
             $im = imagecreatefromstring($data);
 
             if ($im !== false) {
-                $time = time().rand(11111, 99999);
-                $name = $nombre.$i."_".$time.".jpeg";
-                header('Content-Type: image/pjpeg');
-                imagejpeg($im, public_path() ."/adjunto/".$nombre."/".$name);
+                $name = $i."_".$nombre.".jpeg";
+                header('Content-Type', 'image/jpeg');
+                $content = Storage::disk('public')->get('/EvidenciaQuejaSugerencia');
+                Storage::put('/public/EvidenciaQuejaSugerencia/'.$im.$name, $content);
+                //Storage::put('path/to/file/'.$filename_with_extension, $content);
+                //\Storage::disk('public\\EvidenciaQuejaSugerencia')->put($name, $im);
                 imagedestroy($im);
                 return $name;
             }
@@ -243,6 +241,9 @@ class QuejasSugerenciasController extends Controller
             return \Response::json(["error" => $e->getMessage(), "nombre" => $nombre], 400);
         }
     }
+
+
+    
 
 
 }

@@ -13,15 +13,15 @@ class QuejaSugerencia extends Model
         
         'id',
         'folio',
-        'motivo',
-        'observaciones',
-        'lugar_acontecimiento',
-        'fecha_acontecimiento',
-        'foto',
-        'extension',
         'esAnonimo',
         'nombre_completo',
-        'numero_celular'
+        'numero_celular',
+        'fecha_acontecimiento',
+        'numero_de_placa',
+        'lugar_acontecimiento',
+        'motivo',
+        'observaciones',
+
     ];
 
     // public function entidad_federativa(){
