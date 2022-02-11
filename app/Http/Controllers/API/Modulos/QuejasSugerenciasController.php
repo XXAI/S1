@@ -224,7 +224,7 @@ class QuejasSugerenciasController extends Controller
             $im = imagecreatefromstring($data);
 
             if ($im !== false) {
-                $name = $i."_".$nombre.".jpeg";
+                $name = $i."_".$nombre.".jpg";
                 header('Content-Type', 'image/jpeg');
                 // $content = Storage::disk('public')->get('/EvidenciaQuejaSugerencia');
                 // Storage::put('/public/EvidenciaQuejaSugerencia/'.$im.$name, $content);

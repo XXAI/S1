@@ -9,7 +9,7 @@ import { SharedService } from '../../shared/shared.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { formatDate } from '@angular/common';
 
-import { DetailsComponentImg } from '../details-img/details-paciente.component';
+import { DetailsComponentImg } from '../details-img/details-img.component';
 import { environment } from 'src/environments/environment';
 import { ImageCroppedEvent, ImageCropperComponent }  from 'ngx-image-cropper';
 
@@ -426,12 +426,19 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
 
           if(response.status != 409){
 
-            var Message = "Queja/Sugerencia Registrada con Éxito!";
+            var Message = "Queja/Sugerencia "+"con Folio: "+response.datos.folio+" Registrada con Éxito!";
 
-            this.sharedService.showSnackBar(Message, 'Cerrar', 3000);
+            this.sharedService.showSnackBar(Message, 'Cerrar', 5000);
 
             //this.QRqueja_sugerencia(response.datos, response.datos.folio);
             this.quejaSugerenciaForm.reset();
+            let evidencias = <FormArray>this.quejaSugerenciaForm.get('evidencias')['controls']['img'];
+
+            while (evidencias.length !== 0) {
+              evidencias.clear();
+            }
+
+            this.quejaSugerenciaForm.get('evidencias').reset();
             //this.router.navigate(['/qr-queja_sugerencia/'+response.datos.codigo]);
 
           }else if(response.status == 409){

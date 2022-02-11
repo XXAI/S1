@@ -13,8 +13,8 @@ export interface FormDialogData {
 
 @Component({
   selector: 'app-details-img',
-  templateUrl: './details-paciente.component.html',
-  styleUrls: ['./details-paciente.component.css']
+  templateUrl: './details-img.component.html',
+  styleUrls: ['./details-img.component.css']
 })
 export class DetailsComponentImg implements OnInit {
   

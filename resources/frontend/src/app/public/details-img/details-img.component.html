@@ -1,0 +1,28 @@
+<div *ngIf="isLoading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar><br>
+    <h3>Espere un momento...</h3>    
+</div>
+
+<mat-card >
+<mat-card-title></mat-card-title>
+
+<mat-card-content fxLayout="column" fxLayoutAlign="space-evenly center">
+
+    <div fxLayout="row" fxLayoutGap="32px" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="10px">
+
+        <div fxFlex="0 100 100%">
+            <img mat-card-image [src]="data.img" alt="evidencia">
+        </div>
+
+        <div mat-dialog-actions fxLayoutAlign="start center">
+            <span fxFlex></span>
+            <button mat-raised-button (click)='onNoClick()' color="primary"> Aceptar</button>
+        </div>
+        <br>
+
+    </div>
+
+</mat-card-content>
+</mat-card>
+
+    
