@@ -3,7 +3,7 @@
     <div fxLayout="row" fxLayoutAlign="space-evenly center">
         <section fxFlex="95" fxLayout="column" fxLayoutAlign="center">
             <div class="data-loading-shade" *ngIf="isLoading"><mat-spinner></mat-spinner></div>
-            <mat-card fxFlex.xs="100%" fxFlex="90%">
+            <!-- <mat-card fxFlex.xs="100%" fxFlex="90%">
                 <div fxLayout="row" fxLayout.xs="column">
                     <div fxFlex fxLayout="row wrap">
                         <mat-form-field fxFill appearance="outline">
@@ -52,30 +52,6 @@
                             <input matInput (keypress)="numberOnly($event)" id="edad" placeholder="Edad, (Escriba solo Números)" formControlName="edad">
                             <mat-error>Campo Requerido</mat-error>
                         </mat-form-field>
-
-                        <!-- <mat-form-field appearance="fill" fxFlex>
-                            <mat-label>Sexo: </mat-label>
-                            <mat-select formControlName="sexo">
-                                <mat-option value="Femenino">FEMENINO</mat-option>
-                                <mat-option value="Masculino">MASCULINO</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" fxFlex>
-                            <mat-label>Identidad: </mat-label>
-                            <mat-select formControlName="identidad">
-                                <mat-option value="0">CONOCIDA</mat-option>
-                                <mat-option value="1">DESCONOCIDA</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" fxFlex>
-                            <mat-label>Nacionalidad: </mat-label>
-                            <mat-select formControlName="nacionalidad">
-                                <mat-option value="0">MEXICANA</mat-option>
-                                <mat-option value="1">EXTRANJERA</mat-option>
-                            </mat-select>
-                        </mat-form-field> -->
 
                     </div>
 
@@ -134,11 +110,11 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
-            </mat-accordion>
+            </mat-accordion> -->
             
             <mat-card fxFlex.xs="100%" fxFlex="90%">
 
-                <div fxLayout="row" fxLayout.xs="column" style="padding-bottom:10px;">
+                <!-- <div fxLayout="row" fxLayout.xs="column" style="padding-bottom:10px;">
 
                     <div fxFlex>
                         <mat-chip-list aria-label="Fish selection">
@@ -148,7 +124,7 @@
                             </mat-chip>
                         </mat-chip-list>
                     </div>
-                    <!-- <button mat-raised-button color="primary" routerLink="/pacientes/nuevo"><mat-icon>add_circle</mat-icon> Agregar Paciente</button> (click)="showAddPacienteDialog()" -->
+                    <button mat-raised-button color="primary" routerLink="/pacientes/nuevo"><mat-icon>add_circle</mat-icon> Agregar Paciente</button> (click)="showAddPacienteDialog()"
                     &nbsp;
                     <button mat-raised-button color="primary" routerLink="/registro/nuevo" ><mat-icon>add_circle</mat-icon> Agregar Donante</button>
 
@@ -180,9 +156,9 @@
                         </ng-container>
                     </div>
                     
-                </div>
+                </div> -->
 
-                <mat-divider [inset]="true"></mat-divider>
+                <!-- <mat-divider [inset]="true"></mat-divider> -->
 
                 <div class="data-container">
                     <div class="data-table-container">
@@ -194,44 +170,39 @@
                             </ng-container> -->
                     
                             <!-- nombre completo Column -->
-                            <ng-container matColumnDef="nombre">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Completo </th>
-                                <td mat-cell *matCellDef="let row"> {{ row.nombre+' '+row.apellido_paterno+' '+row.apellido_materno }}</td>
+                            <ng-container matColumnDef="folio">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio de la Queja/Sugerencia </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.folio }}</td>
                             </ng-container>
 
                             <!-- Edad Column -->
-                            <ng-container matColumnDef="edad">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad </th>
-                                <td mat-cell *matCellDef="let row"> {{ row.edad +' '+'Años'}}</td>
+                            <ng-container matColumnDef="numero_de_placa">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Número de Placa </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.numero_de_placa }}</td>
                             </ng-container>
 
                     
                             <!-- Fecha de Nacimiento column -->
-                            <ng-container matColumnDef="fecha_nacimiento">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs="xs"> Fecha Nacimiento </th>
-                                <td mat-cell *matCellDef="let row" fxHide.xs="xs"> {{ row.fecha_nacimiento | date: 'dd/MM/yyyy' }} </td>
+                            <ng-container matColumnDef="fecha_acontecimiento">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs="xs"> Fecha del Acontecimiento </th>
+                                <td mat-cell *matCellDef="let row" fxHide.xs="xs"> {{ row.fecha_acontecimiento | date: 'dd/MM/yyyy' }} </td>
                             </ng-container>
 
-                            <!-- procedencia column -->
-                            <ng-container matColumnDef="curp">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs="xs"> CURP </th>
-                                <td mat-cell *matCellDef="let row" fxHide.xs="xs"> {{ row.curp | uppercase}} </td>
-                            </ng-container>
 
-                            <ng-container matColumnDef="qr">
+                            <!-- <ng-container matColumnDef="qr">
                                 <th mat-header-cell *matHeaderCellDef style="width: 115px;">Tarjeta QR</th>
                                 <td mat-cell *matCellDef="let row">
                                     <button mat-stroked-button color="primary" (click)="QRDonante(row, row.id)"  matTooltip="Generar QR del Donante"><mat-icon>qr_code_2</mat-icon></button>
                                 </td>
-                            </ng-container>
+                            </ng-container> -->
 
                             <ng-container matColumnDef="opciones" >
                                 <th mat-header-cell *matHeaderCellDef>Opciones</th>
                                 <td mat-cell *matCellDef="let row; let i = index">                                    
                                     <button mat-button mat-stroked-button [matMenuTriggerFor]="menu" *ngIf="row.estatus != 3"><mat-icon>arrow_drop_down</mat-icon> Opciones</button>
                                     <mat-menu #menu="matMenu">
-                                        <button mat-menu-item color="primary" (click)="QRDonante(row, row.id)"  matTooltip="Generar Código QR del Donante"><mat-icon>qr_code_2</mat-icon>QR</button>
-                                        <button mat-menu-item color="primary" routerLink = "/aditar-donante/{{row.id}}" matTooltip="Editar Información del Donante"><mat-icon>edit</mat-icon>Editar</button>
+                                        <button mat-menu-item color="primary"  matTooltip="Imprimir Queja/Sugerencia"><mat-icon>picture_as_pdf</mat-icon>Imprimir</button>
+                                        <button mat-menu-item color="primary"  matTooltip="Generar Seguimiento de la Queja/Sugerencia"><mat-icon> domain_verification</mat-icon> Seguimiento da la Queja/Sugerencia</button>
                                     </mat-menu>
                                     
                                 </td>

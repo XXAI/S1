@@ -15,7 +15,7 @@ const routes: Routes = [
 
 
   //{ path: 'qr-donante/:codigo',   component: InfoQrDonanteComponent,    canActivate: [GuessGuard] },
-  { path: 'lista',             component: ListaQuejasSugerenciasComponent,   canActivate: [AuthGuard] },
+  { path: 'lista-quejas-sugerencias',             component: ListaQuejasSugerenciasComponent,   canActivate: [AuthGuard] },
   //{ path: 'aditar/:id',    component: RegistroQuejaSugerenciaComponent,  canActivate: [AuthGuard] },
 ];
 

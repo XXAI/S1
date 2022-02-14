@@ -75,7 +75,7 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
     '4':'swap_horizontal_circle' //en transferencia
   };
 
-  displayedColumns: string[] = ['nombre', 'edad', 'fecha_nacimiento', 'curp', 'opciones'];
+  displayedColumns: string[] = ['folio', 'numero_de_placa', 'fecha_acontecimiento', 'opciones'];
   dataSource: any = [];
   dataSourceFilters: any = [];
 
@@ -160,7 +160,7 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
     this.maxDate = this.fechaActual;
 
     this.loadDonantesData(event);
-    this.loadFilterCatalogs();
+    //this.loadFilterCatalogs();
     //console.log(this.filteredDiagnosticos);
 
   }

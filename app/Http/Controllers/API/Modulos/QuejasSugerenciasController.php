@@ -24,6 +24,46 @@ use Maatwebsite\Excel\Facades\Excel;
 class QuejasSugerenciasController extends Controller
 {
 
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $parametros = $request->all();
+
+        $lista_quejas_sugerencias = QuejaSugerencia::select('quejas_sugerencias.*')
+                            ->leftJoin('evidencias','evidencias.queja_sugerencia_id','=','quejas_sugerencias.id');
+
+        // if(isset($parametros['tipo_sexo']) && $parametros['tipo_sexo']){
+        //     $lista_quejas_sugerencias = $lista_donadores->where('sexo',$parametros['tipo_sexo']);
+        // }
+
+        // if(isset($parametros['query']) && $parametros['query']){
+        //     $query_busqueda = $parametros['query'];
+        //     $lista_quejas_sugerencias = $lista_quejas_sugerencias->where(function($query)use($query_busqueda){
+        //         $query->where('donadores.nombre','like','%'.$query_busqueda.'%')
+        //                 ->orWhere('apellido_paterno','like','%'.$query_busqueda.'%')
+        //                 ->orWhere('apellido_materno','like','%'.$query_busqueda.'%')
+        //                 ->orWhere('ciudad','like','%'.$query_busqueda.'%')
+        //                 ->orWhere('codigo_postal','like','%'.$query_busqueda.'%')
+        //                 ->orWhere('curp','like','%'.$query_busqueda.'%');
+        //     });
+        // }
+
+        if(isset($parametros['page'])){
+            $resultadosPorPagina = isset($parametros["per_page"])? $parametros["per_page"] : 23;
+
+            $lista_quejas_sugerencias = $lista_quejas_sugerencias->paginate($resultadosPorPagina);
+            
+        } else {
+            $lista_quejas_sugerencias = $lista_quejas_sugerencias->get();
+        }
+
+        return response()->json(['data'=>$lista_quejas_sugerencias], HttpResponse::HTTP_OK);
+    }
+
 
     // public function store(Request $request){
 
