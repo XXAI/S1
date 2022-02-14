@@ -33,8 +33,7 @@ class QuejasSugerenciasController extends Controller
     {
         $parametros = $request->all();
 
-        $lista_quejas_sugerencias = QuejaSugerencia::select('quejas_sugerencias.*')
-                            ->leftJoin('evidencias','evidencias.queja_sugerencia_id','=','quejas_sugerencias.id');
+        $lista_quejas_sugerencias = QuejaSugerencia::select('quejas_sugerencias.*');
 
         // if(isset($parametros['tipo_sexo']) && $parametros['tipo_sexo']){
         //     $lista_quejas_sugerencias = $lista_donadores->where('sexo',$parametros['tipo_sexo']);

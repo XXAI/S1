@@ -188,6 +188,11 @@
                                 <td mat-cell *matCellDef="let row" fxHide.xs="xs"> {{ row.fecha_acontecimiento | date: 'dd/MM/yyyy' }} </td>
                             </ng-container>
 
+                            <ng-container matColumnDef="motivo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs="xs"> Motivo del Acontecimiento </th>
+                                <td mat-cell *matCellDef="let row" fxHide.xs="xs"> {{ row.motivo }} </td>
+                            </ng-container>
+
 
                             <!-- <ng-container matColumnDef="qr">
                                 <th mat-header-cell *matHeaderCellDef style="width: 115px;">Tarjeta QR</th>

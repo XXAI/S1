@@ -75,7 +75,7 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
     '4':'swap_horizontal_circle' //en transferencia
   };
 
-  displayedColumns: string[] = ['folio', 'numero_de_placa', 'fecha_acontecimiento', 'opciones'];
+  displayedColumns: string[] = ['folio', 'numero_de_placa', 'fecha_acontecimiento', 'motivo', 'opciones'];
   dataSource: any = [];
   dataSourceFilters: any = [];
 
