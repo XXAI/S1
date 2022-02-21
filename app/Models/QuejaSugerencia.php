@@ -24,6 +24,10 @@ class QuejaSugerencia extends Model
 
     ];
 
+    public function evidencias(){
+        return $this->hasMany('App\Models\Evidencia','queja_sugerencia_id');
+    }
+
     // public function entidad_federativa(){
     //     return $this->belongsTo('App\Models\EntidadFederativa','entidad_federativa_id');
     // }

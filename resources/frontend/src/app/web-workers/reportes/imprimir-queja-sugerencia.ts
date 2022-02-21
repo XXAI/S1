@@ -3,13 +3,16 @@ import { LOGOS } from "../../logos";
 import { IMG } from "../../img";
 
 
-export class ReporteRegistroDonante{
+export class ImprimirQuejaSugerencia{
 
     getDocumentDefinition(reportData:any) {
         console.log(reportData);
         let contadorLineasHorizontalesV = 0;
         let fecha_hoy =  Date.now();
-        let donante = reportData.items;
+        let queja_sugerencia = reportData.items;
+        let evidencias = {};
+        let formato = "data:image/jpeg;base64,";
+
         let datos = {
           pageOrientation: 'portrait',
           pageSize: 'LETTER',
@@ -21,21 +24,21 @@ export class ReporteRegistroDonante{
           header: {
             margin: [30, 20, 30, 0],
             columns: [
-                // {
-                //     image: LOGOS[0].LOGO_FEDERAL,
-                //     width: 90
-                // },
-                // {
-                //     margin: [10, 0, 0, 0],
-                //     text: 'SECRETARÍA DE SALUD\n'+reportData.config.title,
-                //     bold: true,
-                //     fontSize: 12,
-                //     alignment: 'center'
-                // },
-                // {
-                //   image: LOGOS[1].LOGO_ESTATAL,
-                //   width: 80
-                // }
+                {
+                    image: LOGOS[0].LOGO_FEDERAL,
+                    width: 90
+                },
+                {
+                    margin: [10, 0, 0, 0],
+                    text: 'SECRETARÍA DE SALUD\n'+reportData.config.title,
+                    bold: true,
+                    fontSize: 12,
+                    alignment: 'center'
+                },
+                {
+                  image: LOGOS[1].LOGO_ESTATAL,
+                  width: 80
+                }
             ]
           },
           footer: function(currentPage, pageCount) { 
@@ -132,42 +135,25 @@ export class ReporteRegistroDonante{
             }
         };
 
+        let indice_actual;
 
-        datos.content.push({
-          //layout: 'noBorders',
-          table: {
-           widths: [ 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60 ],
-           margin: [0,0,0,0],
-           headerRows: 2,
-           keepWithHeaderRows: 1,
-            body: [
-              [
-                //{ image: LOGOS[0].LOGO_FEDERAL, width: 80, style: "img_firmas", colSpan:2},{},
-                { image: IMG[4].CETRA, width: 110, style:'img', border: [true,true,false,false], colSpan:4},{},{},{},
-                { image: IMG[5].GOBIERNO_MEXICO, width: 40, style: "texto_centro", border: [false,true,true,false], colSpan:3},{},{},
-                // { text: "", colSpan:4},{},{},{},
-                // { image: IMG[0].NOMBRE_FIRMA, width: 300, height: 60 },
-                // { text: "", colSpan:4},{},{},{},
-              ],
-              // [
-              //   {},{},{},{},
-              //   // { qr: 'http://donadores.saludchiapas.gob.mx/#/qr-donante/'+donante.id, fit: '85', style: "texto_centro", colSpan:4},{},{},{},
-              //   { text: "A mi familia: Es mi voluntad que mi fallecimiento y con la esperanza De ayudar a salvar vidas, sean donados mis órganos y tejidos con fines de trasplante. Cuando esto suceda, Apoyen mi decisión y ayuden a cumplir mi voluntad.", style: "texto_centro", colSpan:3},{},{},
+        for(let i = 0; i < queja_sugerencia.evidencias.length; i++){
 
-              // ],
-              [            
-                { text: "Testigos: \n\n Nombre y Firma: \n\n_________________________________ \n\n Nombre y Firma: \n\n_________________________________", style: "texto_centro", border: [true,false,false,false], colSpan:2},{},
-                { qr: 'http://donadores.saludchiapas.gob.mx/#/qr-donante/'+donante.codigo, fit: '70', style: "img_firmas",  border: [false,false,false,false], colSpan:2},{},
-                { text: "A mi familia: Es mi voluntad que mi fallecimiento y con la esperanza De ayudar a salvar vidas, sean donados mis órganos y tejidos con fines de trasplante. Cuando esto suceda, Apoyen mi decisión y ayuden a cumplir mi voluntad.\n\nDonador: \n"+ donante.nombre+" "+donante.apellido_paterno+" "+donante.apellido_materno, style: "texto_centro",  border: [false,false,true,false], colSpan:3},{},{},
-                //{ text: "\n\nDonador: \n\n"+ 'Javier Alejandro Gosain Díaz', style: "texto_centro", colSpan:3},{},{},
-              ],
-              [              
-                { image: IMG[3].DIRECCION, width: 225, height: 50, style: "img_firmas", border: [true,false,false,true], colSpan:4},{},{},{},
-                { image: IMG[0].NOMBRE_FIRMA, width: 200, height: 40, style: "img", border: [false,false,true,true], colSpan:3},{},{},
-              ],
-            ]
-          }
-        });
+          console.log("simon",queja_sugerencia.evidencias[i]);
+
+          indice_actual = datos.content.length -1;
+
+          datos.content.push([
+
+            { image: formato+queja_sugerencia.evidencias[i], width: 100, height: 50 },
+  
+          ]);
+
+        }
+
+
+
+
 
 
 

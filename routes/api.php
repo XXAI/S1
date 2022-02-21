@@ -53,6 +53,8 @@ Route::group(['middleware'=>'auth'],function($router){
     Route::post('guardar-reporte',               'API\Modulos\ConcentradosController@guardarReporte');
     Route::get('exportar-concentrado',           'API\Modulos\ConcentradosController@exportExcel');
 
+    Route::get('queja-sugerencia/{id}',      'API\Modulos\QuejasSugerenciasController@ImprimirQS');
+
     /**
      *  Modulo de Reportes
      */

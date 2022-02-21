@@ -33,7 +33,7 @@ class QuejasSugerenciasController extends Controller
     {
         $parametros = $request->all();
 
-        $lista_quejas_sugerencias = QuejaSugerencia::select('quejas_sugerencias.*');
+        $lista_quejas_sugerencias = QuejaSugerencia::select('quejas_sugerencias.*')->with('evidencias');
 
         // if(isset($parametros['tipo_sexo']) && $parametros['tipo_sexo']){
         //     $lista_quejas_sugerencias = $lista_donadores->where('sexo',$parametros['tipo_sexo']);
@@ -61,6 +61,28 @@ class QuejasSugerenciasController extends Controller
         }
 
         return response()->json(['data'=>$lista_quejas_sugerencias], HttpResponse::HTTP_OK);
+    }
+
+    public function ImprimirQS(Request $request, $id)
+    {
+        try{
+
+            $parametros = $request->all();
+
+            $queja_sugerencia = QuejaSugerencia::with('evidencias')->find($id);
+
+            foreach ($queja_sugerencia->evidencias as $key => $value) {
+
+                $queja_sugerencia->evidencias[$key] = base64_encode(Storage::disk('evidencias')->get($value->url));
+            
+            }
+                            
+            
+        return response()->json(['data'=>$queja_sugerencia],HttpResponse::HTTP_OK);
+
+        }catch(\Exception $e){
+            return response()->json(['error'=>['message'=>$e->getMessage(),'line'=>$e->getLine()]], HttpResponse::HTTP_CONFLICT);
+        }
     }
 
 

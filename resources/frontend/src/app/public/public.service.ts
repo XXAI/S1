@@ -12,7 +12,8 @@ export class PublicService {
   private http_upload: HttpClient;
   private api: string;
 
-  url                                     = `${environment.base_url}/quejas-sugerencias`;                         
+  url                                     = `${environment.base_url}/quejas-sugerencias`;
+  ur_imprimir                             = `${environment.base_url}/queja-sugerencia`;
   url_info_donante                        = `${environment.base_url}/qr-donador/`;
   // url_catalogo_diagnostico_autocomplet    = `${environment.base_url}/busqueda-diagnosticos`;
   url_personas_callcenter                 = `http://contingencia.saludchiapas.gob.mx/api/search-personas`;
@@ -54,6 +55,22 @@ export class PublicService {
       }
     ));
   }
+
+  getQuejaSugerenciaImprimir(id:any) {
+    return this.http.get<any>(this.ur_imprimir+'/'+id).pipe(
+      map( (response: any) => {
+        return response;
+      }
+    ));
+  }
+
+  // getQuejaSugerenciaImprimir(id:any,payload:any):Observable<any>{
+  //   return this.http.get<any>(this.ur_imprimir + id, {params:payload}).pipe(
+  //     map( (response: any) => {
+  //       return response;
+  //     })
+  //   );
+  // }
 
   verInfoQuejaSugerencia(id:any,payload:any):Observable<any>{
     return this.http.get<any>(this.url_info_donante + id, {params:payload}).pipe(

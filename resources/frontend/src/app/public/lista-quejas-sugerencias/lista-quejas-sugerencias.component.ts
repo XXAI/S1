@@ -24,6 +24,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { AuthService } from '../../auth/auth.service';
 import { formatDate } from '@angular/common';
 
+import { environment } from '../../../environments/environment'
 
 
 @Component({
@@ -47,11 +48,15 @@ import { formatDate } from '@angular/common';
 })
 export class ListaQuejasSugerenciasComponent implements OnInit {
 
+  public url_img_referencia: string = `${environment.url}/public/`;
+
   isLoading: boolean = false;
   isLoadingPDF: boolean = false;
   isLoadingPDFArea: boolean = false;
   isLoadingAgent: boolean = false;
   mediaSize: string;
+
+  dataQS:any = '';
 
   showMyStepper:boolean = false;
   showReportForm:boolean = false;
@@ -118,6 +123,8 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
   @ViewChild(MatExpansionPanel, {static:false}) advancedFilter: MatExpansionPanel;
 
   ngOnInit() {
+
+    console.log(this.url_img_referencia);
 
     this.mediaObserver.media$.subscribe(
       response => {
@@ -598,11 +605,11 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
     );
   }
 
-  QRDonante(obj, index){
+  QuejaSugerenciaPDF(obj){
 
     console.log("acaaa",obj);
 
-    this.selectedItemIndex = index;
+    //this.selectedItemIndex = index;
 
       //this.showMyStepper = true;
       this.isLoadingPDF = true;
@@ -615,7 +622,7 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
 
       let appStoredData = this.sharedService.getArrayDataFromCurrentApp(['searchQuery','filter']);
       
-      params.reporte = 'registro-donador';
+      params.reporte = 'queja-sugerencia-pdf';
       if(appStoredData['searchQuery']){
         params.query = appStoredData['searchQuery'];
       }
@@ -656,7 +663,7 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
           this.stepperConfig.steps[1].status = 3;
           this.stepperConfig.steps[2].status = 2;
           this.stepperConfig.currentIndex = 2;
-          FileSaver.saveAs(data.data,'Registro-Donador '+'('+fecha_reporte+')');
+          FileSaver.saveAs(data.data,'Queja-Sugerencia'+'('+fecha_reporte+')');
           reportWorker.terminate();
 
           this.stepperConfig.steps[2].status = 3;
@@ -677,8 +684,25 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
         title: "Registro de Donación",
         showSigns: this.reportIncludeSigns, 
       };
-      reportWorker.postMessage({data:{items: obj, config:config, fecha_actual: this.fechaActual},reporte:'/registro-donante'});
+      reportWorker.postMessage({data:{items: obj, config:config, fecha_actual: this.fechaActual},reporte:'/imprimir-queja-sugerencia'});
       this.isLoading = false;
+  }
+
+  QuejaSugerenciaImprimir(id:any){
+    console.log("el id",id);
+
+    this.isLoading = true;
+
+    this.publicService.getQuejaSugerenciaImprimir(id).subscribe(
+      response =>{
+        
+        this.dataQS = response.data;
+        this.QuejaSugerenciaPDF(this.dataQS);
+
+        console.log(this.dataQS);
+
+        this.isLoading = false;
+      });
   }
 
 }

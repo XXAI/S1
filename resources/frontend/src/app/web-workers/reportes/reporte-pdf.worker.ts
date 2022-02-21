@@ -1,15 +1,15 @@
 /// <reference lib="webworker" />
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { ReporteRegistroDonante } from './registro-donante';
-import { ReporteCapturaDonantes } from './reporte-donantes';
+import { ImprimirQuejaSugerencia } from './imprimir-queja-sugerencia';
+//import { ReporteCapturaDonantes } from './reporte-donantes';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const reportes = {
 
-  '/registro-donante' : new ReporteRegistroDonante(),
-  '/reporte-donantes' : new ReporteCapturaDonantes(),
+  '/imprimir-queja-sugerencia' : new ImprimirQuejaSugerencia(),
+  //'/reporte-donantes' : new ReporteCapturaDonantes(),
   
 
 };
