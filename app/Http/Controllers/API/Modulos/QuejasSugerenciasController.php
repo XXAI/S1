@@ -287,12 +287,14 @@ class QuejasSugerenciasController extends Controller
             if ($im !== false) {
                 $name = $i."_".$nombre.".jpg";
                 header('Content-Type', 'image/jpeg');
+
+                //dd($im.$name);
                 // $content = Storage::disk('public')->get('/EvidenciaQuejaSugerencia');
                 // Storage::put('/public/EvidenciaQuejaSugerencia/'.$im.$name, $content);
 
                 Storage::disk('evidencias')->put($im.$name, $data);
                 imagedestroy($im);
-                return $name;
+                return $im.$name;
             }
             else {
                 return null;

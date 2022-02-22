@@ -66,7 +66,8 @@ export class ImprimirQuejaSugerencia{
             }
           },
 
-          content: [],
+          content: [
+          ],
 
             styles: {
               cabecera: {
@@ -120,36 +121,147 @@ export class ImprimirQuejaSugerencia{
                 alignment:"left",
                 fontSize: 8
               },
-              img:
+              centrado:
               {
                 alignment:"center"
               },
-              img_firmas:
-              {
-                alignment:"left"
+              queja_sugerencia_title:{
+                alignment:"left",
+                fontSize: 11,
+                bold:true,
+                fillColor:"#890000",
+                color: "white",
               },
-              img_testigos:
-              {
-                alignment:"right"
-              }
+              queja_sugerencia_datos:{
+                fontSize: 11
+              },
             }
         };
 
         let indice_actual;
 
-        for(let i = 0; i < queja_sugerencia.evidencias.length; i++){
+        datos.content.push({
+          layout: 'noBorders',
+          table: {
+           widths: ['*'],
+            margin: [0,0,0,0],
+            body: [
+              [
+                { text: " \n\n"}
+              ]
+            ]
+          }
+        });
 
-          console.log("simon",queja_sugerencia.evidencias[i]);
+        datos.content.push({
+          table: {
+            margin: [0,0,0,0],
+            widths: [ 60, '*', 70, '*', 60, 65],
+            body: [
+              [
+                {text: "Fecha:",                                                           style: "queja_sugerencia_title"},
+                {text: queja_sugerencia?.fecha_acontecimiento,                             style: "queja_sugerencia_datos", colSpan: 3 },
+                {text: ""},
+                {text: ""},
+                {text: "N° Folio:",                                                         style: "queja_sugerencia_title"},
+                {text: queja_sugerencia?.folio,                                            style: "queja_sugerencia_datos"},
+              ],
+              [
 
-          indice_actual = datos.content.length -1;
+                {text: "Testigo :",                                                        style: "queja_sugerencia_title"},
+                {text:  (queja_sugerencia?.nombre_completo == "" || queja_sugerencia?.nombre_completo == null ? 'Denuncia Anónima' : queja_sugerencia?.nombre_completo),  style: "queja_sugerencia_datos", colSpan: 2},
+                {text: ""},
+                {text: "Celular",                                                          style: "queja_sugerencia_title" },
+                {text: (queja_sugerencia?.numero_celular == "" || queja_sugerencia?.numero_celular == null ? 'Denuncia Anónima' : queja_sugerencia?.numero_celular),      style: "queja_sugerencia_datos", colSpan: 2},
+                {text: ""},
+              ],
+              [
+                {text: "N° Placas:",                                              style: "queja_sugerencia_title"},
+                {text: (queja_sugerencia?.numero_de_placa == "" || queja_sugerencia?.numero_de_placa == null ? 'Sin Registro' : queja_sugerencia?.numero_de_placa),                style: "queja_sugerencia_datos", colSpan: 5 },
+                {text: ""},
+                {text: ""},
+                {text: ""},
+                {text: ""},
+              ],
+              [
+                {text: "Lugar:",                                              style: "queja_sugerencia_title"},
+                {text: queja_sugerencia?.lugar_acontecimiento,                style: "queja_sugerencia_datos", colSpan: 5 },
+                {text: ""},
+                {text: ""},
+                {text: ""},
+                {text: ""},
+              ],
+              [
+                {text: "Motivo:",                               style: "queja_sugerencia_title"},
+                {text: queja_sugerencia?.motivo,                style: "queja_sugerencia_datos", colSpan: 5 },
+                {text: ""},
+                {text: ""},
+                {text: ""},
+                {text: ""},
+              ],
+              [
+                {text: "Observaciones:",                                      style: "queja_sugerencia_title", colSpan: 2},
+                {text: ""},
+                {text: queja_sugerencia?.observaciones,                       style: "queja_sugerencia_datos", colSpan: 4 },
+                {text: ""},
+                {text: ""},
+                {text: ""},
+              ],
+              [
+                {text:'', colSpan:6, border: [false, false, false, false]}
+              ]
+            ]
+          }
+        });
 
-          datos.content.push([
+        datos.content.push({
+          layout: 'noBorders',
+          columnGap: 30,
+          table: {
+           widths: ['*'],
+            margin: [0,0,0,0],
+            body: [
+              [
+                { text: " \n\n\n"}
+              ]
+            ]
+          }
+        });
 
-            { image: formato+queja_sugerencia.evidencias[i], width: 100, height: 50 },
+        if(queja_sugerencia.evidencias.length > 0){
+
+          //datos.content.push({ text:'', pageBreak:'after' });
+
+          for(let i = 0; i < queja_sugerencia.evidencias.length; i++){
   
-          ]);
+            // indice_actual = datos.content.length -1;
+  
+            // datos.content.push([
+  
+            //   { image: formato+queja_sugerencia.evidencias[i], width: 100, height: 50 },
+    
+            // ]);
+  
+  
+            datos.content.push({
+              layout: 'noBorders',
+              table: {
+                alignment: "center",
+                widths: ['*'],
+                margin: [0,0,0,0],
+                body: [
+                  [
+                    { image: formato+queja_sugerencia.evidencias[i], "fit" : [535.28, 535.28], pageBreak: 'before', style: "centrado" },
+                  ],
+                ]
+              }
+            });
+  
+          }
 
         }
+
+
 
 
 

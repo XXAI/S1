@@ -48,8 +48,6 @@ import { environment } from '../../../environments/environment'
 })
 export class ListaQuejasSugerenciasComponent implements OnInit {
 
-  public url_img_referencia: string = `${environment.url}/public/`;
-
   isLoading: boolean = false;
   isLoadingPDF: boolean = false;
   isLoadingPDFArea: boolean = false;
@@ -123,8 +121,6 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
   @ViewChild(MatExpansionPanel, {static:false}) advancedFilter: MatExpansionPanel;
 
   ngOnInit() {
-
-    console.log(this.url_img_referencia);
 
     this.mediaObserver.media$.subscribe(
       response => {
@@ -681,7 +677,7 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
       );
       
       let config = {
-        title: "Registro de Donación",
+        title: "Registro de Acontecimientos de Queja/Sugerencia Vehiculares",
         showSigns: this.reportIncludeSigns, 
       };
       reportWorker.postMessage({data:{items: obj, config:config, fecha_actual: this.fechaActual},reporte:'/imprimir-queja-sugerencia'});
