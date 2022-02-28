@@ -11,6 +11,8 @@ use App\Http\Requests;
 
 use \Validator, Exception \Hash, \Response, \File, \Store;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 use Illuminate\Support\Str;
 
 
@@ -177,7 +179,7 @@ class QuejasSugerenciasController extends Controller
         $datos = $request->all();
         
 
-        $datos['folio'] = Str::random(10);
+        $datos['folio'] = mb_strtoupper(Str::random(10), 'UTF-8');
 
         $reglas = [
 
@@ -250,6 +252,7 @@ class QuejasSugerenciasController extends Controller
                                     $evidencia->url                              = $this->convertir_imagen($img->foto, 'evidencia', $registro_queja_sugerencia->id);
 
                                     $evidencia->save();
+                                    $this->sendEmail($registro_queja_sugerencia->folio);
                                     DB::commit();
                                 }else{
                                     if (file_exists(public_path()."/public/EvidenciaQuejaSugerencia/".$img->foto)){
@@ -275,6 +278,25 @@ class QuejasSugerenciasController extends Controller
         }
 
             
+    }
+
+    public function sendEmail($folio){
+        $folio = $this->cargarFolio($folio);
+        Mail::to('alejandro_gosain@hotmail.com')->cc(['miguelaespinosa01@gmail.com','ragucaru80@gmail.com'])->send(new SendMail($folio));
+
+
+
+
+    }
+
+
+    public function cargarFolio($folio){
+      $queja_sugerencia = DB::table('quejas_sugerencias')->where('folio', $folio)->first();
+
+      if($queja_sugerencia) {
+        return $queja_sugerencia->folio;
+      }
+
     }
 
     public function convertir_imagen($data, $nombre, $i){
@@ -305,8 +327,6 @@ class QuejasSugerenciasController extends Controller
         }
     }
 
-
-    
 
 
 }
