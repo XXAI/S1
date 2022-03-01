@@ -281,8 +281,16 @@ class QuejasSugerenciasController extends Controller
     }
 
     public function sendEmail($folio){
+
+
         $folio = $this->cargarFolio($folio);
-        Mail::to('alejandro_gosain@hotmail.com')->cc(['miguelaespinosa01@gmail.com','ragucaru80@gmail.com'])->send(new SendMail($folio));
+        
+        foreach (['alejandro_gosain@hotmail.com', 'miguelaespinosa01@gmail.com', 'ragucaru80@gmail.com'] as $correos) {
+            Mail::to($correos)->send(new SendMail($folio));
+        }
+        // Mail::to('alejandro_gosain@hotmail.com')
+        //     ->cc(['miguelaespinosa01@gmail.com','ragucaru80@gmail.com'])
+        //     ->send(new SendMail($folio));
 
 
 
