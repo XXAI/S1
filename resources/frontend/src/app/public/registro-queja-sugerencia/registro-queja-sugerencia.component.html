@@ -1,4 +1,4 @@
-<section fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start" style="padding:10px; height: 100%; overflow: auto; flex: 1 1 0%;">
+<section fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start" style="padding: 10px; height: 100%; overflow: auto; flex: 1 1 0%;">
     <div class="form-loading-shade" *ngIf="isLoading"><mat-spinner></mat-spinner></div>
 
     <!-- <section fxFlex fxLayout="row">
@@ -18,13 +18,10 @@
 
     </section> -->
 
-
     <section fxFlex fxLayout="row">
-
         <section fxFlex></section>
 
         <mat-card fxFlex="100" fxLayout="column">
-
             <!-- <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" fxLayoutAlign="space-around center">
                 <div fxLayoutAlign="start center">
                     <img style="width:35%" src="assets/icons/logo.jpeg" alt="">
@@ -38,16 +35,16 @@
 
             <mat-card-header>
                 <div fxLayout.gt-sm="row" fxFlex="1 0 0" fxLayoutAlign="space-between">
-                   <div fxLayout="row" fxLayoutGap="11px" fxLayoutAlign="start center">
-                    <img style="width:90%" src="assets/icons/salud_gobierno_logo.png" alt="">
-                 </div>
-                 <div fxLayout="row" fxLayoutGap="11px" fxLayoutAlign="end center">
-                    <img style="width:70%" src="assets/icons/salud_logo.png" alt="">
-                 </div>
-               </div>
+                    <div fxLayout="row" fxLayoutGap="11px" fxLayoutAlign="start center">
+                        <img style="width: 90%;" src="assets/icons/salud_gobierno_logo.png" alt="" />
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="11px" fxLayoutAlign="end center">
+                        <img style="width: 70%;" src="assets/icons/salud_logo.png" alt="" />
+                    </div>
+                </div>
             </mat-card-header>
-            <br>
-            
+            <br />
+
             <!-- <section fxFlex="none" fxLayout="row">
 
                 <div fxFlex></div>
@@ -66,35 +63,30 @@
             </section> -->
 
             <section fxflex="none" fxLayout="column" [formGroup]="quejaSugerenciaForm">
-
-                <div  fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" >
-                    <mat-radio-group  fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" fxLayout.xs ="row" fxLayout.sm ="row" formControlName="esAnonimo" aria-label="Select an option">
+                <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+                    <mat-radio-group fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" fxLayout.xs="row" fxLayout.sm="row" formControlName="esAnonimo" aria-label="Select an option">
                         <label><strong>¿Es Anonimo?</strong></label>
-                        <mat-radio-button class="formulario-radio-button" [value]=1 (change)="es_anonimo($event.value)">SI</mat-radio-button>
-                        <mat-radio-button class="formulario-radio-button" [value]=0 (change)="es_anonimo($event.value)">NO</mat-radio-button>
+                        <mat-radio-button class="formulario-radio-button" [value]="1" (change)="es_anonimo($event.value)">SI</mat-radio-button>
+                        <mat-radio-button class="formulario-radio-button" [value]="0" (change)="es_anonimo($event.value)">NO</mat-radio-button>
                     </mat-radio-group>
                 </div>
-    
+
                 <div *ngIf="quejaSugerenciaForm.get('esAnonimo').value == 0" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
-    
-                    <mat-form-field appearance="fill" fxFlex >
+                    <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Nombre Completo:</mat-label>
-                        <input matInput id="nombre_completo" formControlName="nombre_completo" placeholder="Nombre Completo">
+                        <input matInput id="nombre_completo" formControlName="nombre_completo" placeholder="Nombre Completo" />
                         <!-- <mat-error *ngIf="quejaSugerenciaForm.get('nombre_completo').invalid && (quejaSugerenciaForm.get('nombre_completo').dirty || quejaSugerenciaForm.get('nombre_completo').touched)">
                             <span *ngIf="quejaSugerenciaForm.get('nombre_completo').errors.required">El Nombre Completo es obligatorio</span>
                         </mat-error> -->
                     </mat-form-field>
-    
-    
-                    <mat-form-field  appearance="fill" fxFlex>
+
+                    <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Número Celular:</mat-label>
-                        <input matInput (keypress)="soloNumeros($event)" id="numero_celular" formControlName="numero_celular" placeholder="Telefono de Contacto">
+                        <input matInput (keypress)="soloNumeros($event)" id="numero_celular" formControlName="numero_celular" placeholder="Telefono de Contacto" />
                     </mat-form-field>
-    
                 </div>
 
                 <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
-
                     <!-- <mat-form-field  appearance="fill" fxFlex>
                         <mat-label>Fecha del Acontecimiento: </mat-label>
                         <input type="date" matInput formControlName="fecha_acontecimiento" placeholder="Año/Mes/Día">
@@ -104,103 +96,82 @@
 
                     <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Fecha del Acontecimiento: </mat-label>
-                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fecha_acontecimiento" formControlName="fecha_acontecimiento" placeholder="Año/Mes/Día">
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fecha_acontecimiento" formControlName="fecha_acontecimiento" placeholder="Año/Mes/Día" />
                         <mat-datepicker-toggle matSuffix [for]="fecha_acontecimiento"></mat-datepicker-toggle>
                         <mat-datepicker #fecha_acontecimiento></mat-datepicker>
                     </mat-form-field>
 
-                    <mat-form-field  appearance="fill" fxFlex>
+                    <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Número de Placa: </mat-label>
-                        <input matInput formControlName="numero_de_placa" placeholder="Número de Placa" >
+                        <input matInput formControlName="numero_de_placa" placeholder="Número de Placa" />
                         <!-- <mat-error *ngIf="quejaSugerenciaForm.get('lugar_acontecimiento').invalid && (quejaSugerenciaForm.get('lugar_acontecimiento').dirty || quejaSugerenciaForm.get('lugar_acontecimiento').touched)">
                             <span *ngIf="quejaSugerenciaForm.get('lugar_acontecimiento').errors.required">La edad se calcula capturando la fecha de nacimiento</span>
                         </mat-error> -->
                     </mat-form-field>
-    
-    
-                    <mat-form-field  appearance="fill" fxFlex>
+
+                    <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Lugar del Acontecimiento: </mat-label>
-                        <input matInput formControlName="lugar_acontecimiento" placeholder="Lugar del Acontecimiento" >
+                        <input matInput formControlName="lugar_acontecimiento" placeholder="Lugar del Acontecimiento" />
                         <!-- <mat-error *ngIf="quejaSugerenciaForm.get('lugar_acontecimiento').invalid && (quejaSugerenciaForm.get('lugar_acontecimiento').dirty || quejaSugerenciaForm.get('lugar_acontecimiento').touched)">
                             <span *ngIf="quejaSugerenciaForm.get('lugar_acontecimiento').errors.required">La edad se calcula capturando la fecha de nacimiento</span>
                         </mat-error> -->
                     </mat-form-field>
-    
                 </div>
 
                 <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
-
                     <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Motivo de la Queja/Sugerencia: </mat-label>
-                        <textarea matInput class="uppercase" id="motivo" formControlName="motivo" placeholder="Motivo de la Queja/Sugerencia" ></textarea>
+                        <textarea matInput class="uppercase" id="motivo" formControlName="motivo" placeholder="Motivo de la Queja/Sugerencia"></textarea>
                         <mat-error *ngIf="quejaSugerenciaForm.get('motivo').invalid && (quejaSugerenciaForm.get('motivo').dirty || quejaSugerenciaForm.get('motivo').touched)">
                             <span *ngIf="quejaSugerenciaForm.get('motivo').errors.required">El Campo es obligatorio</span>
                         </mat-error>
                     </mat-form-field>
 
-
                     <mat-form-field appearance="fill" fxFlex>
                         <mat-label>Observaciones de la Queja/Sugerencia: </mat-label>
-                        <textarea matInput class="uppercase" id="observaciones" formControlName="observaciones" placeholder="Observaciones de la Queja/Sugerencia" ></textarea>
+                        <textarea matInput class="uppercase" id="observaciones" formControlName="observaciones" placeholder="Observaciones de la Queja/Sugerencia"></textarea>
                         <!-- <mat-error *ngIf="quejaSugerenciaForm.get('observaciones').invalid && (quejaSugerenciaForm.get('observaciones').dirty || quejaSugerenciaForm.get('observaciones').touched)">
                             <span *ngIf="quejaSugerenciaForm.get('observaciones').errors.required">El Campo es obligatorio</span>
                         </mat-error> -->
                     </mat-form-field>
-
                 </div>
 
+                <br />
 
-                    <!-- <mat-card-content>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3px">
-                            <div fxFlex="70" fxFlex.xs="100">
-                                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3px">
-                                    <div fxFlex="100" fxFlex.xs="100">
-                                        <button mat-raised-button color="accent" onclick="document.getElementById('getFile').click()">Seleccionar Imagen</button>
-                                        <input type='file' id="getFile" style="display:none" (change)="fileChangeEvent($event)" accept="image/jpeg">
-                                    </div>
-
-                                </div>
-                                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3px">
-                                    <div fxFlex="70" fxFlex.xs="100" *ngIf="imageChangedEvent != ''">
-                                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" autoCrop="false" [imageQuality]="95" [aspectRatio]="8 / 8" [resizeToWidth]="256" alignImage="center" format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
-                                            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div *ngIf="croppedImage != ''" fxFlex="30" fxFlex.xs="100">
-
-                                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px">
-                                    <div fxFlex="100" fxFlex.xs="100">
-                                        <h5>Vista Previa</h5>
-                                        <img [src]="croppedImage" width="70%" />
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </mat-card-content> -->
-
-
-                    <div  formGroupName="evidencias">
-
-                      <div formArrayName="img">
-
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3px">
+                <div formGroupName="evidencias">
+                    <div formArrayName="img">
+                        <div fxLayout="row" fxLayout.xs="row" fxLayoutGap="3px">
                             <div fxFlex="100" fxFlex.xs="100">
-                                <button mat-raised-button color="accent" onclick="document.getElementById('getFile').click()"> Seleccionar Imagenes (Evidencias)</button>
-                                <input type='file' multiple="multiple" id="getFile" style="display:none" (change)="seleccionarImagenBase64($event, quejaSugerenciaForm.get('evidencias')['controls']['img']['controls'], true)" accept=".jpeg, .jpg, .bmp, .png" placeholder="Imagen de la evidencia">
+                                <button mat-raised-button color="accent" onclick="document.getElementById('getFile').click()">Seleccionar Imagenes (Evidencias)</button>
+                                <input
+                                    type="file"
+                                    multiple="multiple"
+                                    id="getFile"
+                                    style="display: none;"
+                                    (change)="seleccionarImagenBase64($event, quejaSugerenciaForm.get('evidencias')['controls']['img']['controls'], true)"
+                                    accept=".jpeg, .jpg, .bmp, .png"
+                                    placeholder="Imagen de la evidencia"
+                                />
+                            </div>
+
+                            <div fxFlex="none">
+                                <button mat-raised-button color="primary" (click)="guardarQuejaSugerencia()" [disabled]="!quejaSugerenciaForm.valid || isLoading"><mat-icon>save</mat-icon> Guardar</button>
+                                <!-- (click)="registroDonante(null,null)" !quejaSugerenciaForm.valid ||  -->
                             </div>
                         </div>
-                        <br>
+                        <br />
                         <div class="container" fxLayout="row wrap" fxLayoutAlign="center none" fxLayoutGap="20px">
-                        
-                            <mat-card class="evidencias" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px" fxFlex="0 1 calc(70% - 70px)" *ngFor="let image of quejaSugerenciaForm.get('evidencias')['controls']['img']['controls']; let i=index">
-                              <img style="z-index:1001" class="image" mat-card-image [src]="'data:image/jpg;base64,'+image.value?.foto" alt="Imagen">
-                            
+                            <mat-card
+                                class="evidencias"
+                                fxLayout.gt-sm="row"
+                                fxLayout="column"
+                                fxLayoutGap.gt-sm="10px"
+                                fxFlex="0 1 calc(70% - 70px)"
+                                *ngFor="let image of quejaSugerenciaForm.get('evidencias')['controls']['img']['controls']; let i=index"
+                            >
+                                <img style="z-index: 1001;" class="image" mat-card-image [src]="'data:image/jpg;base64,'+image.value?.foto" alt="Imagen" />
 
-                              <mat-card-actions fxLayoutAlign="center center" >
-
+                                <mat-card-actions fxLayoutAlign="center center">
                                     <button mat-button color="primary" (click)="verImagen(i)">
                                         VER
                                     </button>
@@ -208,75 +179,12 @@
                                     <button mat-button color="warn" (click)="quitar_imagen_array(i);">
                                         ELIMINAR
                                     </button>
-
-                              </mat-card-actions>
+                                </mat-card-actions>
                             </mat-card>
-                        
                         </div>
-
-
-
-
-                        <!-- <div fxLayout.gt-sm="row" fxLayout="column" *ngFor="let image of quejaSugerenciaForm.get('evidencias')['controls']['img']['controls']; let i=index">
-                          
-                          <div *ngIf="image" >
-                              
-                            <img [src]="url_img_evidencia+image.value?.foto" alt="Imagen" width="100px" *ngIf="image.value?.es_url"/>                            
-                            <img [src]="'data:image/jpg;base64,'+image.value?.foto" alt="Imagen" width="100px" *ngIf="!image.value?.es_url"/>    
-
-                          </div>
-
-                          <div *ngIf="image && !image.value?.es_url"> 
-                            <div class="block">
-
-                                <button mat-raised-button color="primary" (click)="verImagen(i)">
-                                    <mat-icon>remove_red_eye</mat-icon>
-                                    Ver Imagen
-                                </button>
-
-                              <a id="borrarId{{i}}" (click)="quitar_form_array(quejaSugerenciaForm.get('evidencias')['controls']['img']['controls'],i);"></a>
-                              
-                              <a *ngIf="!image.value?.es_url || image.value?.foto ==''" (click)="quitar_form_array(quejaSugerenciaForm.get('evidencias')['controls']['img']['controls'],i);">
-                                  <span class="icon fa-2x has-text-danger">
-                                      <i class="fa fa-trash"></i>
-                                  </span>
-                              </a>
-                              
-                              <a *ngIf="image.value?.es_url && image.value?.foto !=''" (click)="borrarImagen($event, quejaSugerenciaForm.get('evidencias')['controls']['img']['controls'][i].controls.foto, 'evidencias', 'borrarId'+i);">
-                                  <span class="icon fa-2x has-text-danger">
-                                    <i class="fa fa-trash"></i>
-                                  </span>
-                              </a>
-
-
-                            </div>
-                          </div>
-
-                        </div> -->
-                      </div>
-
-
                     </div>
-
-
-
-
-            </section>
-            <br>
-
-            <section fxFlex="none" fxLayout="row" fxLayoutGap="5px">
-                <div fxFlex></div>
-                <!-- <div fxFlex="none">
-                    <button mat-button>Cancelar</button>
-                </div> -->
-                <div fxFlex="none">
-                    <button mat-raised-button color="primary" (click)="guardarQuejaSugerencia()" [disabled]="!quejaSugerenciaForm.valid || isLoading"><mat-icon>save</mat-icon> Guardar</button>
-                    <!-- (click)="registroDonante(null,null)" !quejaSugerenciaForm.valid ||  -->
                 </div>
             </section>
-            
         </mat-card>
-        <section fxFlex></section>
     </section>
-
 </section>

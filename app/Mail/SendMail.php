@@ -30,7 +30,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('Email.quejasSugerenciasRegister')->with([
+        return $this->markdown('Email.quejasSugerenciasRegister')->with([
             'folio' => $this->folio
         ]);
     }

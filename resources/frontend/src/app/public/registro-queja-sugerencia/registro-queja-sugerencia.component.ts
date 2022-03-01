@@ -117,7 +117,7 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
 
     });
 
-    this.quejaSugerenciaForm.get('fecha_acontecimiento').patchValue(this.formatoFecha(fecha));
+    this.quejaSugerenciaForm.get('fecha_acontecimiento').patchValue(fecha);
 
     this.route.params.subscribe(params => {
       
@@ -376,7 +376,6 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
   guardarQuejaSugerencia(){
 
     let datos =  this.quejaSugerenciaForm.value;
-
     // if(formData.entidad_federativa_id){
     //   formData.entidad_federativa_id = formData.entidad_federativa_id.id;
     // }
@@ -415,8 +414,6 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
 
     }else{
 
-      console.log('formulaaario', datos);
-
       this.publicService.createQuejaSugerencia(datos, this.FotoQuejaSugerencia, '').subscribe(
         response =>{
           console.log(response);
@@ -443,7 +440,9 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
 
           }else if(response.status == 409){
 
-            var error = response.errores.curp[0];
+            var error = response.errores;
+
+            console.log("www",response);
 
             this.sharedService.showSnackBar(error, 'Cerrar', 3000);
 
