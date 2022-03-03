@@ -298,12 +298,13 @@ class QuejasSugerenciasController extends Controller
         $correos = CatalogoCorreos::select('catalogo_correos.*')
         ->where('tipo_incidencia_id', 4)
         ->get();
+        
 
         $folio = $this->cargarFolio($folio_registro);
         
         foreach ($correos as $key => $correo) {
 
-            Mail::to($correos[$key]->$correo)->send(new SendMail($folio));
+            Mail::to($correo->email)->send(new SendMail($folio));
         }
         // Mail::to('alejandro_gosain@hotmail.com')
         //     ->cc(['miguelaespinosa01@gmail.com','ragucaru80@gmail.com'])
