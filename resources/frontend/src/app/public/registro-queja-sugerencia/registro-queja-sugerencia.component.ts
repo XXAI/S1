@@ -100,6 +100,7 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
     this.quejaSugerenciaForm = this.fb.group ({
 
       id:[''],
+      tipo_incidencia_id:[4],
       folio:[''],
       motivo:['',Validators.required],
       observaciones:[''],
@@ -114,6 +115,9 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
       evidencias: this.fb.group({
         img: this.fb.array([])
       }),
+      datos_usuarios:[null],
+      preguntas:[null],
+      respuestas:[null]
 
     });
 

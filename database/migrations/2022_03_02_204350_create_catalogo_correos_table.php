@@ -14,8 +14,12 @@ class CreateCatalogoCorreosTable extends Migration
     public function up()
     {
         Schema::create('catalogo_correos', function (Blueprint $table) {
-            $table->id();
             
+            $table->smallIncrements('id')->unsigned();
+            $table->smallInteger('tipo_incidencia_id')->unsigned()->index();
+            $table->string('email')->index();
+            $table->string('nombre_responsable')->index();
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -80,7 +80,8 @@ Muchas gracias,<br>
                 <tr>
                     <td>
                         <div class="centrado datos">
-                            <a href="https://quejasysugerencias.saludchiapas.gob.mx/vehiculos/public/#/login"><img src='https://quejasysugerencias.saludchiapas.gob.mx/vehiculos/public/assets/icons/ambulancia.svg' alt="Ir a quejas y sugerencias"/></a>
+                            <h2>{{ $folio }}</h2>
+                            <a href="https://quejasysugerencias.saludchiapas.gob.mx/vehiculos/public/#/login"><img src='https://quejasysugerencias.saludchiapas.gob.mx/vehiculos/public/assets/icons/registro_incidencias_email.png' alt="Verificar Incidencia"/></a>
                             {{-- <img src='../aviso.png' width="100px"/> --}}
                         </div>
                     </td>

@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 
 
 use App\Models\QuejaSugerencia;
+use App\Models\CatalogoCorreos;
 use App\Models\Evidencia;
 // use App\Exports\DonadoresExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -294,11 +295,15 @@ class QuejasSugerenciasController extends Controller
 
     public function sendEmail($folio_registro){
 
+        $correos = CatalogoCorreos::select('catalogo_correos.*')
+        ->where('tipo_incidencia_id', 4)
+        ->get();
 
         $folio = $this->cargarFolio($folio_registro);
         
-        foreach (['alejandro_gosain@hotmail.com', 'miguelaespinosa01@gmail.com', 'ragucaru80@gmail.com'] as $correos) {
-            Mail::to($correos)->send(new SendMail($folio));
+        foreach ($correos as $key => $correo) {
+
+            Mail::to($correos[$key]->$correo)->send(new SendMail($folio));
         }
         // Mail::to('alejandro_gosain@hotmail.com')
         //     ->cc(['miguelaespinosa01@gmail.com','ragucaru80@gmail.com'])

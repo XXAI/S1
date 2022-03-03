@@ -65,9 +65,9 @@
             <section fxflex="none" fxLayout="column" [formGroup]="quejaSugerenciaForm">
                 <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
                     <mat-radio-group fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" fxLayout.xs="row" fxLayout.sm="row" formControlName="esAnonimo" aria-label="Select an option">
-                        <label><strong>¿Es Anonimo?</strong></label>
-                        <mat-radio-button class="formulario-radio-button" [value]="1" (change)="es_anonimo($event.value)">SI</mat-radio-button>
-                        <mat-radio-button class="formulario-radio-button" [value]="0" (change)="es_anonimo($event.value)">NO</mat-radio-button>
+                        <label><strong>¿Es una?</strong></label>
+                        <mat-radio-button class="formulario-radio-button" [value]="1" (change)="es_anonimo($event.value)">Sugerencia</mat-radio-button>
+                        <mat-radio-button class="formulario-radio-button" [value]="0" (change)="es_anonimo($event.value)">Queja</mat-radio-button>
                     </mat-radio-group>
                 </div>
 

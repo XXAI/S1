@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusQuejaSugerenciaTable extends Migration
+class CreateCatalogoStatusQuejaSugerenciaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateStatusQuejaSugerenciaTable extends Migration
      */
     public function up()
     {
-        Schema::create('status_queja_sugerencia', function (Blueprint $table) {
+        Schema::create('catalogo_status_queja_sugerencia', function (Blueprint $table) {
             $table->smallIncrements('id')->unsigned()->index();
             $table->string('nombre')->index();
             $table->string('descripcion')->nullable()->index();
@@ -31,6 +31,6 @@ class CreateStatusQuejaSugerenciaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_queja_sugerencia');
+        Schema::dropIfExists('catalogo_status_queja_sugerencia');
     }
 }
