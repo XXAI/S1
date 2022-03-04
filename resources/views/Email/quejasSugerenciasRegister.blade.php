@@ -80,7 +80,7 @@ Muchas gracias,<br>
                 <tr>
                     <td>
                         <div class="centrado datos">
-                            <h2>{{ $folio }}</h2>
+                            <p>Folio de la Incidencia: <strong>{{ $folio }}</strong></p>
                             <a href="https://quejasysugerencias.saludchiapas.gob.mx/vehiculos/public/#/login"><img src='https://quejasysugerencias.saludchiapas.gob.mx/vehiculos/public/assets/icons/registro_incidencias_email.png' alt="Verificar Incidencia"/></a>
                             {{-- <img src='../aviso.png' width="100px"/> --}}
                         </div>
