@@ -18,6 +18,9 @@ import { MediaObserver } from '@angular/flex-layout';
 import { ReportWorker } from '../../web-workers/report-worker';
 import * as FileSaver from 'file-saver';
 
+import { CompressImageService } from './compress-image.service';
+import { take } from 'rxjs/operators';
+
 
 
 @Component({
@@ -72,7 +75,8 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
     public router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    public mediaObserver: MediaObserver
+    public mediaObserver: MediaObserver,
+    private compressImage: CompressImageService
   ) {}
 
   ngOnInit() {
@@ -254,6 +258,18 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
       // show message
   }
 
+  upload(event) {
+    let image: File = event.target.files[0]
+    console.log(`Image size before compressed: ${image.size} bytes.`)
+
+    this.compressImage.compress(image)
+      .pipe(take(1))
+      .subscribe(compressedImage => {
+        console.log(`Image size after compressed: ${compressedImage.size} bytes.`)
+        // now you can do upload the compressed image 
+      })
+  }
+
   error_archivo = false;
   seleccionarImagenBase64(evt, modelo, multiple: boolean = false, index: number = 0) {
 
@@ -286,9 +302,14 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
           var objeto = [];let este = this;
           for (var i = 0, f; f = files[i]; i++) {
               var reader = new FileReader();
-              reader.readAsBinaryString(f);
-              
-              reader.onload = (function (theFile) {
+
+              this.compressImage.compress(f)
+              .pipe(take(1))
+              .subscribe(compressedImage => {
+                console.log(`Image size after compressed: ${compressedImage.size} bytes.`)
+                reader.readAsBinaryString(compressedImage);
+
+                reader.onload = (function (theFile) {
                   return function (e) {
                       try {
                           modelo.push(este.fb.group(
@@ -303,7 +324,13 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
                           esto.error_archivo = true;
                       }
                   }
-              })(f);
+              })(compressedImage);
+                // now you can do upload the compressed image 
+              })
+
+              
+              
+
           }
       }
       
