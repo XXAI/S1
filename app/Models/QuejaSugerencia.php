@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
 //use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,6 +13,7 @@ class QuejaSugerencia extends Model
     protected $fillable = [
         
         'id',
+        'tipo_incidencia_id',
         'folio',
         'esAnonimo',
         'nombre_completo',
@@ -21,7 +23,17 @@ class QuejaSugerencia extends Model
         'lugar_acontecimiento',
         'motivo',
         'observaciones',
+        'datos_usuarios',
+        'preguntas',
+        'respuestas'
 
+    ];
+
+    protected $casts = [
+
+        'preguntas' => Json::class,
+        'respuestas' => Json::class
+        
     ];
 
     public function evidencias(){

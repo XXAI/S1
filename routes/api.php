@@ -33,7 +33,8 @@ Route::post('catalogos',                        'API\Catalogos\BusquedaCatalogos
 Route::get('qr-donador/{codigo}',      'API\Modulos\DonantesController@obtenerDatosDonante');
 
 //Donantes Lista
-Route::apiResource('quejas-sugerencias',  'API\Modulos\QuejasSugerenciasController');
+Route::apiResource('quejas-sugerencias',  'API\Modulos\QuejasSugerenciasController')->only(['store']);
+
 
 
 Route::group(['middleware'=>'auth'],function($router){
@@ -54,6 +55,8 @@ Route::group(['middleware'=>'auth'],function($router){
     Route::get('exportar-concentrado',           'API\Modulos\ConcentradosController@exportExcel');
 
     Route::get('queja-sugerencia/{id}',      'API\Modulos\QuejasSugerenciasController@ImprimirQS');
+    Route::apiResource('quejas-sugerencias',  'API\Modulos\QuejasSugerenciasController')->only(['index', 'show']);
+    Route::apiResource('quejas-sugerencias-generales',  'API\Modulos\QJGeneralesController');
 
     /**
      *  Modulo de Reportes

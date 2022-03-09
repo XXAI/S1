@@ -13,6 +13,7 @@ export class PublicService {
   private api: string;
 
   url                                     = `${environment.base_url}/quejas-sugerencias`;
+  url_qj_general                          = `${environment.base_url}/quejas-sugerencias-generales`;
   ur_imprimir                             = `${environment.base_url}/queja-sugerencia`;
   url_info_donante                        = `${environment.base_url}/qr-donador/`;
   // url_catalogo_diagnostico_autocomplet    = `${environment.base_url}/busqueda-diagnosticos`;
@@ -30,6 +31,14 @@ export class PublicService {
     this.http_upload = new HttpClient(handler);
     this.api = environment.base_url;
     
+  }
+
+  getQJGeneralesList(payload):Observable<any> {
+    return this.http.get<any>(this.url_qj_general,{params: payload}).pipe(
+      map( response => {
+        return response;
+      })
+    );
   }
 
   getDonantesList(payload):Observable<any> {

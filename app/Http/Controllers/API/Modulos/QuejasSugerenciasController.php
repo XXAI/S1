@@ -36,7 +36,8 @@ class QuejasSugerenciasController extends Controller
     {
         $parametros = $request->all();
 
-        $lista_quejas_sugerencias = QuejaSugerencia::select('quejas_sugerencias.*')->with('evidencias');
+        $lista_qj_generales = QuejaSugerencia::select('quejas_sugerencias.*')->with('evidencias')
+        ->where('tipo_incidencia_id', 4);
 
         // if(isset($parametros['tipo_sexo']) && $parametros['tipo_sexo']){
         //     $lista_quejas_sugerencias = $lista_donadores->where('sexo',$parametros['tipo_sexo']);
@@ -57,13 +58,13 @@ class QuejasSugerenciasController extends Controller
         if(isset($parametros['page'])){
             $resultadosPorPagina = isset($parametros["per_page"])? $parametros["per_page"] : 23;
 
-            $lista_quejas_sugerencias = $lista_quejas_sugerencias->paginate($resultadosPorPagina);
+            $lista_qj_generales = $lista_qj_generales->paginate($resultadosPorPagina);
             
         } else {
-            $lista_quejas_sugerencias = $lista_quejas_sugerencias->get();
+            $lista_qj_generales = $lista_qj_generales->get();
         }
 
-        return response()->json(['data'=>$lista_quejas_sugerencias], HttpResponse::HTTP_OK);
+        return response()->json(['data'=>$lista_qj_generales], HttpResponse::HTTP_OK);
     }
 
     public function ImprimirQS(Request $request, $id)

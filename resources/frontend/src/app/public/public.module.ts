@@ -15,6 +15,7 @@ import { DetailsComponentImg } from './details-img/details-img.component'
 
 //import { InfoQrDonanteComponent } from './info-qr-donante/info-qr-donante.component';
 import { ListaQuejasSugerenciasComponent } from './lista-quejas-sugerencias/lista-quejas-sugerencias.component';
+import { ListaQJGeneralesComponent } from './lista-qj-generales/lista-qj-generales.component';
 
 
 
@@ -22,6 +23,7 @@ import { ListaQuejasSugerenciasComponent } from './lista-quejas-sugerencias/list
   declarations: [
     RegistroQuejaSugerenciaComponent,
     ListaQuejasSugerenciasComponent,
+    ListaQJGeneralesComponent,
     DetailsComponentImg
   ],
   imports: [

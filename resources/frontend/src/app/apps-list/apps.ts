@@ -19,7 +19,8 @@ export const APPS:App [] = [
         {name:'Reportes MySQL',route:'dev-tools/mysql-reportes', icon:'insert_drive_file', permission:"6ARHQGj1N8YPkr02DY04K1Zy7HjIdDcj"}
       ],
     },
-    { name:"Quejas y Sugerencias",     route: "lista-quejas-sugerencias",         icon: "assets/icons/mail-box.png",       permission:"" },
+    { name:"Generales",          route: "lista-quejas-sugerencias-generales",         icon: "assets/icons/mail-box.png",       permission:"" },
+    { name:"Vehiculares",        route: "lista-quejas-sugerencias-vehiculares",       icon: "assets/icons/ambulancia.svg",       permission:"" },
     /*{ name:'Almacen',   route: "almacen",       icon: "assets/icons/almacen.svg",
       apps:[
         { name:'Entradas',        route: "almacen/entradas",        icon: "assets/icons/entrada-almacen.svg" },
