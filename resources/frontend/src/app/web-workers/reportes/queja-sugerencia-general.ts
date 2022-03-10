@@ -10,8 +10,6 @@ export class ImprimirQuejaSugerenciaGeneral{
         let contadorLineasHorizontalesV = 0;
         let fecha_hoy =  Date.now();
         let queja_sugerencia_general = reportData.items;
-        let evidencias = {};
-        let formato = "data:image/jpeg;base64,";
 
         let datos = {
           pageOrientation: 'portrait',
@@ -41,8 +39,8 @@ export class ImprimirQuejaSugerenciaGeneral{
                 }
             ]
           },
-          footer: function(currentPage, pageCount) { 
-            //return 'Página ' + currentPage.toString() + ' de ' + pageCount; 
+          footer: function(currentPage, pageCount) {
+            //return 'Página ' + currentPage.toString() + ' de ' + pageCount;
             return {
               margin: [30, 20, 30, 0],
               columns: [
@@ -71,7 +69,7 @@ export class ImprimirQuejaSugerenciaGeneral{
 
             styles: {
               cabecera: {
-                fontSize: 5,
+                fontSize: 8,
                 bold: true,
                 fillColor:"#890000",
                 color: "white",
@@ -83,13 +81,21 @@ export class ImprimirQuejaSugerenciaGeneral{
                 fillColor:"#DEDEDE",
                 alignment:"center"
               },
+              cabecera_principal: {
+                fontSize: 10,
+                bold: true,
+                fillColor:"#890000",
+                color: "white",
+                alignment:"center"
+              },
               datos:
               {
                 fontSize: 10
               },
               tabla_datos:
               {
-                fontSize: 5
+                alignment:"center",
+                fontSize: 8
               },
               texto_anotacion:
               {
@@ -140,6 +146,26 @@ export class ImprimirQuejaSugerenciaGeneral{
 
         let indice_actual;
 
+        let tabla_vacia = {
+          table: {
+            headerRows:1,
+            dontBreakRows: true,
+            keepWithHeaderRows: 1,
+            widths: [ 15, '*', '*'],
+            margin: [0,0,0,0],
+            body: [
+              [{text: "Tipo de Incidencia: "+queja_sugerencia_general.tipo_incidencia?.nombre, colSpan: 3, style: 'cabecera_principal'},{},{}],
+              [
+
+                {text: "N°", style: 'cabecera'},
+                {text: "PREGUNTA", style: 'cabecera'},
+                {text: "RESPUESTA", style: 'cabecera'},
+              ],
+
+            ]
+          }
+        };
+
         datos.content.push({
           layout: 'noBorders',
           table: {
@@ -153,6 +179,8 @@ export class ImprimirQuejaSugerenciaGeneral{
           }
         });
 
+        
+
         datos.content.push({
           table: {
             margin: [0,0,0,0],
@@ -160,7 +188,7 @@ export class ImprimirQuejaSugerenciaGeneral{
             body: [
               [
                 {text: "Fecha:",                                                           style: "queja_sugerencia_general_title"},
-                {text: queja_sugerencia_general?.fecha_acontecimiento,                             style: "queja_sugerencia_general_datos", colSpan: 3 },
+                {text: (queja_sugerencia_general?.fecha_acontecimiento != null ? queja_sugerencia_general?.fecha_acontecimiento : 'N/A'),     style: "queja_sugerencia_general_datos", colSpan: 3 },
                 {text: ""},
                 {text: ""},
                 {text: "N° Folio:",                                                         style: "queja_sugerencia_general_title"},
@@ -169,15 +197,15 @@ export class ImprimirQuejaSugerenciaGeneral{
               [
 
                 {text: "Testigo :",                                                        style: "queja_sugerencia_general_title"},
-                {text:  (queja_sugerencia_general?.nombre_completo == "" || queja_sugerencia_general?.nombre_completo == null ? 'Denuncia Anónima' : queja_sugerencia_general?.nombre_completo),  style: "queja_sugerencia_general_datos", colSpan: 2},
+                {text:  (queja_sugerencia_general?.nombre_completo != null ? queja_sugerencia_general?.nombre_completo : 'Denuncia Anónima' ),              style: "queja_sugerencia_general_datos", colSpan: 2},
                 {text: ""},
-                {text: "Celular",                                                          style: "queja_sugerencia_general_title" },
-                {text: (queja_sugerencia_general?.numero_celular == "" || queja_sugerencia_general?.numero_celular == null ? 'Denuncia Anónima' : queja_sugerencia_general?.numero_celular),      style: "queja_sugerencia_general_datos", colSpan: 2},
+                {text: "Celular:",                                                          style: "queja_sugerencia_general_title" },
+                {text: (queja_sugerencia_general.datos_usuarios != null ? queja_sugerencia_general.datos_usuarios[1] : 'Denuncia Anónima'),         style: "queja_sugerencia_general_datos", colSpan: 2},
                 {text: ""},
               ],
               [
-                {text: "N° Placas:",                                              style: "queja_sugerencia_general_title"},
-                {text: (queja_sugerencia_general?.numero_de_placa == "" || queja_sugerencia_general?.numero_de_placa == null ? 'Sin Registro' : queja_sugerencia_general?.numero_de_placa),                style: "queja_sugerencia_general_datos", colSpan: 5 },
+                {text: "Email:",                                              style: "queja_sugerencia_general_title"},
+                {text: (queja_sugerencia_general.datos_usuarios != null ? queja_sugerencia_general.datos_usuarios[2] : 'Denuncia Anónima'),   style: "queja_sugerencia_general_datos", colSpan: 5 },
                 {text: ""},
                 {text: ""},
                 {text: ""},
@@ -228,58 +256,97 @@ export class ImprimirQuejaSugerenciaGeneral{
           }
         });
 
-        for (let p = 0; p < queja_sugerencia_general.preguntas.length; p++) {
+        if(queja_sugerencia_general.preguntas != null || queja_sugerencia_general.respuestas != null){
 
-            let pregunta = queja_sugerencia_general.preguntas[p];
-            console.log("pregunta",pregunta);
+          datos.content.push(JSON.parse(JSON.stringify(tabla_vacia)));
 
-          for (let r = 0; r < queja_sugerencia_general.respuestas.length; r++) {
-            let respuesta = queja_sugerencia_general.respuestas[r];
-            console.log("respuesta",respuesta);
-            
-          }
-          
-          
-        }
-
-        if(queja_sugerencia_general.evidencias.length > 0){
-
-          //datos.content.push({ text:'', pageBreak:'after' });
-
-          for(let i = 0; i < queja_sugerencia_general.evidencias.length; i++){
+          for (let p = 0; p < queja_sugerencia_general.preguntas.length; p++) {
   
-            // indice_actual = datos.content.length -1;
+            for (let r = 0; r < queja_sugerencia_general.respuestas.length; r++) {
   
-            // datos.content.push([
+              if(p == r){
+                
+                indice_actual = datos.content.length -1;
   
-            //   { image: formato+queja_sugerencia_general.evidencias[i], width: 100, height: 50 },
-    
-            // ]);
+                let pregunta = queja_sugerencia_general.preguntas[p];
+                let respuesta = queja_sugerencia_general.respuestas[r];
   
   
-            datos.content.push({
-              layout: 'noBorders',
-              table: {
-                alignment: "center",
-                widths: ['*'],
-                margin: [0,0,0,0],
-                body: [
-                  [
-                    { image: formato+queja_sugerencia_general.evidencias[i], "fit" : [535.28, 535.28], pageBreak: 'before', style: "centrado" },
-                  ],
-                ]
+                datos.content[indice_actual].table.body.push([
+  
+                  { text: (p == r) ? p+1 : '', style: 'tabla_datos' },
+                  { text: pregunta, style: 'tabla_datos'},
+                  { text: respuesta, style: 'tabla_datos'},
+  
+                ]);
+  
+  
+                // datos.content.push({
+                //   layout: 'lightHorizontalLines',
+                //   table: {
+                //     margin: [0,0,0,0],
+                //     widths: [ 60, '*', 70, '*', 60, 65],
+                //     body: [
+                //       // [
+                //       //   {text: (p+1)+" ._",                   style: "queja_sugerencia_general_title"},
+                //       //   {text: pregunta,                style: "queja_sugerencia_general_datos", colSpan: 5 },
+                //       //   {text: ""},
+                //       //   {text: ""},
+                //       //   {text: ""},
+                //       //   {text: ""},
+                //       // ],
+                //       // [
+                //       //   {text: 'Respuesta: ',             style: "queja_sugerencia_general_title"},
+                //       //   {text: respuesta,                style: "queja_sugerencia_general_datos", colSpan: 5 },
+                //       //   {text: ""},
+                //       //   {text: ""},
+                //       //   {text: ""},
+                //       //   {text: ""},
+                //       // ],
+  
+                //       [
+                //         {text: (p+1)+" ._",                     style: "preguntas"},
+                //         {text: pregunta,                        style: "queja_sugerencia_general_datos", colSpan: 3 },
+                //         {text: ""},
+                //         {text: ""},
+                //         {text: "Respuesta",                                   style: "respuestas"},
+                //         {text: respuesta,                                     style: "queja_sugerencia_general_datos"},
+                //       ],
+  
+                //     ]
+                //   }
+                // });
+  
+  
+  
+                console.log("pregunta: "+p+1,pregunta);
+                console.log("respuesta: "+r+1,respuesta);
+  
               }
-            });
+  
+  
+  
+            }
   
           }
 
+        }else{
+
+          datos.content.push({
+            layout: 'noBorders',
+            columnGap: 30,
+            table: {
+             widths: ['*'],
+              margin: [0,0,0,0],
+              body: [
+                [
+                  [{text: "Sin Encuesta: ", style: 'cabecera_principal'}],
+                ]
+              ]
+            }
+          });
+
         }
-
-
-
-
-
-
 
 
 
@@ -367,13 +434,13 @@ export class ImprimirQuejaSugerenciaGeneral{
         //       [
         //         { text: "Testigos", style: "texto_firmas", colSpan:2},{},
         //       ],
-        //       [              
+        //       [
         //         { text: "______________________________\n\n Nombre y Firma", style: "texto_firmas"},
         //         { text: "______________________________\n\n Nombre y Firma", style: "texto_firmas"},
         //       ],
         //     ]
         //   }
-          
+
         // });
 
 
@@ -396,7 +463,7 @@ export class ImprimirQuejaSugerenciaGeneral{
 
 
 
-      
+
 
         return datos;
       }

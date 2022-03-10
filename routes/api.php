@@ -58,6 +58,11 @@ Route::group(['middleware'=>'auth'],function($router){
     Route::apiResource('quejas-sugerencias',  'API\Modulos\QuejasSugerenciasController')->only(['index', 'show']);
     Route::apiResource('quejas-sugerencias-generales',  'API\Modulos\QJGeneralesController');
 
+
+    Route::get('queja-sugerencia-general/{id}',      'API\Modulos\QJGeneralesController@ImprimirQSGeneral');
+
+    
+
     /**
      *  Modulo de Reportes
      */

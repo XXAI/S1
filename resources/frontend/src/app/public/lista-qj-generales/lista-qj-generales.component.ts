@@ -659,7 +659,7 @@ export class ListaQJGeneralesComponent implements OnInit {
           this.stepperConfig.steps[1].status = 3;
           this.stepperConfig.steps[2].status = 2;
           this.stepperConfig.currentIndex = 2;
-          FileSaver.saveAs(data.data,'Queja-Sugerencia'+'('+fecha_reporte+')');
+          FileSaver.saveAs(data.data,'Queja-Sugerencia-General'+'('+fecha_reporte+')');
           reportWorker.terminate();
 
           this.stepperConfig.steps[2].status = 3;
@@ -677,7 +677,7 @@ export class ListaQJGeneralesComponent implements OnInit {
       );
       
       let config = {
-        title: "Registro de Acontecimientos de Queja/Sugerencia Vehiculares",
+        title: "Registro de Acontecimientos, Queja/Sugerencia Generales",
         showSigns: this.reportIncludeSigns, 
       };
       reportWorker.postMessage({data:{items: obj, config:config, fecha_actual: this.fechaActual},reporte:'/queja-sugerencia-general'});
@@ -689,7 +689,7 @@ export class ListaQJGeneralesComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.publicService.getQuejaSugerenciaImprimir(id).subscribe(
+    this.publicService.getQuejaSugerenciaGeneral(id).subscribe(
       response =>{
         
         this.dataQS = response.data;

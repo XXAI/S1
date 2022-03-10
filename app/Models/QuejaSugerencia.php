@@ -31,14 +31,20 @@ class QuejaSugerencia extends Model
 
     protected $casts = [
 
-        'preguntas' => Json::class,
-        'respuestas' => Json::class
+        'preguntas'         => Json::class,
+        'respuestas'        => Json::class,
+        'datos_usuarios'    => Json::class
         
     ];
 
     public function evidencias(){
         return $this->hasMany('App\Models\Evidencia','queja_sugerencia_id');
     }
+
+    public function tipo_incidencia(){
+        return $this->BelongsTo('App\Models\TipoIncidencia','tipo_incidencia_id');
+    }
+
 
     // public function entidad_federativa(){
     //     return $this->belongsTo('App\Models\EntidadFederativa','entidad_federativa_id');

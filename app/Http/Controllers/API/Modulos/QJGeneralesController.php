@@ -36,7 +36,7 @@ class QJGeneralesController extends Controller
     {
         $parametros = $request->all();
 
-        $lista_quejas_sugerencias = QuejaSugerencia::select('quejas_sugerencias.*')->with('evidencias')
+        $lista_quejas_sugerencias = QuejaSugerencia::select('quejas_sugerencias.*')->with('tipo_incidencia')
         ->whereIn('tipo_incidencia_id', [1,2,3]);
 
         // if(isset($parametros['tipo_sexo']) && $parametros['tipo_sexo']){
@@ -65,6 +65,22 @@ class QJGeneralesController extends Controller
         }
 
         return response()->json(['data'=>$lista_quejas_sugerencias], HttpResponse::HTTP_OK);
+    }
+
+    public function ImprimirQSGeneral(Request $request, $id)
+    {
+        try{
+
+            $parametros = $request->all();
+
+            $queja_sugerencia = QuejaSugerencia::with('tipo_incidencia')->find($id);
+                            
+            
+        return response()->json(['data'=>$queja_sugerencia],HttpResponse::HTTP_OK);
+
+        }catch(\Exception $e){
+            return response()->json(['error'=>['message'=>$e->getMessage(),'line'=>$e->getLine()]], HttpResponse::HTTP_CONFLICT);
+        }
     }
 
 
