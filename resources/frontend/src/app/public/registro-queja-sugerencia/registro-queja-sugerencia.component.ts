@@ -258,11 +258,11 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
       // show message
   }
 
-  upload(event) {
-    let image: File = event.target.files[0]
-    console.log(`Image size before compressed: ${image.size} bytes.`)
+  uploadImage(event) {
+    //let image: File = event.target.files[0]
+    console.log(`Image size before compressed: ${event.size} bytes.`)
 
-    this.compressImage.compress(image)
+    this.compressImage.compress(event)
       .pipe(take(1))
       .subscribe(compressedImage => {
         console.log(`Image size after compressed: ${compressedImage.size} bytes.`)
@@ -301,36 +301,27 @@ export class RegistroQuejaSugerenciaComponent implements OnInit {
       else {
           var objeto = [];let este = this;
           for (var i = 0, f; f = files[i]; i++) {
+
               var reader = new FileReader();
+              reader.readAsBinaryString(f);
 
-              this.compressImage.compress(f)
-              .pipe(take(1))
-              .subscribe(compressedImage => {
-                console.log(`Image size after compressed: ${compressedImage.size} bytes.`)
-                reader.readAsBinaryString(compressedImage);
-
-                reader.onload = (function (theFile) {
-                  return function (e) {
-                      try {
-                          modelo.push(este.fb.group(
-                                  {
-                                      foto: [btoa(e.target.result)],
-                                      es_url:false
-                                  }
-                              )
-                          );
-                          imagenes.patchValue(modelo);
-                      } catch (ex) {
-                          esto.error_archivo = true;
-                      }
-                  }
-              })(compressedImage);
-                // now you can do upload the compressed image 
-              })
-
+              reader.onload = (function (theFile) {
+                return function (e) {
+                    try {
+                        modelo.push(este.fb.group(
+                                {
+                                    foto: [btoa(e.target.result)],
+                                    es_url:false
+                                }
+                            )
+                        );
+                        imagenes.patchValue(modelo);
+                    } catch (ex) {
+                        esto.error_archivo = true;
+                    }
+                }
+              })(f);
               
-              
-
           }
       }
       
