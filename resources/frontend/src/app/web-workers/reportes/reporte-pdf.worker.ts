@@ -3,15 +3,15 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ImprimirQuejaSugerencia } from './imprimir-queja-sugerencia';
 import { ImprimirQuejaSugerenciaGeneral } from './queja-sugerencia-general';
-//import { ReporteCapturaDonantes } from './reporte-donantes';
+import { ReporteQuejasSugerenciasGenerales } from './reporte-quejas-sugerencias-generales';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const reportes = {
 
   '/imprimir-queja-sugerencia' : new ImprimirQuejaSugerencia(),
-  '/queja-sugerencia-general' : new ImprimirQuejaSugerenciaGeneral()
-  //'/reporte-donantes' : new ReporteCapturaDonantes(),
+  '/queja-sugerencia-general' : new ImprimirQuejaSugerenciaGeneral(),
+  '/reporte-quejas-sugerencias-generales' : new ReporteQuejasSugerenciasGenerales(),
   
 
 };

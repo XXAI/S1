@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
 use App\Http\Controllers\Controller;
 
-use App\Models\EntidadFederativa;
-use App\Models\Seguro;
+use App\Models\TipoIncidencia;
 
 
 
@@ -19,8 +18,7 @@ class BusquedaCatalogosController extends Controller
         try {
             $listado_catalogos = [
                 
-                'estados'                     => EntidadFederativa::getModel(),
-                'seguros'                     => Seguro::getModel(),
+                'tipo_incidencia'           => TipoIncidencia::getModel(),
 
             ];
 
@@ -43,9 +41,9 @@ class BusquedaCatalogosController extends Controller
                         $modelo = $modelo->where($catalogo['filtro_id']['campo'], $catalogo['filtro_id']['valor']);
                     }
 
-                    if (isset($catalogo['filtro_secundario_id']) && $catalogo['filtro_secundario_id']) {  //hacer arrays
+                    if (isset($catalogo['filtro_some_id']) && $catalogo['filtro_some_id']) {  //hacer arrays
 
-                        $modelo = $modelo->where($catalogo['filtro_secundario_id']['campo'], $catalogo['filtro_secundario_id']['valor']);
+                        $modelo = $modelo->whereIn($catalogo['filtro_some_id']['campo'], $catalogo['filtro_some_id']['valor']);
                     }
 
                     $catalogos[$catalogo['nombre']] = $modelo->get(); //por el momento bastara con esto

@@ -93,11 +93,8 @@ export class ListaQJGeneralesComponent implements OnInit {
 
   filterForm = this.fb.group({
 
-    'seguro'                  : [undefined],
-    'seguro_id'               : [undefined],
-    'entidad_federativa'      : [undefined],
-    'entidad_federativa_id'   : [undefined],
-    'edad'                    : [undefined],
+    'tipo_incidencia'         : [undefined],
+    'tipo_incidencia_id'      : [undefined],
     'fecha_inicio'            : [undefined],
     'fecha_fin'               : [undefined],
 
@@ -163,7 +160,7 @@ export class ListaQJGeneralesComponent implements OnInit {
     this.maxDate = this.fechaActual;
 
     this.loadDonantesData(event);
-    //this.loadFilterCatalogs();
+    this.loadFilterCatalogs();
     //console.log(this.filteredDiagnosticos);
 
   }
@@ -210,8 +207,8 @@ export class ListaQJGeneralesComponent implements OnInit {
 
     this.isLoading = true;
     let carga_catalogos = [
-      {nombre:'seguros',orden:'descripcion'},
-      {nombre:'estados',orden:'nombre'},
+      // {nombre:'seguros',orden:'descripcion'},
+      {nombre:'tipo_incidencia', orden:'nombre', filtro_some_id:{campo:'id', valor:[1,2,3] }},
     ];
 
     this.publicService.obtenerCatalogos(carga_catalogos).subscribe(
@@ -221,8 +218,7 @@ export class ListaQJGeneralesComponent implements OnInit {
 
         console.log(this.catalogos);
 
-        this.filteredCatalogs['seguros'] = this.filterForm.controls['seguro_id'].valueChanges.pipe(startWith(''),map(value => this._filter(value,'seguros','descripcion')));
-        this.filteredCatalogs['estados'] = this.filterForm.controls['entidad_federativa_id'].valueChanges.pipe(startWith(''),map(value => this._filter(value,'estados','nombre')));
+        this.filteredCatalogs['tipo_incidencia'] = this.filterForm.controls['tipo_incidencia_id'].valueChanges.pipe(startWith(''),map(value => this._filter(value,'tipo_incidencia','nombre')));
 
 
       },
@@ -260,22 +256,16 @@ export class ListaQJGeneralesComponent implements OnInit {
           tooltip: i.toUpperCase() + ': ',
           active: true
         };
-        if(i == 'entidad_federativa_id'){
+        if(i == 'tipo_incidencia_id'){
           item.tag = data[i].nombre;
           item.tooltip += data[i].id;
           if(item.tooltip.length > 20){
-            item.tag.slice(0,10) + '...';
-            item.tooltip;
+            item.tag = "Tipo de Incidencia: "+data[i].nombre;
+            item.tooltip = "Incidencia";
           }else{
-            item.tag = data[i].nombre;
-            item.tooltip = "Clave: "+data[i].clave+', '+data[i].nombre.toUpperCase();
+            item.tag = "Tipo de Incidencia: "+data[i].nombre;
+            item.tooltip = "Tipo de Incidencia: "+data[i].nombre.toUpperCase();
           }
-        }else if(i == 'seguro_id'){
-          item.tag = data[i].descripcion;
-          item.tooltip = "Afiliación: "+data[i].descripcion.toUpperCase();
-        }
-        else if(i == 'edad'){
-          item.tag = this.filterForm.value.edad +' '+"AÑOS";
         }
         else if (i == 'fecha_inicio') {
           var desde = formatDate(new Date(this.filterForm.value.fecha_inicio), 'yyyy-MM-dd', 'en'); 
@@ -320,12 +310,8 @@ export class ListaQJGeneralesComponent implements OnInit {
 
       if(filterFormValues[i]){
 
-        if(i == 'entidad_federativa_id'){
+        if(i == 'tipo_incidencia_id'){
           params[i] = filterFormValues[i].id;
-        }else if(i == 'seguro_id'){
-          params[i] = filterFormValues[i].id;
-        }else if(i == 'edad'){
-          params[i] = this.filterForm.value.edad;
         }
         else if (i == 'fecha_inicio') {
           var desde = formatDate(new Date(this.filterForm.value.fecha_inicio), 'yyyy-MM-dd', 'en');
@@ -457,7 +443,7 @@ export class ListaQJGeneralesComponent implements OnInit {
 
   toggleReportPanel(){
     this.reportIncludeSigns = false;
-    this.reportTitle = 'Relación de Donantes';
+    this.reportTitle = 'Reporte de Quejas/Sugerencias/Felicitaciones Generales';
 
     this.stepperConfig = {
       steps:[
@@ -504,7 +490,7 @@ export class ListaQJGeneralesComponent implements OnInit {
     let appStoredData = this.sharedService.getArrayDataFromCurrentApp(['searchQuery','filter']);
     //console.log("onlyone",appStoredData);
 
-    params.reporte = 'pacientes';
+    params.reporte = 'quejas-sugerencias-general';
 
     if(appStoredData['searchQuery']){
       params.query = appStoredData['searchQuery'];
@@ -514,12 +500,8 @@ export class ListaQJGeneralesComponent implements OnInit {
 
       if(appStoredData['filter'][i]){
 
-        if(i == 'entidad_federativa_id'){
+        if(i == 'tipo_incidencia_id'){
           params[i] = appStoredData['filter'][i].id;
-        }else if(i == 'seguro_id'){
-          params[i] = appStoredData['filter'][i].id;
-        }else if(i == 'edad'){
-          params[i] = this.filterForm.value.edad;
         }else if (i == 'fecha_inicio') {
           var desde = formatDate(new Date(this.filterForm.value.fecha_inicio), 'yyyy-MM-dd', 'en');
           params[i] = desde;
@@ -540,7 +522,7 @@ export class ListaQJGeneralesComponent implements OnInit {
     
     this.stepperConfig.steps[0].status = 2;
 
-    this.publicService.getDonantesList(params).subscribe(
+    this.publicService.getQJGeneralesList(params).subscribe(
       response =>{
         if(response.error) {
           let errorMessage = response.error.message;
@@ -560,7 +542,7 @@ export class ListaQJGeneralesComponent implements OnInit {
                 this.stepperConfig.currentIndex = 2;
 
                 // console.log("deitaa",data);
-                FileSaver.saveAs(data.data,'Reporte de Donantes'+' '+'('+fecha_reporte+')' );
+                FileSaver.saveAs(data.data,'Reporte de Quejas/Sugerencias/Felicitaciones Generales'+' '+'('+fecha_reporte+')' );
                 reportWorker.terminate();
 
                 this.stepperConfig.steps[2].status = 3;
@@ -583,7 +565,7 @@ export class ListaQJGeneralesComponent implements OnInit {
               title: this.reportTitle,
               showSigns: this.reportIncludeSigns, 
             };
-            reportWorker.postMessage({data:{items: response.data, config:config},reporte:'/reporte-donantes'});
+            reportWorker.postMessage({data:{items: response.data, config:config},reporte:'/reporte-quejas-sugerencias-generales'});
         }
         this.isLoading = false;
       },

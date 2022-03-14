@@ -43,17 +43,36 @@ class QJGeneralesController extends Controller
         //     $lista_quejas_sugerencias = $lista_donadores->where('sexo',$parametros['tipo_sexo']);
         // }
 
-        // if(isset($parametros['query']) && $parametros['query']){
-        //     $query_busqueda = $parametros['query'];
-        //     $lista_quejas_sugerencias = $lista_quejas_sugerencias->where(function($query)use($query_busqueda){
-        //         $query->where('donadores.nombre','like','%'.$query_busqueda.'%')
-        //                 ->orWhere('apellido_paterno','like','%'.$query_busqueda.'%')
-        //                 ->orWhere('apellido_materno','like','%'.$query_busqueda.'%')
-        //                 ->orWhere('ciudad','like','%'.$query_busqueda.'%')
-        //                 ->orWhere('codigo_postal','like','%'.$query_busqueda.'%')
-        //                 ->orWhere('curp','like','%'.$query_busqueda.'%');
-        //     });
-        // }
+
+        if(isset($parametros['query']) && $parametros['query']){
+            $lista_quejas_sugerencias = $lista_quejas_sugerencias->where(function($query)use($parametros){
+                return $query->orWhere('folio','LIKE','%'.$parametros['query'].'%');
+            });
+        }
+
+        if(isset($parametros['active_filter']) && $parametros['active_filter']){
+
+            if(isset($parametros['query']) && $parametros['query']){
+                $lista_quejas_sugerencias = $lista_quejas_sugerencias->where(function($query)use($parametros){
+                    return $query->orWhere('folio','LIKE','%'.$parametros['query'].'%');
+                });
+            }
+    
+
+            if(isset($parametros['tipo_incidencia_id']) && $parametros['tipo_incidencia_id']){
+
+                $lista_quejas_sugerencias = $lista_quejas_sugerencias->where('tipo_incidencia_id',$parametros['tipo_incidencia_id']);
+
+            }
+
+            if(isset($parametros['fecha_inicio'], $parametros['fecha_fin'])){
+
+                $lista_quejas_sugerencias = $lista_quejas_sugerencias->whereBetween(DB::raw('DATE(created_at)'), [$parametros['fecha_inicio'], $parametros['fecha_fin']]);
+
+            }
+            
+
+        }
 
         if(isset($parametros['page'])){
             $resultadosPorPagina = isset($parametros["per_page"])? $parametros["per_page"] : 23;
