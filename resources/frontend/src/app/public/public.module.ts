@@ -16,6 +16,7 @@ import { DetailsComponentImg } from './details-img/details-img.component'
 //import { InfoQrDonanteComponent } from './info-qr-donante/info-qr-donante.component';
 import { ListaQuejasSugerenciasComponent } from './lista-quejas-sugerencias/lista-quejas-sugerencias.component';
 import { ListaQJGeneralesComponent } from './lista-qj-generales/lista-qj-generales.component';
+import { AclaracionDialogComponent } from './aclaracion-dialog/aclaracion-dialog.component';
 
 
 
@@ -24,6 +25,7 @@ import { ListaQJGeneralesComponent } from './lista-qj-generales/lista-qj-general
     RegistroQuejaSugerenciaComponent,
     ListaQuejasSugerenciasComponent,
     ListaQJGeneralesComponent,
+    AclaracionDialogComponent,
     DetailsComponentImg
   ],
   imports: [
@@ -34,7 +36,9 @@ import { ListaQJGeneralesComponent } from './lista-qj-generales/lista-qj-general
     PublicRoutingModule,
     ImageCropperModule
   ],
-  entryComponents:[],
+  entryComponents:[
+    AclaracionDialogComponent
+  ],
   providers:[
     { provide: MAT_DATE_LOCALE, useValue: 'es-MX'},
     { provide: MatPaginatorIntl, useValue: getEspPaginatorIntl() }

@@ -15,6 +15,7 @@ export class PublicService {
   url                                     = `${environment.base_url}/quejas-sugerencias`;
   url_qj_general                          = `${environment.base_url}/quejas-sugerencias-generales`;
   url_qj_general_imprimir                 = `${environment.base_url}/queja-sugerencia-general`;
+  url_aclaracion                          = `${environment.base_url}/aclaraciones`;
   
   ur_imprimir                             = `${environment.base_url}/queja-sugerencia`;
   url_info_donante                        = `${environment.base_url}/qr-donador/`;
@@ -206,5 +207,25 @@ export class PublicService {
       }
     ));
   }
+
+  //aclaraciones
+
+  createAclaracion(payload) {
+    return this.http.post<any>(this.url_aclaracion,payload).pipe(
+      map( (response) => {
+        return response;
+      }
+    ));
+  }
+
+  getAclaracion(id) {
+    return this.http.get<any>(this.url_aclaracion+'/'+id,{}).pipe(
+      map( (response: any) => {
+        return response;
+      }
+    ));
+  }
+
+
 
 }

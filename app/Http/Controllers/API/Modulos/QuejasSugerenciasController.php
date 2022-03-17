@@ -241,6 +241,19 @@ class QuejasSugerenciasController extends Controller
             
     }
 
+    public function show($id)
+    {
+
+        $queja_sugerencia = QuejaSugerencia::select('quejas_sugerencias.*')->with('tipo_incidencia')->find($id);
+
+        if(!$queja_sugerencia){
+            return response()->json(['No se encuentra la Aclaración que esta buscando.'], HttpResponse::HTTP_CONFLICT);
+            //404
+        }
+
+        return response()->json(['data' => $queja_sugerencia], 200);
+    }
+
     public function insertarEvidencias($datos, $id){
 
         try {

@@ -7,6 +7,7 @@ use Illuminate\Http\Response as HttpResponse;
 use App\Http\Controllers\Controller;
 
 use App\Models\TipoIncidencia;
+use App\Models\Estatus;
 
 
 
@@ -18,7 +19,8 @@ class BusquedaCatalogosController extends Controller
         try {
             $listado_catalogos = [
                 
-                'tipo_incidencia'           => TipoIncidencia::getModel(),
+                'tipo_incidencia'   => TipoIncidencia::getModel(),
+                'estatus'           => Estatus::orderBy('id'),
 
             ];
 

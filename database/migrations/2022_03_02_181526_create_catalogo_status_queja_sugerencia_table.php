@@ -14,7 +14,8 @@ class CreateCatalogoStatusQuejaSugerenciaTable extends Migration
     public function up()
     {
         Schema::create('catalogo_status_queja_sugerencia', function (Blueprint $table) {
-            $table->smallIncrements('id')->unsigned()->index();
+
+            $table->id()->unsigned()->index();
             $table->string('nombre')->index();
             $table->string('descripcion')->nullable()->index();
             
