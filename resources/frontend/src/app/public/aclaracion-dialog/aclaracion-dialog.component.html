@@ -30,6 +30,7 @@
                         <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fecha" formControlName="fecha" placeholder="Fecha de la Aclaración">
                         <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
                         <mat-datepicker #fecha></mat-datepicker>
+                        <mat-error *ngIf="aclaracionForm.controls['aclaracion'].get('fecha').hasError('required')">Este campo es obligatorio</mat-error>
                     </mat-form-field>
         
                 </div>
@@ -40,7 +41,7 @@
                         <mat-label>Estado (Status de la Queja/Sugerencia):</mat-label>
                         <input matInput formControlName="estatus_id">
                         <mat-hint>Escribe el nombre del Estado de Salud Actual</mat-hint>
-                        <!-- <mat-error *ngIf="aclaracionForm.controls['aclaracion'].get('estado_actual_id').hasError('required')">Este campo es obligatorio</mat-error> -->
+                        <mat-error *ngIf="aclaracionForm.controls['aclaracion'].get('estatus_id').hasError('required')">Este campo es obligatorio</mat-error>
                     </mat-form-field>
         
                     <mat-form-field fxFlex appearance="fill" *ngIf="catalogos['estatus']">
@@ -53,7 +54,7 @@
                         </mat-autocomplete>
                         <mat-hint *ngIf="!aclaracionForm.controls['aclaracion'].get('estatus_id').value">Selecciona un Estatus de la lista</mat-hint>
                         <mat-hint align="end" *ngIf="aclaracionForm.controls['aclaracion'].get('estatus_id').value">Nombre: [{{aclaracionForm.controls['aclaracion'].get('estatus_id').value.nombre}}]</mat-hint>
-                        <!-- <mat-error *ngIf="aclaracionForm.controls['aclaracion'].get('estado_actual_id').hasError('required')">Este campo es obligatorio</mat-error> -->
+                        <mat-error *ngIf="aclaracionForm.controls['aclaracion'].get('estatus_id').hasError('required')">Este campo es obligatorio</mat-error>
                     </mat-form-field>
         
                 </div>
@@ -85,6 +86,6 @@
 <mat-divider></mat-divider>
 <div mat-dialog-actions>
     <span fxFlex></span>
-    <button mat-button (click)='onNoClick()'>Cancelar</button>
+    <button mat-button (click)='onCloseDialog()'>Cancelar</button>
     <button mat-raised-button (click)="saveAclaracion()" color="primary" [disabled]="aclaracionForm.invalid || isLoading"><mat-icon>save</mat-icon> Guardar</button>
 </div>

@@ -80,11 +80,11 @@ export class AclaracionDialogComponent implements OnInit {
         aclaracion: this.fb.group({
 
           id:[''],
-          queja_sugerencia_id:[''],
-          estatus_id:[''],
-          fecha:[''],
-          observaciones:[''],
-          user_id:[''],
+          queja_sugerencia_id:['', Validators.required],
+          estatus_id:['',Validators.required],
+          fecha:['', Validators.required],
+          observaciones:['', Validators.required],
+          user_id:['',Validators.required],
 
           folio_queja_sugerencia:['']
 
@@ -105,6 +105,7 @@ export class AclaracionDialogComponent implements OnInit {
               this.queja_sugerencia = response.data;
               
               this.aclaracionForm.controls['aclaracion'].get('folio_queja_sugerencia').patchValue(this.queja_sugerencia.folio);
+              this.aclaracionForm.controls['aclaracion'].get('queja_sugerencia_id').patchValue(this.queja_sugerencia.id);
 
               console.log("datos QJ",this.queja_sugerencia);
                 
@@ -199,29 +200,70 @@ export class AclaracionDialogComponent implements OnInit {
     //   atencion: dataAtencion
     // };
 
-    console.log(formData);
+    console.log("el form",formData);
 
     this.publicService.createAclaracion(formData).subscribe(
       response =>{
 
-        console.log(response.messages);
+        console.log(response);
         this.isLoading = false;
 
         this.dialogRef.close();
-        var Message = response.messages;
+        
+        
+        console.log(response.errores);
+        let Message = response.mensaje;
         //this.verPaciente(formData.paciente.id, null);
-        this.sharedService.showSnackBar(Message, 'Cerrar', 3000);
-        this.router.navigate(['/lista-quejas-sugerencias-vehiculares'])
-        .then(() => {
-          window.location.reload();
-        });
+        this.sharedService.showSnackBar(Message, 'Cerrar', 5000);
+        this.onCloseDialog();
     },
       errorResponse => {
         console.log(errorResponse);
+
+        if(errorResponse.status == 409){
+          let errors = '';
+          errors = errorResponse;
+          this.reponseErrors(errors);
+        }
         this.isLoading = false;
     });
 
     
+  }
+
+  reponseErrors(errorResponse:any){
+
+        if(errorResponse.error.errores){
+
+          for(let i in errorResponse.error.errores){
+
+            console.log(i);
+
+            switch (i) {  
+
+              case 'estatus_id':
+                this.sharedService.showSnackBar(errorResponse.error.errores.estatus_id[0], 'Cerrar', 7000);
+                this.isLoading = false;
+                break;
+              case 'queja_sugerencia_id':
+                this.sharedService.showSnackBar(errorResponse.error.errores.queja_sugerencia_id[0], 'Cerrar', 7000);
+                this.isLoading = false;
+                // NOTA: el "break" olvidado debería estar aquí
+              case 'fecha': // No hay sentencia "break" en el 'case 0:', por lo tanto este caso también será ejecutado
+              this.sharedService.showSnackBar(errorResponse.error.errores.fecha[0], 'Cerrar', 7000);
+              this.isLoading = false;
+                break; // Al encontrar un "break", no será ejecutado el 'case 2:'
+              case 'observaciones':
+              this.sharedService.showSnackBar(errorResponse.error.errores.observaciones[0], 'Cerrar', 7000);
+              this.isLoading = false;
+                break;
+              default:this.sharedService.showSnackBar(errorResponse.error.mensaje, 'Cerrar', 7000);
+
+            }
+    
+          }
+          
+        }
   }
 
   compareMunicipioSelect(op,value){
@@ -272,7 +314,7 @@ export class AclaracionDialogComponent implements OnInit {
   }
 
 
-  onNoClick(): void {
+  onCloseDialog(): void {
     this.dialogRef.close();
   }
 

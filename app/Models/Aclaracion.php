@@ -14,7 +14,7 @@ class Aclaracion extends Model{
         "queja_sugerencia_id",
         "estatus_id",
         "fecha",
-        "observaciones"
+        "observaciones",
         "user_id"
     ];
 

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
 use \Validator;
 
+use App\Models\Aclaracion;
+
 class AclaracionesController extends Controller
 {
     //
@@ -22,10 +24,10 @@ class AclaracionesController extends Controller
         ];
 
         $mensajes = [
-            'fecha.required'                => 'La Fecha de la aclaración es obligatoria.',
+            'fecha.required'                => 'La Fecha de la Aclaración es obligatoria.',
             'observaciones.required'        => 'Las Observaciones son obligatorias.',
-            'estatus_id.required'           => 'El Status es obligatorio.',
-            'queja_sugerencia_id.required'  => 'No tiene Identificador de la Queja/Sugerencia.',
+            'estatus_id.required'           => 'El Estado (Status de la Queja/Sugerencia) de la Aclaración es obligatorio.',
+            'queja_sugerencia_id.required'  => 'No contiene el ID de la Queja/Sugerencia.',
         ];
 
         $inputs = $request->all();
@@ -36,9 +38,9 @@ class AclaracionesController extends Controller
 
             $aclaracion = Aclaracion::create($inputs);
             
-            return response()->json(['mensaje' => 'Guardado', 'validacion'=>$resultado->passes(), 'datos'=>$aclaracion], HttpResponse::HTTP_OK);
+            return response()->json(['mensaje' => '¡Se Guardaron los datos con Éxito!', 'validacion'=>$resultado->passes(), 'datos'=>$aclaracion], HttpResponse::HTTP_OK);
         }else{
-            return response()->json(['mensaje' => 'Error en los datos del formulario', 'status' => 409, 'validacion'=>$resultado->passes(), 'errores'=>$resultado->errors()], HttpResponse::HTTP_OK);
+            return response()->json(['mensaje' => 'Error en los datos del formulario', 'status' => 409, 'validacion'=>$resultado->passes(), 'errores'=>$resultado->errors()], HttpResponse::HTTP_CONFLICT);
         }
 
     }

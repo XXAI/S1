@@ -24,7 +24,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { AuthService } from '../../auth/auth.service';
 import { formatDate } from '@angular/common';
 
-import { environment } from '../../../environments/environment'
+import { AclaracionDialogComponent } from '../aclaracion-dialog/aclaracion-dialog.component';
 
 
 @Component({
@@ -681,6 +681,41 @@ export class ListaQJGeneralesComponent implements OnInit {
 
         this.isLoading = false;
       });
+  }
+
+  openDialogFormAclaracion(id:number = 0){
+
+
+    let configDialog = {};
+    if(this.mediaSize == 'xs'){
+      configDialog = {
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        data:{id: id, scSize:this.mediaSize}
+      };
+    }else{
+      configDialog = {
+        width: '99%',
+        maxHeight: '90vh',
+        height: '643px',
+        data:{id: id}
+      }
+    }
+
+
+    const dialogRef = this.dialog.open(AclaracionDialogComponent, configDialog);
+
+    dialogRef.afterClosed().subscribe(valid => {
+      if(valid){
+        console.log('Aceptar');
+        this.selectedItemIndex = -1;
+      }else{
+        console.log('Cancelar');
+        
+      }
+    });
   }
 
 }
