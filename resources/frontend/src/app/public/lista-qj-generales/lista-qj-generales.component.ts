@@ -24,7 +24,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { AuthService } from '../../auth/auth.service';
 import { formatDate } from '@angular/common';
 
-import { AclaracionDialogComponent } from '../aclaracion-dialog/aclaracion-dialog.component';
+import { SeguimientoDialogComponent } from '../seguimiento-dialog/seguimiento-dialog.component';
 
 
 @Component({
@@ -683,7 +683,7 @@ export class ListaQJGeneralesComponent implements OnInit {
       });
   }
 
-  openDialogFormAclaracion(id:number = 0){
+  openDialogFormSeguimiento(id:number = 0){
 
 
     let configDialog = {};
@@ -705,7 +705,7 @@ export class ListaQJGeneralesComponent implements OnInit {
     }
 
 
-    const dialogRef = this.dialog.open(AclaracionDialogComponent, configDialog);
+    const dialogRef = this.dialog.open(SeguimientoDialogComponent, configDialog);
 
     dialogRef.afterClosed().subscribe(valid => {
       if(valid){

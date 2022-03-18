@@ -16,7 +16,8 @@ import { DetailsComponentImg } from './details-img/details-img.component'
 //import { InfoQrDonanteComponent } from './info-qr-donante/info-qr-donante.component';
 import { ListaQuejasSugerenciasComponent } from './lista-quejas-sugerencias/lista-quejas-sugerencias.component';
 import { ListaQJGeneralesComponent } from './lista-qj-generales/lista-qj-generales.component';
-import { AclaracionDialogComponent } from './aclaracion-dialog/aclaracion-dialog.component';
+import { SeguimientoDialogComponent } from './seguimiento-dialog/seguimiento-dialog.component';
+import { DetailsComponentQuejaSugerencia } from './details-queja-sugerencia/details-queja-sugerencia.component';
 
 
 
@@ -25,7 +26,8 @@ import { AclaracionDialogComponent } from './aclaracion-dialog/aclaracion-dialog
     RegistroQuejaSugerenciaComponent,
     ListaQuejasSugerenciasComponent,
     ListaQJGeneralesComponent,
-    AclaracionDialogComponent,
+    SeguimientoDialogComponent,
+    DetailsComponentQuejaSugerencia,
     DetailsComponentImg
   ],
   imports: [
@@ -37,7 +39,7 @@ import { AclaracionDialogComponent } from './aclaracion-dialog/aclaracion-dialog
     ImageCropperModule
   ],
   entryComponents:[
-    AclaracionDialogComponent
+    SeguimientoDialogComponent
   ],
   providers:[
     { provide: MAT_DATE_LOCALE, useValue: 'es-MX'},

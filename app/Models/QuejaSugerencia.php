@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Casts\Json;
 use Illuminate\Database\Eloquent\Model;
-//use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class QuejaSugerencia extends Model
 {
-    //use SoftDeletes;
+    use SoftDeletes;
     protected $table = 'quejas_sugerencias';
     protected $fillable = [
         
@@ -43,6 +43,10 @@ class QuejaSugerencia extends Model
 
     public function tipo_incidencia(){
         return $this->BelongsTo('App\Models\TipoIncidencia','tipo_incidencia_id');
+    }
+
+    public function seguimientos(){
+        return $this->hasMany('App\Models\Seguimiento','queja_sugerencia_id');
     }
 
 

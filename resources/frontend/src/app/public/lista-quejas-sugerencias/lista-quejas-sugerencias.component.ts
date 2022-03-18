@@ -25,7 +25,9 @@ import { AuthService } from '../../auth/auth.service';
 import { formatDate } from '@angular/common';
 
 import { environment } from '../../../environments/environment'
-import { AclaracionDialogComponent } from '../aclaracion-dialog/aclaracion-dialog.component';
+import { SeguimientoDialogComponent } from '../seguimiento-dialog/seguimiento-dialog.component';
+
+import { DetailsComponentQuejaSugerencia } from '../details-queja-sugerencia/details-queja-sugerencia.component'
 
 
 @Component({
@@ -702,7 +704,7 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
       });
   }
 
-  openDialogFormAclaracion(id:number = 0){
+  openDialogFormSeguimiento(id:number = 0){
 
 
     let configDialog = {};
@@ -724,7 +726,7 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
     }
 
 
-    const dialogRef = this.dialog.open(AclaracionDialogComponent, configDialog);
+    const dialogRef = this.dialog.open(SeguimientoDialogComponent, configDialog);
 
     dialogRef.afterClosed().subscribe(valid => {
       if(valid){
@@ -733,6 +735,47 @@ export class ListaQuejasSugerenciasComponent implements OnInit {
       }else{
         console.log('Cancelar');
         
+      }
+    });
+  }
+
+  
+  verInfoQuejaSugerencia(id: number, index: number){
+
+    console.log("index",index);
+    console.log("selected",this.selectedItemIndex);
+
+    this.selectedItemIndex = index;
+    
+    let paginator = this.sharedService.getDataFromCurrentApp('paginator');
+    paginator.selectedIndex = index;
+    this.sharedService.setDataToCurrentApp('paginator',paginator);
+
+    let configDialog = {};
+    if(this.mediaSize == 'xs'){
+      configDialog = {
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        data:{id: id, scSize:this.mediaSize}
+      };
+    }else{
+      configDialog = {
+        width: '99%',
+        maxHeight: '90vh',
+        height: '643px',
+        data:{id: id}
+      }
+    }
+
+    const dialogRef = this.dialog.open(DetailsComponentQuejaSugerencia, configDialog);
+
+    dialogRef.afterClosed().subscribe(valid => {
+      if(valid){
+        console.log('Aceptar');
+      }else{
+        console.log('Cancelar');
       }
     });
   }

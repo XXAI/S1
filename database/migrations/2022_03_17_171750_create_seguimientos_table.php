@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAclaracionesTable extends Migration
+class CreateSeguimientosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAclaracionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('aclaraciones', function (Blueprint $table) {
+        Schema::create('seguimientos', function (Blueprint $table) {
             
             $table->id()->unsigned();
             $table->unsignedBigInteger('queja_sugerencia_id')->index();
@@ -27,7 +27,7 @@ class CreateAclaracionesTable extends Migration
 
         });
 
-        Schema::table('aclaraciones', function($table) {
+        Schema::table('seguimientos', function($table) {
 
             $table->foreign('estatus_id')->references('id')->on('catalogo_status_queja_sugerencia');
             $table->foreign('queja_sugerencia_id')->references('id')->on('quejas_sugerencias');
@@ -47,6 +47,6 @@ class CreateAclaracionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aclaraciones');
+        Schema::dropIfExists('seguimientos');
     }
 }

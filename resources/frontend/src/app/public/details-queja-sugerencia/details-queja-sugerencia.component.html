@@ -1,0 +1,127 @@
+<div *ngIf="isLoading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar><br>
+    <h3>Cargando datos, Espere un momento...</h3>    
+</div>
+
+
+
+<div *ngIf="!isLoading">
+
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+        <h2 fxFlex><mat-icon>assignment_ind</mat-icon> Información Completa: </h2>
+    </div>
+
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+        
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Folio: </mat-label>
+            <input matInput value="{{dataQuejaSugerencia.folio}}" readonly>
+        </mat-form-field>
+
+    </div>
+
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+        <mat-form-field fxFlex="75%" appearance="outline">
+            <mat-label>Lugar del Acontecimiento: </mat-label>
+            <input matInput value="{{ dataQuejaSugerencia.lugar_acontecimiento }}" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="75%" appearance="outline">
+            <mat-label>Fecha del Acontecimiento: </mat-label>
+            <input matInput value="{{ dataQuejaSugerencia.fecha_acontecimiento | date: 'dd/MM/yyyy' }}" readonly>
+        </mat-form-field>
+
+    </div>
+
+
+    <div *ngIf="dataQuejaSugerencia.seguimientos.length > 0" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+        <h2 fxFlex><mat-icon>wysiwyg</mat-icon>&nbsp;Seguimientos:
+        </h2>
+    </div>
+
+    <mat-accordion *ngIf="dataQuejaSugerencia.seguimientos.length > 0">
+        <ng-container *ngFor="let seguimiento of dataQuejaSugerencia.seguimientos; let j = index">
+
+
+        <mat-expansion-panel [expanded]="seguimiento.id === IdActual" (opened)="abrirPanel(seguimiento)" (closed)="panelSeguimiento = false">
+            
+            <mat-expansion-panel-header>
+
+                <mat-panel-title fxHide.xs="xs" >
+                    
+                    Seguimiento N°: {{ j+1 }}
+
+                </mat-panel-title>
+
+                <mat-panel-title fxHide.xs="xs" >
+                    <!-- <mat-icon class="color-icono-seguimiento">airline_seat_flat</mat-icon> -->
+                    <mat-icon class="color-icono-seguimiento" >{{(panelSeguimiento == true)?'airline_seat_flat_angled':'edit_calendar'}}</mat-icon>
+                </mat-panel-title>
+                
+                <mat-panel-description>
+                    <i> FECHA DEL SEGUIMIENTO: ( {{ seguimiento.fecha | date: 'dd/MM/yyyy' }} ) </i>
+                </mat-panel-description>
+
+            </mat-expansion-panel-header>
+
+            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Fecha del Seguimiento: </mat-label>
+                    <input matInput value="{{ dataQuejaSugerencia.fecha | date: 'dd/MM/yyyy' }}" readonly>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Estado (Status de la Queja/Sugerencia): </mat-label>
+                    <input matInput value="{{ dataQuejaSugerencia.fecha | date: 'dd/MM/yyyy' }}" readonly>
+                </mat-form-field>
+
+            </div>
+
+            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Observaciones: </mat-label>
+                    <textarea matInput value="{{seguimiento.observaciones}}" readonly></textarea>
+                </mat-form-field>
+
+            </div>
+
+
+            <!-- <div *ngIf="seguimiento.diagnosticos.length > 0">
+
+
+                <mat-list>
+                    <h3 mat-subheader>Diagnósticos del Seguimiento: </h3>
+
+                    <mat-list-item *ngFor="let diag of seguimiento.diagnosticos; let d = index">
+
+                      <mat-icon mat-list-icon>trip_origin</mat-icon>
+                      <h3 mat-line>{{diag.nombre}}</h3>
+                    </mat-list-item>
+
+                    <mat-divider></mat-divider>
+
+                  </mat-list>
+            </div> -->
+            
+
+        </mat-expansion-panel>
+
+    </ng-container>
+
+
+    </mat-accordion>
+
+
+
+    <mat-divider></mat-divider>
+
+
+    <div mat-dialog-actions>
+        <span fxFlex></span>
+        <button mat-raised-button (click)='onNoClick()' color="primary"> Aceptar</button>
+    </div>
+
+</div>

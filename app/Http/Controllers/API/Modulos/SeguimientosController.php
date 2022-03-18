@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
 use \Validator;
 
-use App\Models\Aclaracion;
+use App\Models\Seguimiento;
 
-class AclaracionesController extends Controller
+class SeguimientosController extends Controller
 {
     //
 
@@ -24,9 +24,9 @@ class AclaracionesController extends Controller
         ];
 
         $mensajes = [
-            'fecha.required'                => 'La Fecha de la Aclaración es obligatoria.',
+            'fecha.required'                => 'La Fecha de la Seguimiento es obligatoria.',
             'observaciones.required'        => 'Las Observaciones son obligatorias.',
-            'estatus_id.required'           => 'El Estado (Status de la Queja/Sugerencia) de la Aclaración es obligatorio.',
+            'estatus_id.required'           => 'El Estado (Status de la Queja/Sugerencia) de la seguimiento es obligatorio.',
             'queja_sugerencia_id.required'  => 'No contiene el ID de la Queja/Sugerencia.',
         ];
 
@@ -36,9 +36,9 @@ class AclaracionesController extends Controller
 
         if($resultado->passes()){
 
-            $aclaracion = Aclaracion::create($inputs);
+            $seguimiento = Seguimiento::create($inputs);
             
-            return response()->json(['mensaje' => '¡Se Guardaron los datos con Éxito!', 'validacion'=>$resultado->passes(), 'datos'=>$aclaracion], HttpResponse::HTTP_OK);
+            return response()->json(['mensaje' => '¡Se Guardaron los datos con Éxito!', 'validacion'=>$resultado->passes(), 'datos'=>$seguimiento], HttpResponse::HTTP_OK);
         }else{
             return response()->json(['mensaje' => 'Error en los datos del formulario', 'status' => 409, 'validacion'=>$resultado->passes(), 'errores'=>$resultado->errors()], HttpResponse::HTTP_CONFLICT);
         }
@@ -48,15 +48,15 @@ class AclaracionesController extends Controller
     public function show($id)
     {
 
-        $aclaracion = Aclaracion::select('aclaraciones.*')->with('estatus', 'queja_sugerencia')
-        ->leftJoin('quejas_sugerencias','quejas_sugerencias.id','=','aclaraciones.queja_sugerencia_id')->find($id);
+        $seguimiento = Seguimiento::select('seguimientoses.*')->with('estatus', 'queja_sugerencia')
+        ->leftJoin('quejas_sugerencias','quejas_sugerencias.id','=','seguimientoses.queja_sugerencia_id')->find($id);
 
-        if(!$aclaracion){
-            return response()->json(['No se encuentra la Aclaración que esta buscando.'], HttpResponse::HTTP_CONFLICT);
+        if(!$seguimiento){
+            return response()->json(['No se encuentra el Seguimiento que esta buscando.'], HttpResponse::HTTP_CONFLICT);
             //404
         }
 
-        return response()->json(['data' => $aclaracion], 200);
+        return response()->json(['data' => $seguimiento], 200);
     }
     
 }

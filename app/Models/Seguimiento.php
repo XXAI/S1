@@ -4,11 +4,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Aclaracion extends Model{
+class Seguimiento extends Model{
 
     use SoftDeletes;
     //public $incrementing = false;
-    protected $table = 'aclaraciones';
+    protected $table = 'seguimientos';
     protected $fillable = [
         "id",
         "queja_sugerencia_id",

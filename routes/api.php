@@ -61,7 +61,8 @@ Route::group(['middleware'=>'auth'],function($router){
     Route::get('queja-sugerencia-general/{id}',      'API\Modulos\QJGeneralesController@ImprimirQSGeneral');
 
     //acalraciones
-    Route::apiResource('aclaraciones',  'API\Modulos\AclaracionesController');
+    Route::apiResource('seguimientos',  'API\Modulos\SeguimientosController');
+    Route::get('info-queja-sugerencia/{id}',                'API\Catalogos\BusquedaRecursosController@infoQuejaSugerencia');
 
     
 

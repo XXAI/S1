@@ -207,7 +207,8 @@
                                     <button mat-button mat-stroked-button [matMenuTriggerFor]="menu" *ngIf="row.estatus != 3"><mat-icon>arrow_drop_down</mat-icon> Opciones</button>
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item color="primary"  matTooltip="Imprimir Queja/Sugerencia" (click)="QuejaSugerenciaImprimir(row.id)"><mat-icon>picture_as_pdf</mat-icon>Imprimir</button>
-                                        <button mat-menu-item color="primary"  matTooltip="Generar Aclaración de la Queja/Sugerencia" (click)="openDialogFormAclaracion(row.id)"><mat-icon> domain_verification</mat-icon> Aclaración da la Queja/Sugerencia</button>
+                                        <button mat-menu-item color="primary"  matTooltip="Generar Seguimiento de la Queja/Sugerencia" (click)="openDialogFormSeguimiento(row.id)"><mat-icon> domain_verification</mat-icon> Seguimiento da la Queja/Sugerencia</button>
+                                        <button mat-menu-item color="primary" (click)="verInfoQuejaSugerencia(row.id,i)" matTooltip="Ver Detalles del Paciente"><mat-icon>remove_red_eye</mat-icon>Detalles</button>
                                     </mat-menu>
                                     
                                 </td>

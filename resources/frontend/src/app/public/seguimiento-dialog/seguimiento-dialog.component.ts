@@ -18,16 +18,16 @@ export interface FormDialogData {
 }
 
 @Component({
-  selector: 'aclaraciones-dialog',
-  templateUrl: './aclaracion-dialog.component.html',
-  styleUrls: ['./aclaracion-dialog.component.css']
+  selector: 'seguimiento-dialog',
+  templateUrl: './seguimiento-dialog.component.html',
+  styleUrls: ['./seguimiento-dialog.component.css']
 })
-export class AclaracionDialogComponent implements OnInit {
+export class SeguimientoDialogComponent implements OnInit {
 
   constructor(
     private publicService: PublicService,
     private authService: AuthService,
-    public dialogRef: MatDialogRef<AclaracionDialogComponent>,
+    public dialogRef: MatDialogRef<SeguimientoDialogComponent>,
     public dialog: MatDialog,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -57,7 +57,7 @@ export class AclaracionDialogComponent implements OnInit {
   maxDate:Date;
   minDate:Date;
 
-  aclaracionForm:FormGroup;
+  seguimientoForm:FormGroup;
 
 
 
@@ -75,9 +75,9 @@ export class AclaracionDialogComponent implements OnInit {
   ngOnInit() {
 
 
-      this.aclaracionForm = this.fb.group ({
+      this.seguimientoForm = this.fb.group ({
       
-        aclaracion: this.fb.group({
+        seguimiento: this.fb.group({
 
           id:[''],
           queja_sugerencia_id:['', Validators.required],
@@ -104,8 +104,8 @@ export class AclaracionDialogComponent implements OnInit {
 
               this.queja_sugerencia = response.data;
               
-              this.aclaracionForm.controls['aclaracion'].get('folio_queja_sugerencia').patchValue(this.queja_sugerencia.folio);
-              this.aclaracionForm.controls['aclaracion'].get('queja_sugerencia_id').patchValue(this.queja_sugerencia.id);
+              this.seguimientoForm.controls['seguimiento'].get('folio_queja_sugerencia').patchValue(this.queja_sugerencia.folio);
+              this.seguimientoForm.controls['seguimiento'].get('queja_sugerencia_id').patchValue(this.queja_sugerencia.id);
 
               console.log("datos QJ",this.queja_sugerencia);
                 
@@ -130,8 +130,8 @@ export class AclaracionDialogComponent implements OnInit {
 
       this.authUser = this.authService.getUserData();
 
-      this.aclaracionForm.controls['aclaracion'].get('user_id').patchValue(this.authUser.id);
-      this.aclaracionForm.controls['aclaracion'].get('fecha').patchValue(fecha);
+      this.seguimientoForm.controls['seguimiento'].get('user_id').patchValue(this.authUser.id);
+      this.seguimientoForm.controls['seguimiento'].get('fecha').patchValue(fecha);
 
       this.IniciarCatalogos(null);
 
@@ -150,7 +150,7 @@ export class AclaracionDialogComponent implements OnInit {
 
         this.catalogos = response.data;
 
-        this.filteredCatalogs['estatus']        = this.aclaracionForm.controls['aclaracion'].get('estatus_id').valueChanges.pipe(startWith(''),map(value => this._filter(value,'estatus','nombre')));
+        this.filteredCatalogs['estatus']        = this.seguimientoForm.controls['seguimiento'].get('estatus_id').valueChanges.pipe(startWith(''),map(value => this._filter(value,'estatus','nombre')));
         
         this.isLoading = false; 
       } 
@@ -181,12 +181,12 @@ export class AclaracionDialogComponent implements OnInit {
     return value ? value[valueLabel] : value;
   }
 
-  saveAclaracion(){
+  saveseguimiento(){
 
     this.isLoading = true;
 
 
-    let formData = JSON.parse(JSON.stringify(this.aclaracionForm.controls['aclaracion'].value));
+    let formData = JSON.parse(JSON.stringify(this.seguimientoForm.controls['seguimiento'].value));
 
     if(formData.estatus_id){
       formData.estatus_id = formData.estatus_id.id;
@@ -194,7 +194,7 @@ export class AclaracionDialogComponent implements OnInit {
     }
     parseInt(formData.user_id);
 
-    // let dataAtencion = formData.aclaracion;
+    // let dataAtencion = formData.seguimiento;
 
     // let datoGuardado = {
     //   atencion: dataAtencion
@@ -202,7 +202,7 @@ export class AclaracionDialogComponent implements OnInit {
 
     console.log("el form",formData);
 
-    this.publicService.createAclaracion(formData).subscribe(
+    this.publicService.createSeguimiento(formData).subscribe(
       response =>{
 
         console.log(response);
@@ -294,16 +294,16 @@ export class AclaracionDialogComponent implements OnInit {
     this.isLoading = true;
 
     this.catalogos['camas'] = false;
-    this.aclaracionForm.controls['aclaracion'].get('no_cama').reset();
-    this.aclaracionForm.controls['aclaracion'].get('camas').reset();
+    this.seguimientoForm.controls['seguimiento'].get('no_cama').reset();
+    this.seguimientoForm.controls['seguimiento'].get('camas').reset();
 
     this.publicService.obtenerCatalogos(carga_catalogos).subscribe(
       response => {
         if(response.data['camas'].length > 0){
           this.catalogos['camas'] = response.data['camas'];
         }else{
-          this.aclaracionForm.controls['aclaracion'].get('no_cama').disable();
-          this.aclaracionForm.controls['aclaracion'].get('camas').disable();
+          this.seguimientoForm.controls['seguimiento'].get('no_cama').disable();
+          this.seguimientoForm.controls['seguimiento'].get('camas').disable();
         }
         
         this.isLoading = false; 

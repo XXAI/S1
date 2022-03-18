@@ -15,10 +15,10 @@ export class PublicService {
   url                                     = `${environment.base_url}/quejas-sugerencias`;
   url_qj_general                          = `${environment.base_url}/quejas-sugerencias-generales`;
   url_qj_general_imprimir                 = `${environment.base_url}/queja-sugerencia-general`;
-  url_aclaracion                          = `${environment.base_url}/aclaraciones`;
+  url_seguimiento                          = `${environment.base_url}/seguimientos`;
   
   ur_imprimir                             = `${environment.base_url}/queja-sugerencia`;
-  url_info_donante                        = `${environment.base_url}/qr-donador/`;
+  url_info_queja_sugerencia               = `${environment.base_url}/info-queja-sugerencia`;
   // url_catalogo_diagnostico_autocomplet    = `${environment.base_url}/busqueda-diagnosticos`;
   url_personas_callcenter                 = `http://contingencia.saludchiapas.gob.mx/api/search-personas`;
   url_id_persona_callCenter               = `http://contingencia.saludchiapas.gob.mx/api/search-personas`;
@@ -95,7 +95,7 @@ export class PublicService {
   // }
 
   verInfoQuejaSugerencia(id:any,payload:any):Observable<any>{
-    return this.http.get<any>(this.url_info_donante + id, {params:payload}).pipe(
+    return this.http.get<any>(this.url_info_queja_sugerencia+'/'+id, {params:payload}).pipe(
       map( (response: any) => {
         return response;
       })
@@ -208,18 +208,18 @@ export class PublicService {
     ));
   }
 
-  //aclaraciones
+  //seguimientos
 
-  createAclaracion(payload) {
-    return this.http.post<any>(this.url_aclaracion,payload).pipe(
+  createSeguimiento(payload) {
+    return this.http.post<any>(this.url_seguimiento,payload).pipe(
       map( (response) => {
         return response;
       }
     ));
   }
 
-  getAclaracion(id) {
-    return this.http.get<any>(this.url_aclaracion+'/'+id,{}).pipe(
+  getSeguimiento(id) {
+    return this.http.get<any>(this.url_seguimiento+'/'+id,{}).pipe(
       map( (response: any) => {
         return response;
       }
