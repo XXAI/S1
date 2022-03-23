@@ -17,7 +17,7 @@ class BusquedaRecursosController extends Controller
             
             //$params = $request->all();
 
-            $queja_sugerencia = QuejaSugerencia::with('tipo_incidencia', 'seguimientos')->where('id',$id)->orderBy('created_at', 'DESC')->first();
+            $queja_sugerencia = QuejaSugerencia::with('tipo_incidencia', 'seguimientos.estatus')->where('id',$id)->orderBy('created_at', 'DESC')->first();
 
             if(!$queja_sugerencia){
                 throw new Exception("No se encontro lo que esta buscado", 1);

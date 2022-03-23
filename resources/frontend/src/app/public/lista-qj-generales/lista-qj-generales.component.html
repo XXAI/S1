@@ -183,6 +183,7 @@
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item color="primary"  matTooltip="Encuesta" (click)="ImprimirEncuesta(row.id)"><mat-icon>picture_as_pdf</mat-icon>Imprimir</button>
                                         <button mat-menu-item color="primary"  matTooltip="Generar Seguimiento de la Queja/Sugerencia" (click)="openDialogFormSeguimiento(row.id)"><mat-icon> domain_verification</mat-icon> Seguimiento</button>
+                                        <button mat-menu-item color="primary" (click)="verInfoQuejaSugerencia(row.id,i)" matTooltip="Ver Detalles del Paciente"><mat-icon>remove_red_eye</mat-icon>Detalles</button>
                                         <!-- <button mat-menu-item color="primary"  matTooltip="Generar Seguimiento de la Queja/Sugerencia"><mat-icon> domain_verification</mat-icon> Seguimiento da la Queja/Sugerencia</button> -->
                                     </mat-menu>
                                     

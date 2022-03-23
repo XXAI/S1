@@ -1,12 +1,16 @@
-.color-icono-atencion{
+.verde{
     color:#4CAF50;
 }
 
-.color-icono-embarazo{
+.amarillo{
+    color:#d6c634;
+}
+
+.rojo{
     color:#E91E63;
 }
 
-.color-icono-seguimiento{
+.azul{
     color:#3F51B5;
 }
 
@@ -18,4 +22,15 @@ h1 {
     color: rgb(00, 00, 00);
     font-family: cursive;
     text-align: center;
-  }
+}
+
+table {
+    width: 100%;
+}
+
+.data-table-container {
+    position: relative;
+    max-height: 400px;
+    min-height:200px;
+    overflow: auto;
+}

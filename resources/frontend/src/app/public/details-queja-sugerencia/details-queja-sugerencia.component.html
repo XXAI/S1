@@ -8,7 +8,7 @@
 <div *ngIf="!isLoading">
 
     <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
-        <h2 fxFlex><mat-icon>assignment_ind</mat-icon> Información Completa: </h2>
+        <h2 fxFlex><mat-icon>local_shipping</mat-icon> Información Completa: </h2>
     </div>
 
     <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
@@ -16,6 +16,11 @@
         <mat-form-field fxFlex appearance="outline">
             <mat-label>Folio: </mat-label>
             <input matInput value="{{dataQuejaSugerencia.folio}}" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="75%" appearance="outline">
+            <mat-label>Tipo de Incidencia: </mat-label>
+            <input matInput value="{{ (dataQuejaSugerencia.tipo_incidencia != null ? dataQuejaSugerencia.tipo_incidencia.nombre : 'SIN REGISTRO' ) }}" readonly>
         </mat-form-field>
 
     </div>
@@ -27,12 +32,90 @@
             <input matInput value="{{ dataQuejaSugerencia.lugar_acontecimiento }}" readonly>
         </mat-form-field>
 
+        <mat-form-field fxFlex="75%" appearance="outline"  *ngIf="dataQuejaSugerencia.tipo_incidencia_id == 4">
+            <mat-label>Número de Placa: </mat-label>
+            <input matInput value="{{ dataQuejaSugerencia.numero_de_placa }}" readonly>
+        </mat-form-field>
+
         <mat-form-field fxFlex="75%" appearance="outline">
             <mat-label>Fecha del Acontecimiento: </mat-label>
             <input matInput value="{{ dataQuejaSugerencia.fecha_acontecimiento | date: 'dd/MM/yyyy' }}" readonly>
         </mat-form-field>
 
     </div>
+
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Motivo: </mat-label>
+            <textarea matInput value="{{dataQuejaSugerencia.motivo}}" rows="5" cols="40" readonly></textarea>
+        </mat-form-field>
+
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Observaciones: </mat-label>
+            <textarea matInput value="{{dataQuejaSugerencia.observaciones}}" rows="5" cols="40" readonly></textarea>
+        </mat-form-field>
+
+
+    </div>
+
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+        <h2 fxFlex><mat-icon>assignment_ind</mat-icon> Datos de la Encuesta: </h2>
+    </div>
+
+    <div *ngIf="dataQuejaSugerencia.datos_usuarios != null" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Nombre: </mat-label>
+            <input matInput value="{{ dataQuejaSugerencia.datos_usuarios[0] }}" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Celular: </mat-label>
+            <input matInput value="{{ dataQuejaSugerencia.datos_usuarios[1] }}" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Correo Electrónico: </mat-label>
+            <input matInput value="{{ dataQuejaSugerencia.datos_usuarios[2] }}" readonly>
+        </mat-form-field>
+
+    </div>
+
+    <div *ngIf="dataQuejaSugerencia.datos_usuarios == null" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+        
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Anonima: </mat-label>
+            <input matInput value="ENCUESTA ANONIMA" readonly>
+        </mat-form-field>
+
+    </div>
+
+
+    <table mat-table [dataSource]= "dataSource" class="data-table-container">
+
+        <ng-container matColumnDef="N°">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+        </ng-container>
+
+        <ng-container [matColumnDef]="pregunta" *ngFor="let pregunta of dataQuejaSugerencia.preguntas">
+            <th mat-header-cell *matHeaderCellDef> {{ pregunta }} </th>
+            <td mat-cell *matCellDef="let row">{{row[pregunta]}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Respuesta">
+            <th mat-header-cell *matHeaderCellDef> Respuesta </th>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+      
+
 
 
     <div *ngIf="dataQuejaSugerencia.seguimientos.length > 0" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
@@ -56,7 +139,7 @@
 
                 <mat-panel-title fxHide.xs="xs" >
                     <!-- <mat-icon class="color-icono-seguimiento">airline_seat_flat</mat-icon> -->
-                    <mat-icon class="color-icono-seguimiento" >{{(panelSeguimiento == true)?'airline_seat_flat_angled':'edit_calendar'}}</mat-icon>
+                    <mat-icon  matTooltip="{{ (seguimiento.estatus != null ? seguimiento.estatus.nombre : 'SIN REGISTRO')  }}" [ngClass]="seguimiento.estatus_id  == 1 ? 'rojo' : seguimiento.estatus_id  == 2 ? 'verde' : seguimiento.estatus_id  == 3 ? 'amarillo' : seguimiento.estatus_id  == 4 ? 'azul' : ''  " >{{(panelSeguimiento == true)?'airline_seat_flat_angled':'edit_calendar'}}</mat-icon>
                 </mat-panel-title>
                 
                 <mat-panel-description>
@@ -69,12 +152,12 @@
 
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Fecha del Seguimiento: </mat-label>
-                    <input matInput value="{{ dataQuejaSugerencia.fecha | date: 'dd/MM/yyyy' }}" readonly>
+                    <input matInput value="{{ seguimiento.fecha | date: 'dd/MM/yyyy' }}" readonly>
                 </mat-form-field>
 
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Estado (Status de la Queja/Sugerencia): </mat-label>
-                    <input matInput value="{{ dataQuejaSugerencia.fecha | date: 'dd/MM/yyyy' }}" readonly>
+                    <input matInput [ngClass]="seguimiento.estatus_id  == 1 ? 'rojo' : seguimiento.estatus_id  == 2 ? 'verde' : seguimiento.estatus_id  == 3 ? 'amarillo' : seguimiento.estatus_id  == 4 ? 'azul' : ''  " value="{{ (seguimiento.estatus != null ? seguimiento.estatus.nombre : 'SIN REGISTRO') }}" readonly>
                 </mat-form-field>
 
             </div>
@@ -83,7 +166,7 @@
 
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Observaciones: </mat-label>
-                    <textarea matInput value="{{seguimiento.observaciones}}" readonly></textarea>
+                    <textarea matInput value="{{seguimiento.observaciones}}" rows="5" cols="40" readonly></textarea>
                 </mat-form-field>
 
             </div>

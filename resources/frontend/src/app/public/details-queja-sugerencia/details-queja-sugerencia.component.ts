@@ -40,12 +40,21 @@ export class DetailsComponentQuejaSugerencia implements OnInit {
 
   isLoading:boolean = false;
 
+  displayedColumns: string[] = ['N°', 'Pregunta', 'Respuesta'];
+  dataSource: any = [];
+
   ngOnInit() {
 
 
     console.log("LOS DATOS", this.data.id);
 
     this.cargarDatos(this.data.id);
+
+    
+
+
+
+
   }
 
 
@@ -66,7 +75,7 @@ export class DetailsComponentQuejaSugerencia implements OnInit {
         
         this.dataQuejaSugerencia = response.data;
 
-        console.log(this.dataQuejaSugerencia);
+        this.dataSource = this.dataQuejaSugerencia.preguntas;
 
         this.isLoading = false;
       });
