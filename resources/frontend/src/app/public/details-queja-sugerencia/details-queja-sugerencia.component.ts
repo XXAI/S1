@@ -40,8 +40,8 @@ export class DetailsComponentQuejaSugerencia implements OnInit {
 
   isLoading:boolean = false;
 
-  displayedColumns: string[] = ['N°', 'Pregunta', 'Respuesta'];
-  dataSource: any = [];
+  displayedColumns: string[] = ['N°', 'Preguntas', 'Respuestas'];
+  encuesta: any = [];
 
   ngOnInit() {
 
@@ -75,11 +75,38 @@ export class DetailsComponentQuejaSugerencia implements OnInit {
         
         this.dataQuejaSugerencia = response.data;
 
-        this.dataSource = this.dataQuejaSugerencia.preguntas;
+        if(this.dataQuejaSugerencia.preguntas != null && this.dataQuejaSugerencia.respuestas){
+
+          for (let i = 0; i < this.dataQuejaSugerencia.preguntas.length; i++) {
+
+            for (let j = 0; j < this.dataQuejaSugerencia.respuestas.length; j++) {
+  
+              if(i == j){
+  
+                this.encuesta.push({
+                  pregunta:  this.dataQuejaSugerencia.preguntas[i],
+                  respuesta: this.dataQuejaSugerencia.respuestas[j]
+                });
+            
+              }
+  
+  
+            }
+            
+          }
+
+        }
+
+
+
+
+        console.log(this.encuesta);
+      
 
         this.isLoading = false;
       });
   }
+
 
   onNoClick(): void {
     this.dialogRef.close();

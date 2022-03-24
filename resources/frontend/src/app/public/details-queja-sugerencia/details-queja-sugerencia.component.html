@@ -59,7 +59,7 @@
 
     </div>
 
-    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+    <div *ngIf="encuesta.length > 0" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
         <h2 fxFlex><mat-icon>assignment_ind</mat-icon> Datos de la Encuesta: </h2>
     </div>
 
@@ -82,7 +82,7 @@
 
     </div>
 
-    <div *ngIf="dataQuejaSugerencia.datos_usuarios == null" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
+    <div *ngIf="dataQuejaSugerencia.datos_usuarios == null && encuesta.length > 0" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="10px">
         
         <mat-form-field fxFlex appearance="outline">
             <mat-label>Anonima: </mat-label>
@@ -92,20 +92,21 @@
     </div>
 
 
-    <table mat-table [dataSource]= "dataSource" class="data-table-container">
+    <table *ngIf="encuesta.length > 0" mat-table [dataSource]="encuesta" class="data-table-container">
 
         <ng-container matColumnDef="N°">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <th mat-header-cell *matHeaderCellDef> Número. </th>
+            <td mat-cell *matCellDef="let row; let i = index;"> {{ i+1 }}</td>
         </ng-container>
 
-        <ng-container [matColumnDef]="pregunta" *ngFor="let pregunta of dataQuejaSugerencia.preguntas">
-            <th mat-header-cell *matHeaderCellDef> {{ pregunta }} </th>
-            <td mat-cell *matCellDef="let row">{{row[pregunta]}</td>
+        <ng-container matColumnDef="Preguntas">
+            <th mat-header-cell *matHeaderCellDef  class="centre"> Pregunta </th>
+            <td mat-cell *matCellDef="let row"> {{ row.pregunta }}</td>
         </ng-container>
 
-
-        <ng-container matColumnDef="Respuesta">
+        <ng-container matColumnDef="Respuestas">
             <th mat-header-cell *matHeaderCellDef> Respuesta </th>
+            <td mat-cell *matCellDef="let row"> {{ row.respuesta }}</td>
         </ng-container>
 
 
